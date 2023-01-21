@@ -1,3 +1,14 @@
+# OPEN_SPECTRE TerosHDL Auto Documentor
+
+
+
+
+
+
+
+
+
+
 # OPEN_SPECTRE
 ## An open-source FPGA-based EMS SPECTRE video synth.
 *A project aimed at recreating the EMS SPECTRE VIDEO SYNTHESIZER in HDL*
