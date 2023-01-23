@@ -1094,33 +1094,40 @@
   <article class="markdown-body">
 
 <div id="teroshdl" class='templateTerosHDL'>
-<a id=invert_4><h1 id="entity-invert_4">Entity: invert_4</h1></a><ul>
-<li><strong>File</strong>: invert_4.vhd</li>
-</ul><h2 id="diagram">Diagram</h2><p><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" viewBox="0 0 875 50"><svg id="SvgjsSvg1002" width="2" height="0" focusable="false" style="overflow:hidden;top:-100%;left:-100%;position:absolute;opacity:0"><polyline id="SvgjsPolyline1003" points="335,0 350,0"></polyline><path id="SvgjsPath1004" d="M0 0 "></path></svg><rect id="SvgjsRect1006" width="190" height="30" fill="black" x="350" y="15"></rect><rect id="SvgjsRect1007" width="186" height="25" fill="#fdfd96" x="352" y="17"></rect><text id="SvgjsText1008" font-family="Helvetica" x="330" y="9.3015625" font-size="20" text-anchor="end" family="Helvetica" size="20" anchor="end" svgjs:data="{&quot;leading&quot;:&quot;1.3&quot;}"><tspan id="SvgjsTspan1009" dy="26" x="330" svgjs:data="{&quot;newLined&quot;:true}">   STD_LOGIC_VECTOR (3 downto 0) </tspan></text><text id="SvgjsText1010" font-family="Helvetica" x="365" y="9.3015625" font-size="20" text-anchor="start" family="Helvetica" size="20" anchor="start" svgjs:data="{&quot;leading&quot;:&quot;1.3&quot;}"><tspan id="SvgjsTspan1011" dy="26" x="365" svgjs:data="{&quot;newLined&quot;:true}">   input </tspan></text><line id="SvgjsLine1012" x1="335" y1="30" x2="350" y2="30" stroke-linecap="rec" stroke="black" stroke-width="5"></line><text id="SvgjsText1013" font-family="Helvetica" x="560" y="9.3015625" font-size="20" text-anchor="start" family="Helvetica" size="20" anchor="start" svgjs:data="{&quot;leading&quot;:&quot;1.3&quot;}"><tspan id="SvgjsTspan1014" dy="26" x="560" svgjs:data="{&quot;newLined&quot;:true}">   STD_LOGIC_VECTOR (3 downto 0) </tspan></text><text id="SvgjsText1015" font-family="Helvetica" x="525" y="9.3015625" font-size="20" text-anchor="end" family="Helvetica" size="20" anchor="end" svgjs:data="{&quot;leading&quot;:&quot;1.3&quot;}"><tspan id="SvgjsTspan1016" dy="26" x="525" svgjs:data="{&quot;newLined&quot;:true}">   output </tspan></text><line id="SvgjsLine1017" x1="540" y1="30" x2="555" y2="30" stroke-linecap="rec" stroke="black" stroke-width="5"></line></svg></p><h2 id="description">Description</h2><div id="teroshdl_description"><hr /> <p><strong><em>_  <strong></em></strong>  <strong><em><em></strong> </em>   _         <strong></em></strong> <strong><em></strong>  <strong><em></em></strong> <strong><em></strong> <strong>_</em></em></strong> <strong><em></strong>  <strong><em></em></strong>   / </strong> |  _</em> |  <strong><em><em>| \ | |       / </em></em></strong>|  <em>_ |  <strong><em></em>/ <em></em></strong>|_</em>   <strong>|  </strong> |  <strong><em><em>| | |  | | |<strong>) | |</strong>  |  | |      | (</em></strong> | |<strong>) | |</strong> | |       | |  | |<strong>) | |</strong>  | |  | |  <strong><em>/|  <strong>| | . ` |       _</strong> |  </em></strong>/|  <strong>|| |       | |  |  </em>  /|  </strong>|  | |<strong>| | |    | |<strong><em><em>| |\  |       </em></em></strong>) | |    | |<strong><em>| |<em></em></strong>   | |  | | \ | |<strong><em></em>  _</em></strong>/|<em>|    |<strong><em></em></strong>|<em>| _|      |<strong></em></strong>/|</em>|    |<strong><em><em></strong>_</em></em></strong>|  |<em>|  |</em>|  _______|                                <strong><em><strong>_                              |_</strong></em></strong>|</p> <p>Module Name: invert_4 - Behavioral  EMS SPECTRE Function Name: Common Component  Creator: <your name>  Name of component in Schematics (if named): n/a  PG Number from Schematics:     -&gt; <a href="https://github.com/cfoge/OPEN_SPECTRE-/blob/main/Spectron%20Resources/Technical/Circuits.pdf">https://github.com/cfoge/OPEN_SPECTRE-/blob/main/Spectron%20Resources/Technical/Circuits.pdf</a>  Description Of Function:</p> <p>Dependencies:</p> <p>Additional Comments:</p> <hr /></div><h2 id="ports">Ports</h2>
+<a id=xor_n_tb><h1 id="entity-xor_n_tb">Entity: xor_n_tb</h1></a><ul>
+<li><strong>File</strong>: xor_n_tb.vhd</li>
+</ul><h2 id="diagram">Diagram</h2><h2 id="description">Description</h2><div id="teroshdl_description"><p>test bench for n parallel XOR gates</p></div><h2 id="signals">Signals</h2>
 <table>
 <thead>
 <tr>
-<th id="port_name">Port name</th>
-<th id="direction">Direction</th>
+<th id="name">Name</th>
 <th id="type">Type</th>
 <th id="description">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>input</td>
-<td>in</td>
-<td>STD_LOGIC_VECTOR (3 downto 0)</td>
+<td>a</td>
+<td>std_logic_vector(7 downto 0)</td>
 <td></td>
 </tr>
 <tr>
-<td>output</td>
-<td>out</td>
-<td>STD_LOGIC_VECTOR (3 downto 0)</td>
+<td>b</td>
+<td>std_logic_vector(7 downto 0)</td>
 <td></td>
 </tr>
+<tr>
+<td>y</td>
+<td>std_logic_vector(7 downto 0)</td>
+<td>test output</td>
+</tr>
 </tbody>
-</table><br><br><br><br><br><br>
+</table><h2 id="processes">Processes</h2><ul>
+<li>stim_proc: (  )</li>
+</ul><div id="descriptions"><p><strong>Description</strong><br />
+  test stimulus process </p></div><h2 id="instantiations">Instantiations</h2><ul>
+<li>UUT: xor_n</li>
+</ul><br><br><br><br><br><br>
     </article class="markdown-body">
 
     </body>
