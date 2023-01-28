@@ -1094,8 +1094,8 @@
   <article class="markdown-body">
 
 <div id="teroshdl" class='templateTerosHDL'>
-<a id=pulse_generator_tb><h1 id="entity-pulse_generator_tb">Entity: pulse_generator_tb</h1></a><ul>
-<li><strong>File</strong>: pulse_generator_tb.vhd</li>
+<a id=D_flipflop_ext_tb><h1 id="entity-d_flipflop_ext_tb">Entity: D_flipflop_ext_tb</h1></a><ul>
+<li><strong>File</strong>: D_flipflop_ext_tb.vhd</li>
 </ul><h2 id="diagram">Diagram</h2><h2 id="signals">Signals</h2>
 <table>
 <thead>
@@ -1107,46 +1107,38 @@
 </thead>
 <tbody>
 <tr>
+<td>D</td>
+<td>std_logic</td>
+<td></td>
+</tr>
+<tr>
 <td>clk</td>
 <td>std_logic</td>
 <td></td>
 </tr>
 <tr>
-<td>pulse_6hz</td>
+<td>clear</td>
 <td>std_logic</td>
 <td></td>
 </tr>
 <tr>
-<td>pulse_3hz</td>
+<td>preset</td>
 <td>std_logic</td>
 <td></td>
 </tr>
 <tr>
-<td>pulse_1_5hz</td>
+<td>Q</td>
 <td>std_logic</td>
 <td></td>
 </tr>
 <tr>
-<td>pulse_0_6hz</td>
-<td>std_logic</td>
-<td></td>
-</tr>
-<tr>
-<td>pulse_0_4hz</td>
-<td>std_logic</td>
-<td></td>
-</tr>
-<tr>
-<td>pulse_0_2hz</td>
+<td>Q_not</td>
 <td>std_logic</td>
 <td></td>
 </tr>
 </tbody>
-</table><h2 id="processes">Processes</h2><ul>
-<li>clk_process: (  )</li>
-</ul><div id="descriptions"><p><strong>Description</strong><br />
-  Clock process to drive the test bench </p></div><h2 id="instantiations">Instantiations</h2><ul>
-<li>uut: work.pulse_generator</li>
+</table><h2 id="instantiations">Instantiations</h2><ul>
+<li>dut: work.D_flipflop_ext</li>
 </ul><br><br><br><br><br><br>
     </article class="markdown-body">
 
