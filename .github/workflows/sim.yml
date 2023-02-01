@@ -1,0 +1,46 @@
+name: testbench run
+
+# Runs when code is pushed to a branch or a pull request is created
+on: [push, pull_request]
+
+jobs:
+  test:
+    # At the time of writing, this is Ubuntu 18.04 Bionic Beaver but will be 20.04 Focal Fossa in the near future.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      # Required for hdlmake
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      # Commonly used by Python projects to lock dependencies at specific versions.
+      # In this case, it's just hdlmake==3.3
+      - name: Install hdlmake
+        run: pip install -r requirements.txt
+        # ModelSim requires these 32-bit libraries to be installed: https://www.intel.com/content/www/us/en/programmable/support/support-resources/knowledge-base/solutions/rd05302012_638.html
+        # Some of these are technically only required for the GUI, but it won't load on a headless server without them.
+      - name: Install ModelSim dependencies
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install lib32z1 lib32stdc++6 libexpat1:i386 libc6:i386 libsm6:i386 libncurses5:i386 libx11-6:i386 zlib1g:i386 libxext6:i386 libxft2:i386
+        # Save time on subsequent runs by caching the install of ModelSim.
+        # Download is ~1.5GB and combined with the installation process it takes over 3 minutes.
+      - name: Cache ModelSim
+        uses: actions/cache@v2
+        with:
+          path: $HOME/intelFPGA
+          key: ${{ runner.os }}-modelsim
+      - name: Install ModelSim if not cached
+        run: stat $HOME/intelFPGA/20.1/modelsim_ase || (curl 'https://download.altera.com/akdlm/software/acdsinst/20.1std.1/720/ib_installers/ModelSimSetup-20.1.1.720-linux.run' -o ModelSimSetup.run && chmod +x ModelSimSetup.run && ./ModelSimSetup.run --mode unattended --accept_eula 1 && sed -i 's/linux_rh60/linux/g' $HOME/intelFPGA/20.1/modelsim_ase/vco )
+      - name: Add ModelSim to PATH
+        run: echo "$HOME/intelFPGA/20.1/modelsim_ase/bin" >> $GITHUB_PATH
+        # hdlmake creates a Makefile which will run the ModelSim command for running the testbench
+      - name: Top Testbench
+        run: cd $GITHUB_WORKSPACE/sim/top_tb/ && hdlmake fetch && hdlmake && make
+      - name: Audio Param Testbench
+        run: cd $GITHUB_WORKSPACE/sim/audio_param_tb/ && hdlmake fetch && hdlmake && make
+      - name: Audio Clock Testbench
+        run: cd $GITHUB_WORKSPACE/sim/audio_param_tb/ && hdlmake fetch && hdlmake && make
