@@ -1,4 +1,4 @@
-name: testbench run
+name: Testbench Run 
 
 # Runs when code is pushed to a branch or a pull request is created
 on: [push, pull_request]
