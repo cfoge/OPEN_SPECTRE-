@@ -29,7 +29,7 @@ jobs:
         # Save time on subsequent runs by caching the install of ModelSim.
         # Download is ~1.5GB and combined with the installation process it takes over 3 minutes.
       - name: Cache ModelSim
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: $HOME/intelFPGA
           key: ${{ runner.os }}-modelsim
