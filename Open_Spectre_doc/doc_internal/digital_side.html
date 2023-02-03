@@ -1132,6 +1132,11 @@
 <td></td>
 </tr>
 <tr>
+<td>edge_detector_in</td>
+<td>STD_LOGIC</td>
+<td></td>
+</tr>
+<tr>
 <td>ff_q</td>
 <td>STD_LOGIC</td>
 <td>Matrix In from module out</td>
@@ -1144,6 +1149,21 @@
 <tr>
 <td>inv_out</td>
 <td>std_logic_vector(3 downto 0)</td>
+<td></td>
+</tr>
+<tr>
+<td>x_count</td>
+<td>std_logic_vector(8 downto 0)</td>
+<td></td>
+</tr>
+<tr>
+<td>y_count</td>
+<td>std_logic_vector(8 downto 0)</td>
+<td></td>
+</tr>
+<tr>
+<td>xy_count</td>
+<td>std_logic_vector(17 downto 0)</td>
 <td></td>
 </tr>
 <tr>
@@ -1192,6 +1212,11 @@
 <td></td>
 </tr>
 <tr>
+<td>edge_detector_out</td>
+<td>std_logic_vector(3 downto 0)</td>
+<td></td>
+</tr>
+<tr>
 <td>clk_25</td>
 <td>STD_LOGIC</td>
 <td>External signals</td>
@@ -1207,13 +1232,20 @@
 </ul><ul>
 <li>inverters: work.invert_4</li>
 </ul><ul>
-<li>xy_invert_logic: work.xor18</li>
+<li>x_counter: work.counter</li>
 </ul><ul>
+<li>y_counter: work.counter</li>
+</ul><ul>
+<li>xy_invert_logic: work.xor18</li>
+</ul><div id="descriptions"><p><strong>Description</strong><br />
+  concat x &amp; y </p></div><ul>
 <li>delay_dig: work.delay_800us</li>
 </ul><ul>
 <li>slow_counter: work.pulse_generator</li>
 </ul><ul>
 <li>video_in: work.compare_7</li>
+</ul><ul>
+<li>edge_detector: work.monstable_4</li>
 </ul><br><br><br><br><br><br>
     </article class="markdown-body">
 
