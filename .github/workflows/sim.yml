@@ -6,7 +6,7 @@ on: [push, pull_request]
 jobs:
   test:
     # At the time of writing, this is Ubuntu 18.04 Bionic Beaver but will be 20.04 Focal Fossa in the near future.
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
         with:
