@@ -150,7 +150,7 @@ port map(
        result => mixed_parab_i
         );
 
-mixed_parab <= mixed_parab_i(9 downto 1);
+mixed_parab <= mixed_parab_i(8 downto 0);
 
 shape_logic : process (clk)
 begin
