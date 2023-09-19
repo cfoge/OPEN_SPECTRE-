@@ -118,46 +118,12 @@ begin
     
     process (pulse_len_int)
     begin
-           if pulse_len_int = x"0" then
-                step_size_calc <= 0;
-           elsif pulse_len_int = x"1" then
-                step_size_calc <= 512;
-           elsif pulse_len_int = x"2" then
-                step_size_calc <= 256;
-           elsif pulse_len_int = x"3" then
-                step_size_calc <= 171;
-           elsif pulse_len_int = x"4" then
-                step_size_calc <= 128;
-           elsif pulse_len_int = x"5" then
-                step_size_calc <= 102;
-           elsif pulse_len_int = x"6" then
-                step_size_calc <= 85;
-           elsif pulse_len_int = x"7" then
-                step_size_calc <= 73;
-           elsif pulse_len_int = x"8" then
-                step_size_calc <= 64;
-           elsif pulse_len_int = x"9" then
-                step_size_calc <= 57;
-           elsif pulse_len_int = x"10" then
-                step_size_calc <= 51;
-                
-        --put logic to look up the stepsize
-       -- if pulse_len_int > x"4f" then --handle the large stepsized that come as puls elen increases
-            elsif pulse_len_int > x"4f"  and pulse_len_int < x"5e" then
-                step_size_calc <= 6;
-            elsif pulse_len_int >= x"5e" and pulse_len_int < x"72"  then
-                step_size_calc <= 5;
-            elsif pulse_len_int >= x"72" and pulse_len_int < x"93"  then
-                step_size_calc <= 4;
-            elsif pulse_len_int >= x"93" and pulse_len_int < x"125"  then
-                step_size_calc <= 3;
-            elsif pulse_len_int >= x"125" and pulse_len_int < x"CD"  then
-                step_size_calc <= 2;
-            elsif pulse_len_int >= x"CD" then
-                step_size_calc <= 1;
-            else -- 'U', 'X', '-' etc.
-                step_size_calc <= 0;
-            end if; 
+          if pulse_len_int = 0 then 
+        
+            step_size_calc <= 511;
+        else
+            step_size_calc <= TO_INTEGER(parab_max / pulse_len_int);
+        end if;
         
        -- end if; 
     end process;

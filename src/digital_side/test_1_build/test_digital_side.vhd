@@ -52,7 +52,6 @@ entity test_digital_side is
   Port ( 
       sys_clk      :in    STD_LOGIC;
       clk_25_in      :in    STD_LOGIC;
-      clk_x,clk_y   :in STD_LOGIC;
       rst      :in    STD_LOGIC;
       RBG_out       : out STD_LOGIC_VECTOR (23 downto 0);
     
@@ -80,17 +79,18 @@ entity test_digital_side is
     matrix_in_mux   : in STD_LOGIC_VECTOR (5 downto 0);
     matrix_load: in STD_LOGIC;
     matrix_latch: in STD_LOGIC;
-    matrix_cs: in std_logic_vector(3 downto 0)        
---     clk_x_out  : out STD_LOGIC;
---     clk_y_out  : out STD_LOGIC;
---     video_on   : out STD_LOGIC
+    matrix_cs: in std_logic_vector(3 downto 0);
+         
+     clk_x_out  : out STD_LOGIC;
+     clk_y_out  : out STD_LOGIC;
+     video_on   : out STD_LOGIC
   );
 end test_digital_side;
 
 architecture Behavioral of test_digital_side is
 --Global Signals
---signal clk_x : STD_LOGIC;
---signal clk_y : STD_LOGIC;
+signal clk_x : STD_LOGIC;
+signal clk_y : STD_LOGIC;
 
    
 --Matrix Out to module in
@@ -112,7 +112,6 @@ signal ff_in_b : STD_LOGIC;
 
 --Matrix Out to global
 signal luma_out : std_logic_vector(3 downto 0);
-signal luma_fb : std_logic_vector(3 downto 0); --luma feedback path to comparitor
 
 -- Chroma Mux input/output signals
 --signal chroma_xor_1   : std_logic_vector(5 downto 0);
@@ -129,13 +128,9 @@ signal not_overlay_gate2 : std_logic_vector(3 downto 0);
 signal inv_out : std_logic_vector(3 downto 0);
 signal x_count : std_logic_vector(8 downto 0);
 signal y_count : std_logic_vector(8 downto 0);
-signal x_count_low_hi : std_logic_vector(8 downto 0);
-signal y_count_low_hi : std_logic_vector(8 downto 0);
 signal xy_count : std_logic_vector(17 downto 0);
 signal xy_inv_out : std_logic_vector(17 downto 0);
 signal delay_out : STD_LOGIC;
-signal delay_in_vec : std_logic_vector(0 downto 0);
-signal delay_out_vec : std_logic_vector(0 downto 0);
 signal slow_cnt_6 : STD_LOGIC;
 signal slow_cnt_3 : STD_LOGIC;
 signal slow_cnt_1_5 : STD_LOGIC;
@@ -166,7 +161,10 @@ signal acm_out2 : STD_LOGIC;
 -- Matrix full
  signal clk       : STD_LOGIC;
  signal matrix_in : STD_LOGIC_VECTOR (64 downto 0) := (others => '0');
- signal matrix_out_e1 :  STD_LOGIC_VECTOR (64 downto 0):= (others => '0');
+-- signal matrix_in_addr  : STD_LOGIC_VECTOR (5 downto 0);
+-- signal matrix_load        : std_logic ;
+-- signal matrix_latch        :  std_logic ;
+-- signal matrix_cs        :  STD_LOGIC_VECTOR(3 downto 0) ;
  signal matrix_out :  STD_LOGIC_VECTOR (64 downto 0):= (others => '0');
 
 
@@ -196,25 +194,11 @@ signal clk_25 : STD_LOGIC;
 signal ff_clr : STD_LOGIC;
 signal comp_luma_i : STD_LOGIC_VECTOR (7 downto 0);
 
---Matrix out Buffer
-signal matrix_out_l :  STD_LOGIC_VECTOR (64 downto 0):= (others => '0');
-
 --mux function
  function multi321 (A,B: in std_logic_vector) return std_logic is
   begin
       return A(to_integer(unsigned(B)));
   end multi321;
-  
-  function rev_v (a: in std_logic_vector)
-    return std_logic_vector is
-      variable result: std_logic_vector(a'RANGE);
-      alias aa: std_logic_vector(a'REVERSE_RANGE) is a;
-    begin
-      for i in aa'RANGE loop
-        result(i) := aa(i);
-      end loop;
-      return result;
-    end; -- function reverse_any_vector
 
 begin
 
@@ -223,36 +207,32 @@ begin
       clk_25    <= clk_25_in;
       luma_vid_out <= luma_out;
       chroma_vid_out <= chroma_mux_out;
---      clk_x_out <= clk_x;
---      clk_y_out <= clk_y;
+      clk_x_out <= clk_x;
+      clk_y_out <= clk_y;
 
---     vga_trimming_signals : entity work.vga_trimming_signals
---        port map (
---      clk_25mhz   => clk_25, 
---        h_sync => clk_x,      
---        v_sync  => clk_y,     
---        video_on  => video_on
---        );
+     vga_trimming_signals : entity work.vga_trimming_signals
+        port map (
+      clk_25mhz   => clk_25, 
+        h_sync => clk_x,      
+        v_sync  => clk_y,     
+        video_on  => video_on
+        );
 
     x_counter : entity work.counter
         port map (
          clk => clk_25_in, -- check what it is actualy driven by, pixel clk right?
         rst => clk_x,--rst, -- x needs to be reset by hs otherwise some bits out run over and get out of sync on the next line
         enable => '1',
-        count => x_count_low_hi
+        count => x_count
         );
-        
-        x_count <= rev_v(x_count_low_hi);
         
     y_counter : entity work.counter
         port map (
          clk => clk_x, -- check what it is actualy driven by, hoz sync right
         rst => clk_y, --vsync reset to stop rolling
         enable => '1',
-        count => y_count_low_hi
+        count => y_count
         );
-        
-        y_count <= rev_v(y_count_low_hi);
        
     xy_count <= (y_count & x_count); -- concat x & y
     xy_invert_logic: entity work.xor18
@@ -294,61 +274,16 @@ begin
             output => edge_detector_out 
       );
       
-    delay_in_vec(0) <= delay_in;  
-    delay_out <= delay_out_vec(0);  
-    delay_800 : entity work.delay_800us 
-      Port map( 
-            i_rst_sync => rst,
-            i_clk     => clk,
-         
-            -- FIFO Write Interface
-            i_wr_en   => '1',
-            i_wr_data => delay_in_vec,
-            o_full    => open,
-         
-            -- FIFO Read Interface
-            i_rd_en   =>  '1',
-            o_rd_data => delay_out_vec,
-            o_empty   => open      
+--   
 
-      );
-           
-    flip_flop1: entity work.D_flipflop_ext
-      port map (
-           D =>  ff_out_a_d,
-           m_clk => clk,
-           clk => ff_in_b,
-           clear => clk_y,
-           preset => '0',
-           Q => open,
-           Q_not => ff_out_a
-        );   
-    flip_flop2: entity work.D_flipflop_ext
-      port map (
-           D => ff_out_b_d,
-           m_clk => clk,
-           clk => ff_in_b,
-           clear => clk_y,
-           preset => '0',
-           Q => open,
-           Q_not => ff_out_b
-        );     
-       
-    ff_feedback : process(clk)
-    begin
-        if rising_edge(clk) then
-            ff_out_a_d <= ff_out_a;
-            ff_out_b_d <= ff_out_b;
-        end if;
-    end process; 
        
     
     comparitor : entity work.compare_7 
     Port map( 
        clk   => clk,
-       luma_i => comp_luma_i, -- set to feedback mode at present
+       luma_i => comp_luma_i,
        output => comp_output,
-       span => "11111111"
+       span => "00000000"
            );
            
     shape_gen_0 : entity work.shape_gen -- move to analoge side later!!!! just for organisational clarity
@@ -402,15 +337,7 @@ begin
            cs        => matrix_cs,
            matrix_out  => matrix_out
            );
-           
-           
-           -- need to work out what needs feedback protection and what doesnt, invert doesnt
---    MATRIX_FEEDBACK : process (clk) is -- 2 clock delay in feedback path,lukely needs to be much longer 
---      begin
---        if rising_edge(clk) then
---                matrix_out <= matrix_out_e1; -- 1 clock delay to avoid combinatory feedback paths when matrix out goes to matrix in
---            end if;        
---      end process;
+
        
        ----------------------------------------asignments
        -- MAtrix IN
@@ -432,11 +359,10 @@ begin
        matrix_in(41) <= shape_b_0;
        matrix_in(40) <= shape_a_1;
        matrix_in(41) <= shape_b_1;
+       --matrix_in(50 downto 46) <= comp_output; -- migh tneed to be reveresed to match the pinout on the moriginal
        
        
        -- MATRIX OUT
-
-       
        xy_inv_in(17 downto 0)       <= matrix_out(17 downto 0);
        overlay_gate1(0) <= matrix_out(18);
        overlay_gate2(0) <= matrix_out(19);
@@ -449,19 +375,19 @@ begin
        inv_in           <= matrix_out(29 downto 26);
        edge_detector_in <= matrix_out(30);
        delay_in         <= matrix_out(31);
-       ff_in_a          <= matrix_out(32);
-       ff_in_b          <= matrix_out(33);
+       ff_out_a         <= matrix_out(32);
+       ff_out_b         <= matrix_out(33);
        
-       acm_out1                   <= matrix_out(34);
        acm_out1                   <= matrix_out(35);
+       acm_out1                   <= matrix_out(36);
        
-       luma_in1(3 downto 0)       <= matrix_out(39 downto 336);
-       chroma_mux_in1(2 downto 0) <= matrix_out(42 downto 40);
-       chroma_mux_in1(5 downto 3) <= matrix_out(45 downto 43);
-       luma_in2(3 downto 0)       <= matrix_out(49 downto 46);
-       chroma_mux_in2(2 downto 0) <= matrix_out(52 downto 50); 
-       chroma_mux_in2(5 downto 3) <= matrix_out(55 downto 53);
-       chrom_swap                 <= matrix_out(56);
+       luma_in1(3 downto 0)       <= matrix_out(40 downto 37);
+       chroma_mux_in1(2 downto 0) <= matrix_out(43 downto 41);
+       chroma_mux_in1(5 downto 3) <= matrix_out(46 downto 44);
+       luma_in2(3 downto 0)       <= matrix_out(50 downto 47);
+       chroma_mux_in2(2 downto 0) <= matrix_out(53 downto 51); 
+       chroma_mux_in2(5 downto 3) <= matrix_out(56 downto 54);
+       chrom_swap                 <= matrix_out(57);
 
       
        -------------------------------------- output
@@ -491,15 +417,6 @@ begin
     Y <= (luma_vid_out) & "0000";  
     Cr <= chroma_vid_out(5 downto 3) & "00000";  
     Cb <= chroma_vid_out(2 downto 0) & "00000";  
-    -- -- Luma feedback path to comparitor in
-     LUMA_FEEDBACK : process (clk) is -- 2 clock delay in feedback path,lukely needs to be much longer 
-      begin
-        if rising_edge(clk) then
-            luma_fb <= (luma_vid_out);
-            comp_luma_i <= luma_fb  & "0000";
-            end if;        
-      end process;
-    
     -- YCrCb to RGB converter
     colour_space_conv : entity work.ycrcr2rgb_simple
       Port map( 
