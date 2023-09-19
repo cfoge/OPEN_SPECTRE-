@@ -51,7 +51,8 @@ architecture Behavioral of shapes_pulse_gen is
 
     signal rst_ramp_out           : std_logic_vector(8 downto 0);
     signal rst_ramp_mux           : std_logic_vector(8 downto 0);
-    
+    constant parab_max : unsigned(8 downto 0) := "100000000";  -- 512 in binary
+
 
 begin
     process (clk, rst) -- pulse out, ramp out and parabala logic ------- 
