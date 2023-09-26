@@ -51,8 +51,7 @@ architecture Behavioral of shapes_pulse_gen is
 
     signal rst_ramp_out           : std_logic_vector(8 downto 0);
     signal rst_ramp_mux           : std_logic_vector(8 downto 0);
-    constant parab_max : unsigned(8 downto 0) := "100000000";  -- 512 in binary
-
+    constant parab_max : unsigned(8 downto 0) := "111111111";  -- 512 in binary
 
 begin
     process (clk, rst) -- pulse out, ramp out and parabala logic ------- 
@@ -119,14 +118,13 @@ begin
     
     process (pulse_len_int)
     begin
-          if pulse_len_int = 0 then 
+           if pulse_len_int = 0 then 
         
             step_size_calc <= 511;
         else
             step_size_calc <= TO_INTEGER(parab_max / pulse_len_int);
         end if;
         
-       -- end if; 
     end process;
     
 --    process (clk, rst) -- random reset ramp logic, counts up till zoom value then uses mux to jump up and rand oddly, needs beter method
