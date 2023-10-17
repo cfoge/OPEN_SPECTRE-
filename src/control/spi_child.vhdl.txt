@@ -1,0 +1,88 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity SPI_child is
+    Port ( SCLK   : in STD_LOGIC;
+           MOSI   : in STD_LOGIC;
+           MISO   : out STD_LOGIC;
+           CS     : in STD_LOGIC;
+           ADDR   : out STD_LOGIC_VECTOR(7 downto 0);
+           DATA   : in STD_LOGIC_VECTOR(31 downto 0);
+           DATA_OUT : out STD_LOGIC_VECTOR(31 downto 0);
+           DATA_VALID : out STD_LOGIC);
+end entity SPI_child;
+
+architecture Behavioral of SPI_child is
+    type State_Type is (IDLE, ADDR_RECEIVED, RW_DECIDED, DATA_RECEIVED, DATA_SENT);
+    signal State : State_Type := IDLE;
+    signal Address : STD_LOGIC_VECTOR(7 downto 0);
+    signal DataBuffer : STD_LOGIC_VECTOR(31 downto 0);
+    signal BitCounter : integer := 0;
+
+begin
+    process(SCLK, CS)
+    begin
+        if (CS = '0') then
+            case State is
+                when IDLE =>
+                    if (rising_edge(SCLK)) then
+                        if (MOSI = '1') then
+                            Address <= (others => '0');
+                            State <= ADDR_RECEIVED;
+                        end if;
+                    end if;
+
+                when ADDR_RECEIVED =>
+                    if (rising_edge(SCLK)) then
+                        Address <= Address(6 downto 0) & MOSI;
+                        if (BitCounter = 7) then
+                            State <= RW_DECIDED;
+                            BitCounter <= 0;
+                        else
+                            BitCounter <= BitCounter + 1;
+                        end if;
+                    end if;
+
+                when RW_DECIDED =>
+                    if (rising_edge(SCLK)) then
+                        if (MOSI = '0') then -- Write operation
+                            State <= DATA_RECEIVED;
+                        else
+                            DataBuffer <= (others => '0');
+                            State <= DATA_SENT;
+                        end if;
+                    end if;
+
+                when DATA_RECEIVED =>
+                    if (rising_edge(SCLK)) then
+                        DataBuffer(BitCounter) <= MOSI;
+                        if (BitCounter = 31) then
+                            State <= DATA_SENT;
+                            BitCounter <= 0;
+                        else
+                            BitCounter <= BitCounter + 1;
+                        end if;
+                    end if;
+
+                when DATA_SENT =>
+                    if (rising_edge(SCLK)) then
+                        MISO <= DataBuffer(0);
+                        DataBuffer <= DataBuffer(30 downto 0) & '0';
+                        DATA_VALID <= '1';
+                        if (MOSI = '1') then
+                            State <= IDLE;
+                        end if;
+                    end if;
+            end case;
+        else
+            State <= IDLE;
+            DATA_VALID <= '0';
+        end if;
+    end process;
+
+    ADDR <= Address;
+    DATA_OUT <= DataBuffer;
+
+end architecture Behavioral;
