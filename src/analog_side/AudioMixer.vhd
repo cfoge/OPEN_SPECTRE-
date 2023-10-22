@@ -51,14 +51,14 @@ entity AudioMixer is
     clk    : in std_logic;
     reset  : in std_logic;
     inputs : in array_12(10 downto 0); -- 12-bit wide inputs
-    gains  : in array_5(9 downto 0); -- 5-bit gain control for each input 32 levels
+    gains  : in array_5(10 downto 0); -- 5-bit gain control for each input 32 levels
     output : out std_logic_vector(11 downto 0) -- 12-bit wide output
   );
 end AudioMixer;
 
 architecture Behavioral of AudioMixer is
-  signal accumulator    : unsigned(15 downto 0) := (others => '0');
-  signal accumulator_2  : unsigned(15 downto 0) := (others => '0');
+  signal accumulator    : unsigned(16 downto 0) := (others => '0');
+  signal accumulator_2  : unsigned(16 downto 0) := (others => '0');
   signal clamped_output : unsigned(11 downto 0);
 begin
   process (clk)

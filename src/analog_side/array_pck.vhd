@@ -13,6 +13,8 @@ package array_pck is
   type array_6    is array (natural range <>) of std_logic_vector(  6-1 downto 0);
   type array_7    is array (natural range <>) of std_logic_vector(  7-1 downto 0);
   type array_8    is array (natural range <>) of std_logic_vector(  8-1 downto 0);
+ 
+  type array_10    is array (natural range <>) of std_logic_vector(  11-1 downto 0);
   type array_11    is array (natural range <>) of std_logic_vector(  11-1 downto 0);
   type array_12    is array (natural range <>) of std_logic_vector(  12-1 downto 0);
   type array_20    is array (natural range <>) of std_logic_vector(  20-1 downto 0);
