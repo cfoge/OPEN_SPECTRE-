@@ -106,6 +106,9 @@ architecture Behavioral of analog_side is
   signal y_signal2 : std_logic_vector(11 downto 0) := (others => '0');
   signal u_signal2 : std_logic_vector(11 downto 0) := (others => '0');
   signal v_signal2 : std_logic_vector(11 downto 0) := (others => '0');
+  signal y_result : std_logic_vector(11 downto 0) := (others => '0');
+  signal u_result : std_logic_vector(11 downto 0) := (others => '0');
+  signal v_result : std_logic_vector(11 downto 0) := (others => '0');
 
   --shape gen matrix output
   signal matrix_pos_h_1   : std_logic_vector(8 downto 0);
@@ -195,41 +198,40 @@ begin
       outputs      => outputs
     );
 
-    osc1: entity work.osc
-    port
-    map (
-    Clock      => clk,
-    rst        => rst,
-    freq    => ,
-    deviation  => ,
-    sync    => ,
-    sqr_out    => osc1_out_sq,
-    sin_out    => osc1_out_sin,
-    );
+--    osc1: entity work.osc
+--    port
+--    map (
+--    Clock      => clk,
+--    rst        => rst,
+--    freq    => ,
+--    deviation  => ,
+--    sync    => ,
+--    sqr_out    => osc1_out_sq,
+--    sin_out    => osc1_out_sin,
+--    );
 
-    osc2: entity work.osc
-    port
-    map (
-    Clock      => clk,
-    rst        => rst,
-    freq    => ,
-    deviation  => ,
-    sync    => ,
-    sqr_out    => osc2_out_sq,
-    sin_out    => osc2_out_sin,
-    );
+--    osc2: entity work.osc
+--    port
+--    map (
+--    Clock      => clk,
+--    rst        => rst,
+--    freq    => ,
+--    deviation  => ,
+--    sync    => ,
+--    sqr_out    => osc2_out_sq,
+--    sin_out    => osc2_out_sin,
+--    );
 
 
   random_1 : entity work.random_voltage
-    port
-    map (
+    port map (
     Clock      => clk,
     rst        => rst,
     recycle    => cycle_recycle,
     noise_freq => noise_freq,
     slew_in    => slew_in,
     noise_1    => noise_1,
-    noise_2    => noise_2,
+    noise_2    => noise_2
     );
 
   -- yuv mixer , mixes the digital and analoge sides together with clamping
