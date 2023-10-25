@@ -69,7 +69,7 @@ entity analog_side is
     vid_span : out std_logic_vector(11 downto 0);
     y_out    : out std_logic_vector(11 downto 0);
     u_out    : out std_logic_vector(11 downto 0);
-    v_out    : out std_logic_vector(11 downto 0);
+    v_out    : out std_logic_vector(11 downto 0)
 
   );
 end analog_side;
@@ -77,7 +77,7 @@ end analog_side;
 architecture Behavioral of analog_side is
 
   signal mixer_inputs : array_12(9 downto 0);
-  signal outputs      : array_12(19 downto 0) -- 12-bit wide outputs
+  signal outputs      : array_12(19 downto 0); -- 12-bit wide outputs
 
   signal out_addr_int : integer;
   signal ch_addr_int  : integer;
@@ -103,9 +103,9 @@ architecture Behavioral of analog_side is
   signal y_signal1 : std_logic_vector(11 downto 0);
   signal u_signal1 : std_logic_vector(11 downto 0);
   signal v_signal1 : std_logic_vector(11 downto 0);
-  signal y_signal2 : std_logic_vector(11 downto 0) := (others => "0");
-  signal u_signal2 : std_logic_vector(11 downto 0) := (others => "0");
-  signal v_signal2 : std_logic_vector(11 downto 0) := (others => "0");
+  signal y_signal2 : std_logic_vector(11 downto 0) := (others => '0');
+  signal u_signal2 : std_logic_vector(11 downto 0) := (others => '0');
+  signal v_signal2 : std_logic_vector(11 downto 0) := (others => '0');
 
   --shape gen matrix output
   signal matrix_pos_h_1   : std_logic_vector(8 downto 0);
@@ -148,17 +148,17 @@ begin
   ch_addr_int  <= to_integer(unsigned(ch_addr));
 
   --analoge matrix inputs
-  mixer_inputs(0)  <= osc1_out_sq  : std_logic_vector(9 downto 0);
-  mixer_inputs(1)  <= osc1_out_sin : std_logic_vector(9 downto 0);
-  mixer_inputs(2)  <= osc2_out_sq  : std_logic_vector(9 downto 0);
-  mixer_inputs(3)  <= osc2_out_sin : std_logic_vector(9 downto 0);
-  mixer_inputs(4)  <= noise_1      : std_logic_vector(9 downto 0);
-  mixer_inputs(5)  <= noise_2      : std_logic_vector(9 downto 0);
-  mixer_inputs(6)  <= audio_in_t   : std_logic_vector(9 downto 0);
-  mixer_inputs(7)  <= audio_in_b   : std_logic_vector(9 downto 0);
-  mixer_inputs(8)  <= audio_in_sig : std_logic_vector(9 downto 0);
-  mixer_inputs(9)  <= dsm_hi       : std_logic_vector(9 downto 0);
-  mixer_inputs(10) <= dsm_lo      : std_logic_vector(9 downto 0);
+--  mixer_inputs(0)  <= osc1_out_sq  : std_logic_vector(9 downto 0);
+--  mixer_inputs(1)  <= osc1_out_sin : std_logic_vector(9 downto 0);
+--  mixer_inputs(2)  <= osc2_out_sq  : std_logic_vector(9 downto 0);
+--  mixer_inputs(3)  <= osc2_out_sin : std_logic_vector(9 downto 0);
+--  mixer_inputs(4)  <= noise_1      : std_logic_vector(9 downto 0);
+--  mixer_inputs(5)  <= noise_2      : std_logic_vector(9 downto 0);
+--  mixer_inputs(6)  <= audio_in_t   : std_logic_vector(9 downto 0);
+--  mixer_inputs(7)  <= audio_in_b   : std_logic_vector(9 downto 0);
+--  mixer_inputs(8)  <= audio_in_sig : std_logic_vector(9 downto 0);
+--  mixer_inputs(9)  <= dsm_hi       : std_logic_vector(9 downto 0);
+--  mixer_inputs(10) <= dsm_lo      : std_logic_vector(9 downto 0);
 
   --analoge matrix outputs
   matrix_pos_h_1   <= outputs(0);
