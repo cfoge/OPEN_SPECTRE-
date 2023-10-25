@@ -76,7 +76,7 @@ end analog_side;
 
 architecture Behavioral of analog_side is
 
-  signal mixer_inputs : array_12(9 downto 0);
+  signal mixer_inputs : array_12(10 downto 0);
   signal outputs      : array_12(19 downto 0); -- 12-bit wide outputs
 
   signal out_addr_int : integer;
@@ -151,35 +151,35 @@ begin
   ch_addr_int  <= to_integer(unsigned(ch_addr));
 
   --analoge matrix inputs
---  mixer_inputs(0)  <= osc1_out_sq  : std_logic_vector(9 downto 0);
---  mixer_inputs(1)  <= osc1_out_sin : std_logic_vector(9 downto 0);
---  mixer_inputs(2)  <= osc2_out_sq  : std_logic_vector(9 downto 0);
---  mixer_inputs(3)  <= osc2_out_sin : std_logic_vector(9 downto 0);
---  mixer_inputs(4)  <= noise_1      : std_logic_vector(9 downto 0);
---  mixer_inputs(5)  <= noise_2      : std_logic_vector(9 downto 0);
---  mixer_inputs(6)  <= audio_in_t   : std_logic_vector(9 downto 0);
---  mixer_inputs(7)  <= audio_in_b   : std_logic_vector(9 downto 0);
---  mixer_inputs(8)  <= audio_in_sig : std_logic_vector(9 downto 0);
---  mixer_inputs(9)  <= dsm_hi       : std_logic_vector(9 downto 0);
---  mixer_inputs(10) <= dsm_lo      : std_logic_vector(9 downto 0);
+  mixer_inputs(0)  <= osc1_out_sq  & "00";
+  mixer_inputs(1)  <= osc1_out_sin & "00";
+  mixer_inputs(2)  <= osc2_out_sq  & "00";
+  mixer_inputs(3)  <= osc2_out_sin & "00";
+  mixer_inputs(4)  <= noise_1     & "00";
+  mixer_inputs(5)  <= noise_2     & "00";
+  mixer_inputs(6)  <= audio_in_t   & "00";
+  mixer_inputs(7)  <= audio_in_b  & "00";
+  mixer_inputs(8)  <= audio_in_sig & "00";
+  mixer_inputs(9)  <= dsm_hi       & "00";
+  mixer_inputs(10) <= dsm_lo     & "00";
 
   --analoge matrix outputs
-  matrix_pos_h_1   <= outputs(0);
-  matrix_pos_v_1   <= outputs(1);
-  matrix_zoom_h_1  <= outputs(2);
-  matrix_zoom_v_1  <= outputs(3);
-  matrix_circle_1  <= outputs(4);
-  matrix_gear_1    <= outputs(5);
-  matrix_lantern_1 <= outputs(6);
-  matrix_fizz_1    <= outputs(7);
-  matrix_pos_h_2   <= outputs(8);
-  matrix_pos_v_2   <= outputs(9);
-  matrix_zoom_h_2  <= outputs(10);
-  matrix_zoom_v_2  <= outputs(11);
-  matrix_circle_2  <= outputs(12);
-  matrix_gear_2    <= outputs(13);
-  matrix_lantern_2 <= outputs(14);
-  matrix_fizz_2    <= outputs(15);
+  matrix_pos_h_1   <= outputs(0)(11 downto 3);
+  matrix_pos_v_1   <= outputs(1)(11 downto 3);
+  matrix_zoom_h_1  <= outputs(2)(11 downto 3);
+  matrix_zoom_v_1  <= outputs(3)(11 downto 3);
+  matrix_circle_1  <= outputs(4)(11 downto 3);
+  matrix_gear_1    <= outputs(5)(11 downto 3);
+  matrix_lantern_1 <= outputs(6)(11 downto 3);
+  matrix_fizz_1    <= outputs(7)(11 downto 3);
+  matrix_pos_h_2   <= outputs(8)(11 downto 3);
+  matrix_pos_v_2   <= outputs(9)(11 downto 3);
+  matrix_zoom_h_2  <= outputs(10)(11 downto 3);
+  matrix_zoom_v_2  <= outputs(11)(11 downto 3);
+  matrix_circle_2  <= outputs(12)(11 downto 3);
+  matrix_gear_2    <= outputs(13)(11 downto 3);
+  matrix_lantern_2 <= outputs(14)(11 downto 3);
+  matrix_fizz_2    <= outputs(15)(11 downto 3);
   y_anna           <= outputs(16);
   u_anna           <= outputs(17);
   v_anna           <= outputs(18);
