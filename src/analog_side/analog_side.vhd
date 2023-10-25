@@ -184,6 +184,10 @@ begin
   u_anna           <= outputs(17);
   v_anna           <= outputs(18);
   vid_span         <= outputs(19);
+  
+  y_signal1 <= y_anna; -- add digital side in
+  u_signal1 <= u_anna; -- add digital side in
+  v_signal1 <= v_anna; -- add digital side in
 
   analox_matrix : entity work.mixer_interface
     port map
