@@ -56,6 +56,10 @@ entity analog_side is
     y_alpha       : in std_logic_vector(11 downto 0);
     u_alpha       : in std_logic_vector(11 downto 0);
     v_alpha       : in std_logic_vector(11 downto 0);
+    
+       audio_in_t   : in std_logic_vector(9 downto 0);
+   audio_in_b   : in std_logic_vector(9 downto 0);
+   audio_in_sig : in std_logic_vector(9 downto 0);
 
     --signals from the digital side
     audio_in_sig_i : in std_logic_vector(9 downto 0);
@@ -69,7 +73,8 @@ entity analog_side is
     vid_span : out std_logic_vector(11 downto 0);
     y_out    : out std_logic_vector(11 downto 0);
     u_out    : out std_logic_vector(11 downto 0);
-    v_out    : out std_logic_vector(11 downto 0)
+    v_out    : out std_logic_vector(11 downto 0);
+    outputs_o      : out array_12(19 downto 0) -- 12-bit wide outputs
 
   );
 end analog_side;
@@ -89,11 +94,8 @@ architecture Behavioral of analog_side is
   signal osc2_out_sin : std_logic_vector(9 downto 0);
   signal noise_1      : std_logic_vector(9 downto 0);
   signal noise_2      : std_logic_vector(9 downto 0);
-  signal audio_in_t   : std_logic_vector(9 downto 0);
-  signal audio_in_b   : std_logic_vector(9 downto 0);
-  signal audio_in_sig : std_logic_vector(9 downto 0);
-  signal dsm_hi       : std_logic_vector(9 downto 0);
-  signal dsm_lo       : std_logic_vector(9 downto 0);
+
+
 
   -- analoge matrix yuv out
   signal y_anna : std_logic_vector(11 downto 0);
@@ -160,8 +162,8 @@ begin
   mixer_inputs(6)  <= audio_in_t   & "00";
   mixer_inputs(7)  <= audio_in_b  & "00";
   mixer_inputs(8)  <= audio_in_sig & "00";
-  mixer_inputs(9)  <= dsm_hi       & "00";
-  mixer_inputs(10) <= dsm_lo     & "00";
+  mixer_inputs(9)  <= dsm_hi_i       & "00";
+  mixer_inputs(10) <= dsm_lo_i     & "00";
 
   --analoge matrix outputs
   matrix_pos_h_1   <= outputs(0)(11 downto 3);
@@ -260,5 +262,6 @@ begin
   y_out <= y_result;
   u_out <= u_result;
   v_out <= v_result;
+  outputs_o <= outputs;
 
 end Behavioral;
