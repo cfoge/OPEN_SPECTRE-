@@ -30,8 +30,8 @@ entity analog_side is
     clk      : in std_logic;
     rst      : in std_logic;
     wr       : in std_logic;
-    out_addr : in std_logic_vector(3 downto 0);
-    ch_addr  : in std_logic_vector(3 downto 0);
+    out_addr : in std_logic_vector(7 downto 0);
+    ch_addr  : in std_logic_vector(7 downto 0);
     gain_in  : in std_logic_vector(4 downto 0);
     --analoge controls from reg file -- these should be added ot the matrix outputs so that you always have cxontroll of these things, these ins act as an offset
     pos_h_1       : in std_logic_vector(8 downto 0);
@@ -73,8 +73,8 @@ entity analog_side is
     vid_span : out std_logic_vector(11 downto 0);
     y_out    : out std_logic_vector(11 downto 0);
     u_out    : out std_logic_vector(11 downto 0);
-    v_out    : out std_logic_vector(11 downto 0);
-    outputs_o      : out array_12(19 downto 0) -- 12-bit wide outputs
+    v_out    : out std_logic_vector(11 downto 0)
+--    outputs_o      : out array_12(19 downto 0) -- 12-bit wide outputs
 
   );
 end analog_side;
@@ -262,6 +262,6 @@ begin
   y_out <= y_result;
   u_out <= u_result;
   v_out <= v_result;
-  outputs_o <= outputs;
+--  outputs_o <= outputs;
 
 end Behavioral;
