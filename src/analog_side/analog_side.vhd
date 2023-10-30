@@ -178,15 +178,53 @@ begin
   B => pos_v_1,
   SUM => mixed_pos_v_1
   );
+  zoom_h_1_mix : entity work.Adder_12bit_NoOverflow 
+  port map(
+  A => outputs(2),
+  B => zoom_h_1,
+  SUM => mixed_zoom_h_1
+  );
+  zoom_v_1_mix : entity work.Adder_12bit_NoOverflow 
+  port map(
+  A => outputs(3),
+  B => pos_v_1,
+  SUM => mixed_zoom_v_1
+  );
+  circle_1_mix : entity work.Adder_12bit_NoOverflow 
+  port map(
+  A => outputs(4),
+  B => circle_1,
+  SUM => mixed_circle_1
+  );
+  gear_1_mix : entity work.Adder_12bit_NoOverflow 
+  port map(
+  A => outputs(5),
+  B => gear_1,
+  SUM => mixed_gear_1
+  );
+  lantern_1_mix : entity work.Adder_12bit_NoOverflow 
+  port map(
+  A => outputs(6),
+  B => lantern_1,
+  SUM => mixed_lantern_1
+  );
+  fizz_1_mix : entity work.Adder_12bit_NoOverflow 
+  port map(
+  A => outputs(8),
+  B => fizz_1,
+  SUM => mixed_fizz_1
+  );
+
+  
   --analoge matrix outputs
   matrix_pos_h_1   <= mixed_pos_h_1;
   matrix_pos_v_1   <= mixed_pos_v_1;
-  matrix_zoom_h_1  <= outputs(2);
-  matrix_zoom_v_1  <= outputs(3);
-  matrix_circle_1  <= outputs(4);
-  matrix_gear_1    <= outputs(5);
-  matrix_lantern_1 <= outputs(6);
-  matrix_fizz_1    <= outputs(7);
+  matrix_zoom_h_1  <= mixed_zoom_v_1;
+  matrix_zoom_v_1  <= mixed_zoom_v_1;
+  matrix_circle_1  <= mixed_circle_1;
+  matrix_gear_1    <= mixed_gear_1;
+  matrix_lantern_1 <= mixed_lantern_1;
+  matrix_fizz_1    <= mixed_fizz_1;
   matrix_pos_h_2   <= outputs(8);
   matrix_pos_v_2   <= outputs(9);
   matrix_zoom_h_2  <= outputs(10);
