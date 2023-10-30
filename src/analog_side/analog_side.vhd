@@ -34,22 +34,22 @@ entity analog_side is
     ch_addr  : in std_logic_vector(7 downto 0);
     gain_in  : in std_logic_vector(4 downto 0);
     --analoge controls from reg file -- these should be added ot the matrix outputs so that you always have cxontroll of these things, these ins act as an offset
-    pos_h_1       : in std_logic_vector(8 downto 0);
-    pos_v_1       : in std_logic_vector(8 downto 0);
-    zoom_h_1      : in std_logic_vector(8 downto 0);
-    zoom_v_1      : in std_logic_vector(8 downto 0);
-    circle_1      : in std_logic_vector(8 downto 0);
-    gear_1        : in std_logic_vector(8 downto 0);
-    lantern_1     : in std_logic_vector(8 downto 0);
-    fizz_1        : in std_logic_vector(8 downto 0);
-    pos_h_2       : in std_logic_vector(8 downto 0);
-    pos_v_2       : in std_logic_vector(8 downto 0);
-    zoom_h_2      : in std_logic_vector(8 downto 0);
-    zoom_v_2      : in std_logic_vector(8 downto 0);
-    circle_2      : in std_logic_vector(8 downto 0);
-    gear_2        : in std_logic_vector(8 downto 0);
-    lantern_2     : in std_logic_vector(8 downto 0);
-    fizz_2        : in std_logic_vector(8 downto 0);
+    pos_h_1       : in std_logic_vector(11 downto 0);
+    pos_v_1       : in std_logic_vector(11 downto 0);
+    zoom_h_1      : in std_logic_vector(11 downto 0);
+    zoom_v_1      : in std_logic_vector(11 downto 0);
+    circle_1      : in std_logic_vector(11 downto 0);
+    gear_1        : in std_logic_vector(11 downto 0);
+    lantern_1     : in std_logic_vector(11 downto 0);
+    fizz_1        : in std_logic_vector(11 downto 0);
+    pos_h_2       : in std_logic_vector(11 downto 0);
+    pos_v_2       : in std_logic_vector(11 downto 0);
+    zoom_h_2      : in std_logic_vector(11 downto 0);
+    zoom_v_2      : in std_logic_vector(11 downto 0);
+    circle_2      : in std_logic_vector(11 downto 0);
+    gear_2        : in std_logic_vector(11 downto 0);
+    lantern_2     : in std_logic_vector(11 downto 0);
+    fizz_2        : in std_logic_vector(11 downto 0);
     noise_freq    : in std_logic_vector(9 downto 0);
     slew_in       : in std_logic_vector(2 downto 0);
     cycle_recycle : in std_logic;
@@ -113,39 +113,39 @@ architecture Behavioral of analog_side is
   signal v_result : std_logic_vector(11 downto 0) := (others => '0');
 
   --shape gen matrix output
-  signal matrix_pos_h_1   : std_logic_vector(8 downto 0);
-  signal matrix_pos_v_1   : std_logic_vector(8 downto 0);
-  signal matrix_zoom_h_1  : std_logic_vector(8 downto 0);
-  signal matrix_zoom_v_1  : std_logic_vector(8 downto 0);
-  signal matrix_circle_1  : std_logic_vector(8 downto 0);
-  signal matrix_gear_1    : std_logic_vector(8 downto 0);
-  signal matrix_lantern_1 : std_logic_vector(8 downto 0);
-  signal matrix_fizz_1    : std_logic_vector(8 downto 0);
-  signal matrix_pos_h_2   : std_logic_vector(8 downto 0);
-  signal matrix_pos_v_2   : std_logic_vector(8 downto 0);
-  signal matrix_zoom_h_2  : std_logic_vector(8 downto 0);
-  signal matrix_zoom_v_2  : std_logic_vector(8 downto 0);
-  signal matrix_circle_2  : std_logic_vector(8 downto 0);
-  signal matrix_gear_2    : std_logic_vector(8 downto 0);
-  signal matrix_lantern_2 : std_logic_vector(8 downto 0);
-  signal matrix_fizz_2    : std_logic_vector(8 downto 0);
+  signal matrix_pos_h_1   : std_logic_vector(11 downto 0);
+  signal matrix_pos_v_1   : std_logic_vector(11 downto 0);
+  signal matrix_zoom_h_1  : std_logic_vector(11 downto 0);
+  signal matrix_zoom_v_1  : std_logic_vector(11 downto 0);
+  signal matrix_circle_1  : std_logic_vector(11 downto 0);
+  signal matrix_gear_1    : std_logic_vector(11 downto 0);
+  signal matrix_lantern_1 : std_logic_vector(11 downto 0);
+  signal matrix_fizz_1    : std_logic_vector(11 downto 0);
+  signal matrix_pos_h_2   : std_logic_vector(11 downto 0);
+  signal matrix_pos_v_2   : std_logic_vector(11 downto 0);
+  signal matrix_zoom_h_2  : std_logic_vector(11 downto 0);
+  signal matrix_zoom_v_2  : std_logic_vector(11 downto 0);
+  signal matrix_circle_2  : std_logic_vector(11 downto 0);
+  signal matrix_gear_2    : std_logic_vector(11 downto 0);
+  signal matrix_lantern_2 : std_logic_vector(11 downto 0);
+  signal matrix_fizz_2    : std_logic_vector(11 downto 0);
   --shape gen mixed with register file inputs
-  signal mixed_pos_h_1   : std_logic_vector(8 downto 0);
-  signal mixed_pos_v_1   : std_logic_vector(8 downto 0);
-  signal mixed_zoom_h_1  : std_logic_vector(8 downto 0);
-  signal mixed_zoom_v_1  : std_logic_vector(8 downto 0);
-  signal mixed_circle_1  : std_logic_vector(8 downto 0);
-  signal mixed_gear_1    : std_logic_vector(8 downto 0);
-  signal mixed_lantern_1 : std_logic_vector(8 downto 0);
-  signal mixed_fizz_1    : std_logic_vector(8 downto 0);
-  signal mixed_pos_h_2   : std_logic_vector(8 downto 0);
-  signal mixed_pos_v_2   : std_logic_vector(8 downto 0);
-  signal mixed_zoom_h_2  : std_logic_vector(8 downto 0);
-  signal mixed_zoom_v_2  : std_logic_vector(8 downto 0);
-  signal mixed_circle_2  : std_logic_vector(8 downto 0);
-  signal mixed_gear_2    : std_logic_vector(8 downto 0);
-  signal mixed_lantern_2 : std_logic_vector(8 downto 0);
-  signal mixed_fizz_2    : std_logic_vector(8 downto 0);
+  signal mixed_pos_h_1   : std_logic_vector(11 downto 0);
+  signal mixed_pos_v_1   : std_logic_vector(11 downto 0);
+  signal mixed_zoom_h_1  : std_logic_vector(11 downto 0);
+  signal mixed_zoom_v_1  : std_logic_vector(11 downto 0);
+  signal mixed_circle_1  : std_logic_vector(11 downto 0);
+  signal mixed_gear_1    : std_logic_vector(11 downto 0);
+  signal mixed_lantern_1 : std_logic_vector(11 downto 0);
+  signal mixed_fizz_1    : std_logic_vector(11 downto 0);
+  signal mixed_pos_h_2   : std_logic_vector(11 downto 0);
+  signal mixed_pos_v_2   : std_logic_vector(11 downto 0);
+  signal mixed_zoom_h_2  : std_logic_vector(11 downto 0);
+  signal mixed_zoom_v_2  : std_logic_vector(11 downto 0);
+  signal mixed_circle_2  : std_logic_vector(11 downto 0);
+  signal mixed_gear_2    : std_logic_vector(11 downto 0);
+  signal mixed_lantern_2 : std_logic_vector(11 downto 0);
+  signal mixed_fizz_2    : std_logic_vector(11 downto 0);
 
 begin
 
@@ -165,31 +165,42 @@ begin
   mixer_inputs(9)  <= dsm_hi_i       & "00";
   mixer_inputs(10) <= dsm_lo_i     & "00";
 
+
+  pos_h_1_mix : entity work.Adder_12bit_NoOverflow 
+  port map(
+  A => outputs(0),
+  B => pos_h_1,
+  SUM => mixed_pos_h_1
+  );
+  pos_v_1_mix : entity work.Adder_12bit_NoOverflow 
+  port map(
+  A => outputs(1),
+  B => pos_v_1,
+  SUM => mixed_pos_v_1
+  );
   --analoge matrix outputs
-  matrix_pos_h_1   <= outputs(0)(11 downto 3);
-  matrix_pos_v_1   <= outputs(1)(11 downto 3);
-  matrix_zoom_h_1  <= outputs(2)(11 downto 3);
-  matrix_zoom_v_1  <= outputs(3)(11 downto 3);
-  matrix_circle_1  <= outputs(4)(11 downto 3);
-  matrix_gear_1    <= outputs(5)(11 downto 3);
-  matrix_lantern_1 <= outputs(6)(11 downto 3);
-  matrix_fizz_1    <= outputs(7)(11 downto 3);
-  matrix_pos_h_2   <= outputs(8)(11 downto 3);
-  matrix_pos_v_2   <= outputs(9)(11 downto 3);
-  matrix_zoom_h_2  <= outputs(10)(11 downto 3);
-  matrix_zoom_v_2  <= outputs(11)(11 downto 3);
-  matrix_circle_2  <= outputs(12)(11 downto 3);
-  matrix_gear_2    <= outputs(13)(11 downto 3);
-  matrix_lantern_2 <= outputs(14)(11 downto 3);
-  matrix_fizz_2    <= outputs(15)(11 downto 3);
+  matrix_pos_h_1   <= mixed_pos_h_1;
+  matrix_pos_v_1   <= mixed_pos_v_1;
+  matrix_zoom_h_1  <= outputs(2);
+  matrix_zoom_v_1  <= outputs(3);
+  matrix_circle_1  <= outputs(4);
+  matrix_gear_1    <= outputs(5);
+  matrix_lantern_1 <= outputs(6);
+  matrix_fizz_1    <= outputs(7);
+  matrix_pos_h_2   <= outputs(8);
+  matrix_pos_v_2   <= outputs(9);
+  matrix_zoom_h_2  <= outputs(10);
+  matrix_zoom_v_2  <= outputs(11);
+  matrix_circle_2  <= outputs(12);
+  matrix_gear_2    <= outputs(13);
+  matrix_lantern_2 <= outputs(14);
+  matrix_fizz_2    <= outputs(15);
   y_anna           <= outputs(16);
   u_anna           <= outputs(17);
   v_anna           <= outputs(18);
   vid_span         <= outputs(19);
   
-  y_signal1 <= y_anna; -- add digital side in
-  u_signal1 <= u_anna; -- add digital side in
-  v_signal1 <= v_anna; -- add digital side in
+  
 
   analox_matrix : entity work.mixer_interface
     port map
@@ -240,8 +251,28 @@ begin
     noise_2    => noise_2
     );
 
-  -- yuv mixer , mixes the digital and analoge sides together with clamping
 
+-------------Combine the YUV video form the digital matrix with the analoge matrix
+  Y_dig_ann_mix : entity work.Adder_12bit_NoOverflow 
+  port map(
+  A => y_anna,
+  B => y_digital,
+  SUM => y_signal1
+  );
+  U_dig_ann_mix : entity work.Adder_12bit_NoOverflow 
+  port map(
+  A => u_anna,
+  B => u_digital,
+  SUM => u_signal1
+  );  
+  V_dig_ann_mix : entity work.Adder_12bit_NoOverflow 
+  port map(
+  A => v_anna,
+  B => v_digital,
+  SUM => v_signal1
+  );
+  
+  ---------YUV levels are atenuators for the video signal levels 
   YUV_out_levels : entity work.YUV_levels
     port
     map(
