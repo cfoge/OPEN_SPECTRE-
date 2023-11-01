@@ -53,6 +53,7 @@ entity analog_side is
     noise_freq    : in std_logic_vector(9 downto 0);
     slew_in       : in std_logic_vector(2 downto 0);
     cycle_recycle : in std_logic;
+    YUV_in        : in std_logic_vector(23 downto 0);
     y_alpha       : in std_logic_vector(11 downto 0);
     u_alpha       : in std_logic_vector(11 downto 0);
     v_alpha       : in std_logic_vector(11 downto 0);
@@ -65,9 +66,9 @@ entity analog_side is
     audio_in_sig_i : in std_logic_vector(9 downto 0);
     dsm_hi_i       : in std_logic_vector(9 downto 0);
     dsm_lo_i       : in std_logic_vector(9 downto 0);
-    y_digital      : in std_logic_vector(11 downto 0);
-    u_digital      : in std_logic_vector(11 downto 0);
-    v_digital      : in std_logic_vector(11 downto 0);
+--    y_digital      : in std_logic_vector(11 downto 0);
+--    u_digital      : in std_logic_vector(11 downto 0);
+--    v_digital      : in std_logic_vector(11 downto 0);
 
     -- signals to the digital side
     vid_span : out std_logic_vector(11 downto 0);
@@ -111,6 +112,10 @@ architecture Behavioral of analog_side is
   signal y_result : std_logic_vector(11 downto 0) := (others => '0');
   signal u_result : std_logic_vector(11 downto 0) := (others => '0');
   signal v_result : std_logic_vector(11 downto 0) := (others => '0');
+  
+   signal y_digital      :  std_logic_vector(11 downto 0);
+   signal u_digital      :  std_logic_vector(11 downto 0);
+   signal v_digital      :  std_logic_vector(11 downto 0);
 
   --shape gen matrix output
   signal matrix_pos_h_1   : std_logic_vector(11 downto 0);
@@ -148,6 +153,11 @@ architecture Behavioral of analog_side is
   signal mixed_fizz_2    : std_logic_vector(11 downto 0);
 
 begin
+
+  --split incoming YUV data from the digital side to the 11 bit mixer
+  y_digital <= YUV_in(23 downto 16) & "0000";
+  u_digital <= YUV_in(15 downto 8) & "0000";
+  v_digital <= YUV_in(7 downto 0) & "0000";
 
   out_addr_int <= to_integer(unsigned(out_addr));
   ch_addr_int  <= to_integer(unsigned(ch_addr));

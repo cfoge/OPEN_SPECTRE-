@@ -36,7 +36,7 @@ entity test_digital_side is
     sys_clk   : in std_logic;
     clk_25_in : in std_logic;
     rst       : in std_logic;
-    RBG_out   : out std_logic_vector (23 downto 0);
+    YCRCB   : out std_logic_vector (23 downto 0);
 
     --register file controlls
     matrix_in_addr : in std_logic_vector(5 downto 0);
@@ -419,6 +419,7 @@ begin
   Y  <= (luma_vid_out) & "0000";
   Cr <= chroma_vid_out(5 downto 3) & "00000";
   Cb <= chroma_vid_out(2 downto 0) & "00000";
+  YCRCB <= Y & Cr & Cb;
   -- -- Luma feedback path to comparitor in
   LUMA_FEEDBACK : process (clk) is -- 2 clock delay in feedback path,lukely needs to be much longer 
   begin
@@ -427,19 +428,5 @@ begin
       comp_luma_i <= luma_fb & "0000";
     end if;
   end process;
-
-  -- YCrCb to RGB converter
-  colour_space_conv : entity work.ycbcr2rgb_simple
-    port
-    map(
-    y  => y,
-    Cr => Cr,
-    Cb => Cb,
-    R  => R,
-    G  => G,
-    B  => B
-    );
-  -- Pack rgb output into output bus
-  RBG_out <= R & G & B;
 
 end Behavioral;
