@@ -35,7 +35,7 @@ architecture Behavioral of random_voltage is
   signal noise_1_to_slew, noise_2_to_slew, slew_out_1, slew_out_2 : std_logic_vector(9 downto 0);
   signal Sin,x , cnt_rst, cnt_match, sipo_clk  : std_logic := '0';
   signal mux_in, mux_in_des : std_logic_vector(7 downto 0) := "01100011"; -- only inputs 0,1,5,6 are set to gnd so i set the rest to 1 i guess
-  signal sipo_dac_1, sipo_dac_2, noise_1_latched, noise_2_latched, noise_1_sh, noise_2_sh  : std_logic_vector(3 downto 0);
+  signal sipo_dac_1, sipo_dac_2 : std_logic_vector(3 downto 0);
   signal mux_sel_in : std_logic_vector(2 downto 0);
 
 begin

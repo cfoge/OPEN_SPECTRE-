@@ -52,26 +52,26 @@ end mixer_interface;
 architecture Behavioral of mixer_interface is
 
 signal gain_int : std_logic_vector(3 downto 0) := (others => '0');
-signal mixer_gains_0i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_1i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_2i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_3i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_4i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_5i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_6i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_7i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_8i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_9i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_10i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_11i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_12i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_13i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_14i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_15i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_16i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_17i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_18i :  array_5(9 downto 0) := (others => (others => '0'));
-signal mixer_gains_19i :  array_5(9 downto 0) := (others => (others => '0'));
+signal mixer_gains_0i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_1i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_2i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_3i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_4i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_5i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_6i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_7i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_8i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_9i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_10i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_11i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_12i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_13i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_14i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_15i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_16i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_17i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_18i :  array_5(10 downto 0) := (others => (others => '0'));
+signal mixer_gains_19i :  array_5(10 downto 0) := (others => (others => '0'));
 
 begin
 

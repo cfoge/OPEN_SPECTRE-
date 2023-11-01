@@ -429,7 +429,7 @@ begin
   end process;
 
   -- YCrCb to RGB converter
-  colour_space_conv : entity work.ycrcr2rgb_simple
+  colour_space_conv : entity work.ycbcr2rgb_simple
     port
     map(
     y  => y,
