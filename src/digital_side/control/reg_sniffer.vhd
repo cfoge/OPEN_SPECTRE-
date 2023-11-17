@@ -10,12 +10,12 @@ entity reg_sniffer is
     clk     : in std_logic;
     rst     : in std_logic;
     read_ram : in std_logic;
-    read_address : in STD_LOGIC_VECTOR(6 downto 0);
+    read_address : in STD_LOGIC_VECTOR(7 downto 0);
     ram_data_out : out STD_LOGIC_VECTOR(63 downto 0);
     matrix_out_addr : in std_logic_vector(5 downto 0);
     matrix_mask_out : in std_logic_vector(63 downto 0); -- the pin settings for a single oputput
     matrix_load     : in std_logic;
-    out_addr       : in std_logic_vector(3 downto 0);
+    out_addr       : in std_logic_vector(4 downto 0);
     ch_addr        : in std_logic_vector(3 downto 0);
     gain_in        : in std_logic_vector(4 downto 0);
     anna_matrix_wr : in std_logic
@@ -25,18 +25,15 @@ end reg_sniffer;
 architecture Behavioral of reg_sniffer is
 
 signal matrix_wr_detected : std_logic := '0';
-signal address_i :  STD_LOGIC_VECTOR(6 downto 0);
+signal address_i :  STD_LOGIC_VECTOR(7 downto 0);
 signal data_in_i :  STD_LOGIC_VECTOR(63 downto 0);
 signal data_out_i :  STD_LOGIC_VECTOR(63 downto 0);
-signal shift_amount_calc : natural range 0 to 63; 
+signal address_ann :  integer;
 
 
 begin
 
-process (ch_addr)
-begin
-    shift_amount_calc <= to_integer(unsigned(ch_addr)) * 5;
-end process;
+address_ann <= to_integer(unsigned(out_addr & ch_addr)) + 64;
 
  process (clk)
   begin
@@ -47,12 +44,12 @@ end process;
        matrix_wr_detected <= '0';
       elsif matrix_load = '1' then
         matrix_wr_detected <= '1';
-        address_i <=  '0' & matrix_out_addr;
+        address_i <=  "00" & matrix_out_addr;
         data_in_i <= matrix_mask_out;
---      elsif anna_matrix_wr = '1' then
---        matrix_wr_detected <= '1';
---        address_i <=  out_addr & "000";
---        data_in_i <= gain_in sll shift_amount_calc;
+      elsif anna_matrix_wr = '1' then
+        matrix_wr_detected <= '1';
+        address_i <= std_logic_vector(to_unsigned(address_ann, address_i'length));
+        data_in_i <= x"00000000000000" & "000" & gain_in;
       else
         matrix_wr_detected <= '0';
       end if;
@@ -60,7 +57,7 @@ end process;
   end process;
 
 
-ram_80x64_i : entity work.ram_80x64 
+ram_80x64_i : entity work.ram_80x64  -- its actualy 128 deep
 port map (
 clk             => clk, --in width = std_logic
 reset           => rst, --in width = std_logic
@@ -69,7 +66,6 @@ address         => address_i, --in width = std_logic_vector
 data_in         => data_in_i, --in width = std_logic_vector
 data_out        => data_out_i --out width = std_logic_vector
 );
-
 
 
 end Behavioral;
