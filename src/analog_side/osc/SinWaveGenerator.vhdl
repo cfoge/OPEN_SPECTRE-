@@ -8,7 +8,9 @@ entity SinWaveGenerator is
         clk : in STD_LOGIC;
         reset : in STD_LOGIC;
         freq : in STD_LOGIC_VECTOR(9 downto 0);
-        sync_in : in STD_LOGIC;
+        sync_sel : in STD_LOGIC_VECTOR(1 downto 0);
+        sync_plus : in STD_LOGIC;
+        sync_minus : in STD_LOGIC;
         sin_out : out STD_LOGIC_VECTOR(11 downto 0);
         square_out : out STD_LOGIC
     );
@@ -21,6 +23,7 @@ architecture Behavioral of SinWaveGenerator is
     signal sine_table : STD_LOGIC_VECTOR(11 downto 0);
     signal square_i : STD_LOGIC := '0';
     signal sync_edge : STD_LOGIC := '0';
+    signal sync_in : STD_LOGIC := '0';
 
     type ROM is array (0 to 360) of STD_LOGIC_VECTOR(11 downto 0);
     constant sine_rom : ROM := (
@@ -395,6 +398,15 @@ begin
             phase_accumulator <= (others => '0');
             sync_edge <= '0';
         elsif rising_edge(clk) then
+        
+            if sync_sel = "00" then
+                sync_in <= '0';
+            elsif sync_sel = "01" then
+                sync_in <= sync_plus;
+            elsif sync_sel = "10" then 
+                sync_in <= sync_minus;
+            end if;
+        
             if sync_in = '1' and sync_edge = '0' then
                 sync_edge <= '1';
                 counter <= (others => '0');
