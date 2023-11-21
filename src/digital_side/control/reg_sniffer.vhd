@@ -7,18 +7,18 @@ use IEEE.numeric_std.ALL;
 
 entity reg_sniffer is
   Port ( 
-    clk     : in std_logic;
-    rst     : in std_logic;
-    read_ram : in std_logic;
-    read_address : in STD_LOGIC_VECTOR(7 downto 0);
+    clk     : in std_logic := '0';
+    rst     : in std_logic := '0';
+    read_ram : in std_logic := '0';
+    read_address : in STD_LOGIC_VECTOR(7 downto 0) := (others => '0');
     ram_data_out : out STD_LOGIC_VECTOR(63 downto 0);
-    matrix_out_addr : in std_logic_vector(5 downto 0);
-    matrix_mask_out : in std_logic_vector(63 downto 0); -- the pin settings for a single oputput
-    matrix_load     : in std_logic;
-    out_addr       : in std_logic_vector(4 downto 0);
-    ch_addr        : in std_logic_vector(3 downto 0);
-    gain_in        : in std_logic_vector(4 downto 0);
-    anna_matrix_wr : in std_logic
+    matrix_out_addr : in std_logic_vector(5 downto 0) := (others => '0');
+    matrix_mask_out : in std_logic_vector(63 downto 0) := (others => '0'); -- the pin settings for a single oputput
+    matrix_load     : in std_logic := '0';
+    out_addr       : in std_logic_vector(4 downto 0) := (others => '0');
+    ch_addr        : in std_logic_vector(3 downto 0) := (others => '0');
+    gain_in        : in std_logic_vector(4 downto 0) := (others => '0');
+    anna_matrix_wr : in std_logic := '0'
   );
 end reg_sniffer;
 
@@ -27,7 +27,7 @@ architecture Behavioral of reg_sniffer is
 signal matrix_wr_detected : std_logic := '0';
 signal address_i :  STD_LOGIC_VECTOR(7 downto 0);
 signal data_in_i :  STD_LOGIC_VECTOR(63 downto 0);
-signal data_out_i :  STD_LOGIC_VECTOR(63 downto 0);
+signal data_out_i :  STD_LOGIC_VECTOR(63 downto 0) := (others => '0');
 signal address_ann :  integer;
 
 
