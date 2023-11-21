@@ -1,5 +1,5 @@
 Open_Spectre:
     url: https://github.com/cfoge/OPEN_SPECTRE-.git
-    folder: OPEN_SPECTRE-
+    folder: src/
     vhdl_symbol: ""
     verilog_symbol: ""
