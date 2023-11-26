@@ -34,6 +34,8 @@ entity test_digital_side is
   port
   (
     sys_clk   : in std_logic;
+    clk_x      : in std_logic;
+    clk_y       : in std_logic;
     clk_25_in : in std_logic;
     rst       : in std_logic;
     YCRCB   : out std_logic_vector (23 downto 0);
@@ -67,8 +69,8 @@ end test_digital_side;
 
 architecture Behavioral of test_digital_side is
   --Global Signals
-  signal clk_x : std_logic;
-  signal clk_y : std_logic;
+--  signal clk_x : std_logic;
+--  signal clk_y : std_logic;
   --Matrix Out to module in
   signal inv_in           : std_logic_vector(3 downto 0);
   signal xy_inv_in        : std_logic_vector(17 downto 0);
@@ -170,14 +172,14 @@ begin
   clk_x_out      <= clk_x;
   clk_y_out      <= clk_y;
 
-  vga_trimming_signals : entity work.vga_trimming_signals
-    port map
-    (
-      clk_25mhz => clk_25,
-      h_sync    => clk_x,
-      v_sync    => clk_y,
-      video_on  => video_on
-    );
+--  vga_trimming_signals : entity work.vga_trimming_signals
+--    port map
+--    (
+--      clk_25mhz => clk_25,
+--      h_sync    => clk_x,
+--      v_sync    => clk_y,
+--      video_on  => video_on
+--    );
 
   x_counter : entity work.counter
     port
@@ -376,7 +378,7 @@ begin
   ff_in_b                <= matrix_out(33);
 
   acm_out1 <= matrix_out(34);
-  acm_out1 <= matrix_out(35);
+  acm_out2 <= matrix_out(35);
   acm_out1_o <= acm_out1;
   acm_out2_o <= acm_out2;
 

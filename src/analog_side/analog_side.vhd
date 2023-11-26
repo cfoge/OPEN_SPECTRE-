@@ -72,10 +72,14 @@ entity analog_side is
 
     -- signals to the digital side
     vid_span : out std_logic_vector(11 downto 0);
+    
+    
     y_out    : out std_logic_vector(11 downto 0);
     u_out    : out std_logic_vector(11 downto 0);
     v_out    : out std_logic_vector(11 downto 0)
 --    outputs_o      : out array_12(19 downto 0) -- 12-bit wide outputs
+
+    
 
   );
 end analog_side;
