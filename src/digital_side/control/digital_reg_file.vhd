@@ -27,8 +27,8 @@ entity digital_reg_file is
     -- Comparitor
     vid_span : out std_logic_vector(7 downto 0);
     --analoge side
-    out_addr       : out std_logic_vector(3 downto 0);
-    ch_addr        : out std_logic_vector(3 downto 0);
+    out_addr       : out std_logic_vector(7 downto 0);
+    ch_addr        : out std_logic_vector(7 downto 0);
     gain_in        : out std_logic_vector(4 downto 0);
     anna_matrix_wr : out std_logic;
 
@@ -57,6 +57,7 @@ entity digital_reg_file is
     y_level  : out std_logic_vector(11 downto 0);
     cr_level : out std_logic_vector(11 downto 0);
     cb_level : out std_logic_vector(11 downto 0);
+    video_active_O : out std_logic;
 
     -- debug
     debug : out std_logic_vector(127 downto 0)
@@ -94,8 +95,8 @@ architecture RTL of digital_reg_file is
   signal inv_upper           : std_logic_vector(31 downto 0);
   signal vid_span_int        : std_logic_vector(7 downto 0);
   -- analoge side
-  signal out_addr_int       : std_logic_vector(3 downto 0);
-  signal ch_addr_int        : std_logic_vector(3 downto 0);
+  signal out_addr_int       : std_logic_vector(7 downto 0);
+  signal ch_addr_int        : std_logic_vector(7 downto 0);
   signal gain_in_int        : std_logic_vector(4 downto 0);
   signal anna_matrix_wr_int : std_logic;
 
@@ -124,6 +125,8 @@ architecture RTL of digital_reg_file is
   signal y_level_i  : std_logic_vector(11 downto 0);
   signal cr_level_i : std_logic_vector(11 downto 0);
   signal cb_level_i : std_logic_vector(11 downto 0);
+  signal video_active :  std_logic;
+  signal exception_addr :  std_logic;
 
 begin
 
@@ -175,20 +178,20 @@ begin
   regs(ra(x"24")) <= x"000000" & vid_span_int;
 
   -- analoge side matrix
-  regs(ra(x"28")) <= x"000000" & "0000" & out_addr_int;
-  regs(ra(x"2C")) <= x"000000" & "0000" & ch_addr_int;
+  regs(ra(x"28")) <= x"000000" & out_addr_int;
+  regs(ra(x"2C")) <= x"000000" & ch_addr_int;
   regs(ra(x"30")) <= x"000000" & "000" & gain_in_int;
   regs(ra(x"34")) <= x"000000" & "0000000" & anna_matrix_wr_int;
 
   -- shape gen 1 & 2
-  regs(ra(x"3C")) <= x"0000" & pos_h_i_2 & pos_h_i_1;
-  regs(ra(x"40")) <= x"0000" & pos_v_i_2 & pos_v_i_1;
-  regs(ra(x"44")) <= x"0000" & zoom_h_i_2 & zoom_h_i_1;
-  regs(ra(x"48")) <= x"0000" & zoom_v_i_2 & zoom_v_i_1;
-  regs(ra(x"4C")) <= x"0000" & circle_i_2 & circle_i_1;
-  regs(ra(x"50")) <= x"0000" & gear_i_2 & gear_i_1;
-  regs(ra(x"54")) <= x"0000" & lantern_i_2 & lantern_i_1;
-  regs(ra(x"5C")) <= x"0000" & fizz_i_2 & fizz_i_1;
+  regs(ra(x"3C")) <= x"000" & "00" & pos_h_i_2 & pos_h_i_1;
+  regs(ra(x"40")) <= x"000" & "00" & pos_v_i_2 & pos_v_i_1;
+  regs(ra(x"44")) <= x"000" & "00" & zoom_h_i_2 & zoom_h_i_1;
+  regs(ra(x"48")) <= x"000" & "00" & zoom_v_i_2 & zoom_v_i_1;
+  regs(ra(x"4C")) <= x"000" & "00" & circle_i_2 & circle_i_1;
+  regs(ra(x"50")) <= x"000" & "00" & gear_i_2 & gear_i_1;
+  regs(ra(x"54")) <= x"000" & "00" & lantern_i_2 & lantern_i_1;
+  regs(ra(x"5C")) <= x"000" & "00" & fizz_i_2 & fizz_i_1;
 
   -- random gen
   regs(ra(x"60")) <= x"0000" & "00" & cycle_recycle_i & slew_in_i & noise_freq_i;
@@ -196,6 +199,7 @@ begin
   -- output y,cr,cb levels
   regs(ra(x"64")) <= x"00" & cr_level_i & y_level_i;
   regs(ra(x"68")) <= x"00000" & cb_level_i;
+  regs(ra(x"6C")) <= x"000000" & "0000000" & video_active;
   -- osc 1 & 2 (put side by side in reg like shape gen)
 -- pitch
 -- deviation
@@ -204,7 +208,7 @@ begin
 
 
   -- other
-  regs(ra(x"90")) <= x"DEADBEEF"; --test reg 1
+  regs(ra(x"70")) <= x"DEADBEEF"; --test reg 1
   -- ---------------------------------------------------------------------------
   -- Write MUX
   ---------------------------------------------------------------------------
@@ -228,9 +232,9 @@ begin
           when x"24" =>
             vid_span_int <= write_reg(7 downto 0);
           when x"28" =>
-            out_addr_int <= write_reg(3 downto 0);
+            out_addr_int <= write_reg(7 downto 0);
           when x"2C" =>
-            ch_addr_int <= write_reg(3 downto 0);
+            ch_addr_int <= write_reg(7 downto 0);
           when x"30" =>
             gain_in_int <= write_reg(4 downto 0);
           when x"34" =>
@@ -271,9 +275,12 @@ begin
             y_level_i <= write_reg(11 downto 0);
             cr_level_i <= write_reg(23 downto 12);
             when x"68" =>
-            cb_level_i <= write_reg(12 downto 0);
+            cb_level_i <= write_reg(11 downto 0);
+            when x"6C" =>
+            video_active <= write_reg(0);
 
-
+            when others =>
+            exception_addr <= write_reg(0);
 
             -- do nothing
         end case;
@@ -320,5 +327,7 @@ begin
   y_level  <= y_level_i;
   cr_level <= cr_level_i;
   cb_level <= cb_level_i;
+  
+  video_active_O <= video_active;
 
 end RTL;

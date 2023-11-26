@@ -3,6 +3,7 @@
 ////////////////////////////////////////////////////////////////////////
 module HDMI_test(
 	input sys_clk, sw1,  // 40MHz SVGA
+	input Video_active,
 	input [23:0]video_in,
 	output [2:0] TMDSp, TMDSn,
 	output TMDSp_clock, TMDSn_clock,
@@ -20,7 +21,7 @@ reg [10:0] CounterX = 11'b00000000000; //define inital content for simulation to
 reg [10:0] CounterY = 11'b00000000000; //define inital content for simulation to work
 reg hSync = 1'b0, vSync = 1'b0, DrawArea = 1'b0;
 wire pixclk;
-always @(posedge pixclk) DrawArea <= (CounterX<800) && (CounterY<600);
+always @(posedge pixclk) DrawArea <= (CounterX<800) && (CounterY<600) && Video_active;
 
 always @(posedge pixclk) CounterX <= (CounterX==1055) ? 0 : CounterX+1;
 always @(posedge pixclk) if(CounterX==1055) CounterY <= (CounterY==627) ? 0 : CounterY+1;
