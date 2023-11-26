@@ -30,6 +30,8 @@ entity analog_side is
     clk      : in std_logic;
     rst      : in std_logic;
     wr       : in std_logic;
+    vsync    : in std_logic;
+    hsync    : in std_logic;
     out_addr : in std_logic_vector(7 downto 0);
     ch_addr  : in std_logic_vector(7 downto 0);
     gain_in  : in std_logic_vector(4 downto 0);
@@ -50,6 +52,7 @@ entity analog_side is
     gear_2        : in std_logic_vector(11 downto 0);
     lantern_2     : in std_logic_vector(11 downto 0);
     fizz_2        : in std_logic_vector(11 downto 0);
+    --random
     noise_freq    : in std_logic_vector(9 downto 0);
     slew_in       : in std_logic_vector(2 downto 0);
     cycle_recycle : in std_logic;
@@ -58,10 +61,17 @@ entity analog_side is
     u_alpha       : in std_logic_vector(11 downto 0);
     v_alpha       : in std_logic_vector(11 downto 0);
     
-       audio_in_t   : in std_logic_vector(9 downto 0);
+   audio_in_t   : in std_logic_vector(9 downto 0);
    audio_in_b   : in std_logic_vector(9 downto 0);
    audio_in_sig : in std_logic_vector(9 downto 0);
-
+   
+   --osc control
+   sync_sel_osc1 : in STD_LOGIC_VECTOR(1 downto 0);
+   osc_1_freq : in STD_LOGIC_VECTOR(9 downto 0);
+   osc_1_derv : in STD_LOGIC_VECTOR(9 downto 0);
+   sync_sel_osc2 : in STD_LOGIC_VECTOR(1 downto 0);
+   osc_2_freq : in STD_LOGIC_VECTOR(9 downto 0);
+   osc_2_derv : in STD_LOGIC_VECTOR(9 downto 0);
     --signals from the digital side
     audio_in_sig_i : in std_logic_vector(9 downto 0);
     dsm_hi_i       : in std_logic_vector(9 downto 0);
@@ -100,7 +110,9 @@ architecture Behavioral of analog_side is
   signal noise_1      : std_logic_vector(9 downto 0);
   signal noise_2      : std_logic_vector(9 downto 0);
 
-
+  --oscilator outputs
+  signal osc1_out_sq_i  : std_logic;
+  signal osc2_out_sq_i  : std_logic;
 
   -- analoge matrix yuv out
   signal y_anna : std_logic_vector(11 downto 0);
@@ -267,30 +279,33 @@ begin
       outputs      => outputs
     );
 
---    osc1: entity work.osc
---    port
---    map (
---    Clock      => clk,
---    rst        => rst,
---    freq    => ,
---    deviation  => ,
---    sync    => ,
---    sqr_out    => osc1_out_sq,
---    sin_out    => osc1_out_sin,
---    );
-
---    osc2: entity work.osc
---    port
---    map (
---    Clock      => clk,
---    rst        => rst,
---    freq    => ,
---    deviation  => ,
---    sync    => ,
---    sqr_out    => osc2_out_sq,
---    sin_out    => osc2_out_sin,
---    );
-
+    osc1: entity work.SinWaveGenerator
+        Port map(
+        clk => clk,
+        reset => rst,
+        freq => osc_1_freq,
+        sync_sel => sync_sel_osc1,
+        sync_plus => vsync,
+        sync_minus => hsync,
+        sin_out => osc1_out_sin,
+        square_out => osc1_out_sq_i
+        );
+        
+        osc1_out_sq <= (others => osc1_out_sq_i);
+        
+    osc2: entity work.SinWaveGenerator
+        Port map(
+        clk => clk,
+        reset => rst,
+        freq => osc_2_freq,
+        sync_sel => sync_sel_osc2,
+        sync_plus => vsync,
+        sync_minus => hsync,
+        sin_out => osc2_out_sin,
+        square_out => osc2_out_sq_i
+        );
+        
+        osc2_out_sq <= (others => osc2_out_sq_i);
 
   random_1 : entity work.random_voltage
     port map (

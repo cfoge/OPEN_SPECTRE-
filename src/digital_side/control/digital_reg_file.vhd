@@ -49,10 +49,17 @@ entity digital_reg_file is
     gear_2    : out std_logic_vector(8 downto 0);
     lantern_2 : out std_logic_vector(8 downto 0);
     fizz_2    : out std_logic_vector(8 downto 0);
-
+    --rand
     noise_freq    : out std_logic_vector(9 downto 0);
     slew_in       : out std_logic_vector(2 downto 0);
     cycle_recycle : out std_logic;
+   --osc 
+   sync_sel_osc1 : out STD_LOGIC_VECTOR(1 downto 0);
+   osc_1_freq : out STD_LOGIC_VECTOR(9 downto 0);
+   osc_1_derv : out STD_LOGIC_VECTOR(9 downto 0);
+   sync_sel_osc2 : out STD_LOGIC_VECTOR(1 downto 0);
+   osc_2_freq : out STD_LOGIC_VECTOR(9 downto 0);
+   osc_2_derv : out STD_LOGIC_VECTOR(9 downto 0);
 
     y_level  : out std_logic_vector(11 downto 0);
     cr_level : out std_logic_vector(11 downto 0);
@@ -287,7 +294,25 @@ begin
       end if;
     end if;
   end process;
-
+  
+  ----------------------------------------------------------------------------
+  -- Sniffer
+ -----------------------------------------------------------------------------
+--  dirty_dog_i : entity work.reg_sniffer
+--  Port map ( 
+--    clk     : in std_logic := '0';
+--    rst     : in std_logic := '0';
+--    read_ram : in std_logic := '0';
+--    read_address : in STD_LOGIC_VECTOR(7 downto 0) := (others => '0');
+--    ram_data_out : out STD_LOGIC_VECTOR(63 downto 0);
+--    matrix_out_addr => matrix_out_addr_int,
+--    matrix_mask_out : in std_logic_vector(63 downto 0) := (others => '0'); -- the pin settings for a single oputput
+--    matrix_load    => matrix_load_int,
+--    out_addr      out_addr_int,
+--    ch_addr        ch_addr_int,
+--    gain_in       gain_in_int,
+--    anna_matrix_wr => anna_matrix_wr_int
+--  );
   ---------------------------------------------------------------------------
   -- Output signals
   ---------------------------------------------------------------------------
