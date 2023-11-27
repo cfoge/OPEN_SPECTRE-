@@ -71,7 +71,9 @@ entity digital_reg_file is
     video_active_O : out std_logic;
 
     -- debug
-    debug : out std_logic_vector(127 downto 0)
+    debug : out std_logic_vector(127 downto 0);
+    exception_addr_o:out std_logic
+    
   );
 end entity digital_reg_file;
 
@@ -139,7 +141,7 @@ architecture RTL of digital_reg_file is
   signal cr_level_i : std_logic_vector(11 downto 0);
   signal cb_level_i : std_logic_vector(11 downto 0);
   signal video_active :  std_logic;
-  signal exception_addr :  std_logic;
+  signal exception_addr :  std_logic; -- toggles on address out of range error for reg file -- need better solution with reset + exception for sniffer
 
 begin
 
@@ -293,7 +295,7 @@ begin
             video_active <= write_reg(0);
 
             when others =>
-            exception_addr <= write_reg(0);
+                    exception_addr <= not exception_addr;
 
             -- do nothing
         end case;
