@@ -18,6 +18,10 @@ entity digital_reg_file is
     regs_addr    : in std_logic_vector(12 downto 0);
     regs_wr_data : in std_logic_vector(31 downto 0);
     regs_rd_data : out std_logic_vector(31 downto 0);
+        --- Sniffer interface
+    read_sniiffer: in std_logic;
+    sniff_rom_addr : in STD_LOGIC_VECTOR(7 downto 0) := (others => '0');
+    sniff_rom_data : out STD_LOGIC_VECTOR(63 downto 0);
     -- outptus
     -- Pinmatrix
     matrix_out_addr : out std_logic_vector(5 downto 0);
@@ -67,7 +71,9 @@ entity digital_reg_file is
     video_active_O : out std_logic;
 
     -- debug
-    debug : out std_logic_vector(127 downto 0)
+    debug : out std_logic_vector(127 downto 0);
+    exception_addr_o:out std_logic
+    
   );
 end entity digital_reg_file;
 
@@ -88,11 +94,13 @@ architecture RTL of digital_reg_file is
     return ret;
   end ra;
 
+  --cpu interface
   signal addr_reg  : std_logic_vector(12 downto 0);
   signal read_reg  : std_logic_vector(31 downto 0);
   signal write_reg : std_logic_vector(31 downto 0);
   signal write_en  : std_logic;
-
+  --sniffer interface
+  signal digital_matrix_data          : std_logic_vector(63 downto 0);
   --digital side
   signal matrix_out_addr_int : std_logic_vector(5 downto 0);
   signal matrix_load_int     : std_logic;
@@ -133,7 +141,7 @@ architecture RTL of digital_reg_file is
   signal cr_level_i : std_logic_vector(11 downto 0);
   signal cb_level_i : std_logic_vector(11 downto 0);
   signal video_active :  std_logic;
-  signal exception_addr :  std_logic;
+  signal exception_addr :  std_logic; -- toggles on address out of range error for reg file -- need better solution with reset + exception for sniffer
 
 begin
 
@@ -287,7 +295,7 @@ begin
             video_active <= write_reg(0);
 
             when others =>
-            exception_addr <= write_reg(0);
+                    exception_addr <= not exception_addr;
 
             -- do nothing
         end case;
@@ -296,23 +304,25 @@ begin
   end process;
   
   ----------------------------------------------------------------------------
-  -- Sniffer
+  -- Sniffer: reads analoge and digital martix writes and stores them to me read back later by processor
  -----------------------------------------------------------------------------
---  dirty_dog_i : entity work.reg_sniffer
---  Port map ( 
---    clk     : in std_logic := '0';
---    rst     : in std_logic := '0';
---    read_ram : in std_logic := '0';
---    read_address : in STD_LOGIC_VECTOR(7 downto 0) := (others => '0');
---    ram_data_out : out STD_LOGIC_VECTOR(63 downto 0);
---    matrix_out_addr => matrix_out_addr_int,
---    matrix_mask_out : in std_logic_vector(63 downto 0) := (others => '0'); -- the pin settings for a single oputput
---    matrix_load    => matrix_load_int,
---    out_addr      out_addr_int,
---    ch_addr        ch_addr_int,
---    gain_in       gain_in_int,
---    anna_matrix_wr => anna_matrix_wr_int
---  );
+ digital_matrix_data <= mask_upper & mask_lower;
+ 
+  dirty_dog_i : entity work.reg_sniffer
+  Port map ( 
+    clk    => regs_clk,
+    rst   => regs_rst,
+    read_ram => read_sniiffer,
+    read_address => sniff_rom_addr, 
+    ram_data_out => sniff_rom_data,
+    matrix_out_addr => matrix_out_addr_int,
+    matrix_mask_out => digital_matrix_data, -- the pin settings for a single oputput
+    matrix_load    => matrix_load_int,
+    out_addr   =>   out_addr_int,
+    ch_addr   =>     ch_addr_int,
+    gain_in   =>    gain_in_int,
+    anna_matrix_wr => anna_matrix_wr_int
+  );
   ---------------------------------------------------------------------------
   -- Output signals
   ---------------------------------------------------------------------------
