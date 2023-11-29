@@ -16,6 +16,9 @@ The aim of this project is to preserve this rare and unique video synth by recre
 For more info in this process take a look at: 
 [Cloning Hardware Ethos](top%20level%20design/Cloning%20a%20process%20not%20a%20device.md)
 
+#### 😎 Tooling 😎
+[Parse VHDL](https://github.com/cfoge/VHLD_parse) *Tool set built for this project
+
 #### 🍒Documentation🍒
 [Auto Generated Documentation](https://cfoge.github.io/OPEN_SPECTRE-/) **System CURENTLY BROKEN**
 
