@@ -219,7 +219,12 @@ begin
 -- pitch
 -- deviation
 --amplitude/sync (concatinated)
-
+--   sync_sel_osc1 : out STD_LOGIC_VECTOR(1 downto 0);
+--   osc_1_freq : out STD_LOGIC_VECTOR(9 downto 0);
+--   osc_1_derv : out STD_LOGIC_VECTOR(9 downto 0);
+--   sync_sel_osc2 : out STD_LOGIC_VECTOR(1 downto 0);
+--   osc_2_freq : out STD_LOGIC_VECTOR(9 downto 0);
+--   osc_2_derv : out STD_LOGIC_VECTOR(9 downto 0);
 
 
   -- other

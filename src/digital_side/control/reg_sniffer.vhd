@@ -15,8 +15,8 @@ entity reg_sniffer is
     matrix_out_addr : in std_logic_vector(5 downto 0) := (others => '0');
     matrix_mask_out : in std_logic_vector(63 downto 0) := (others => '0'); -- the pin settings for a single oputput
     matrix_load     : in std_logic := '0';
-    out_addr       : in std_logic_vector(4 downto 0) := (others => '0');
-    ch_addr        : in std_logic_vector(3 downto 0) := (others => '0');
+    out_addr       : in std_logic_vector(7 downto 0) := (others => '0');
+    ch_addr        : in std_logic_vector(7 downto 0) := (others => '0');
     gain_in        : in std_logic_vector(4 downto 0) := (others => '0');
     anna_matrix_wr : in std_logic := '0'
   );
@@ -33,7 +33,7 @@ signal address_ann :  integer;
 
 begin
 
-address_ann <= to_integer(unsigned(out_addr & ch_addr)) + 64;
+address_ann <= to_integer(unsigned(out_addr(6 downto 0) & ch_addr(4 downto 0))) + 64; -- need to check these widths are correct
 
  process (clk)
   begin

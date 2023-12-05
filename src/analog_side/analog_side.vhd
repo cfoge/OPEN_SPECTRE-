@@ -104,9 +104,9 @@ architecture Behavioral of analog_side is
 
   --matrix inputs
   signal osc1_out_sq  : std_logic_vector(9 downto 0);
-  signal osc1_out_sin : std_logic_vector(9 downto 0);
+  signal osc1_out_sin : std_logic_vector(11 downto 0);
   signal osc2_out_sq  : std_logic_vector(9 downto 0);
-  signal osc2_out_sin : std_logic_vector(9 downto 0);
+  signal osc2_out_sin : std_logic_vector(11 downto 0);
   signal noise_1      : std_logic_vector(9 downto 0);
   signal noise_2      : std_logic_vector(9 downto 0);
 
@@ -180,9 +180,9 @@ begin
 
   --analoge matrix inputs
   mixer_inputs(0)  <= osc1_out_sq  & "00";
-  mixer_inputs(1)  <= osc1_out_sin & "00";
+  mixer_inputs(1)  <= osc1_out_sin;
   mixer_inputs(2)  <= osc2_out_sq  & "00";
-  mixer_inputs(3)  <= osc2_out_sin & "00";
+  mixer_inputs(3)  <= osc2_out_sin ;
   mixer_inputs(4)  <= noise_1     & "00";
   mixer_inputs(5)  <= noise_2     & "00";
   mixer_inputs(6)  <= audio_in_t   & "00";
