@@ -29,7 +29,7 @@ For more info in this process take a look at:
 
 ##### TEST BUILD 1 NOTES:
 Simplified elements simulated, need to build a reg file to drive the muxes, there is too much logic for a vio32.
-Use microblaze or Zynq to drive a reg file that drives the 20 muxes for Luma 1, Luma2 chroma 1 and cheoma 2 (4bit select lines on the Mux)
+Use microblaze or Zynq to drive a reg file that drives the 20 muxes for Luma 1, Luma2 chroma 1 and chroma 2 (4bit select lines on the Mux)
 
 List of Modules and their current state: (out of date) [here!](modules.md)
 
@@ -44,18 +44,18 @@ Amazing! If you have FPGA and or Verilog/VHDL skills we would love to have you i
 - Look through the resources folder to get an idea of what the EMS SPECTRE is and how it works
 - Look at the top-level diagram and the list of modules
 #### Project Details For Contributors
-- RTL in VHDL or Verilog (VHDL prefered, no system Verilog 😎 sorry) 
-- One module per file with separate testbench (Verilog or VHDL test benches only)
+- RTL in VHDL or Verilog (VHDL preferred, no system Verilog 😎 sorry) 
+- One module per file with a separate testbench (Verilog or VHDL test benches only, *not everything has one yet, but it should)
 - Test benches should print out a message at the end confirming if they are successful or not
 - No HSL or auto-generated code, no busses or interfaces for now (will be busses later)
 - Use any software you like, but a Vivado project will be supplied
 - Follow the template for file headers and comments 📑
 - Follow the folder structure for the project 📂
-- All code must be opensource or MIT licence 👍
+- All code must be open source or MIT license 👍
 
 #### If after all that you still want to be involved you can do one of three things:
-- Email us at *OPEN.SPECTRE.PROJECT@gmail.com* and see what modules we need to be made at the moment
-- Branch the repo, make a module and submit a pull request 
+- Email us at *OPEN.SPECTRE.PROJECT@gmail.com* and see what modules we need to make at the moment
+- Branch the repo, make a module, and submit a pull request 
 - If you are not any good at git/GitHub, if you write any modules you can email them to us and we will integrate them into the project
 
 ### 🐙License🐙
@@ -70,7 +70,7 @@ Creative Commons CC BY-NC
 We are very thankful to have received donations from the following people:
 Chris Korvin,
 Jay Hotchin,
-Milton Grimshaw
+Milton Grimshaw and anonymous
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
