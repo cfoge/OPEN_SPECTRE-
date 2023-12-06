@@ -24,6 +24,7 @@ For more info in this process take a look at:
 
 #### 🥨Top Level Diagram🥨
 ![EMS Diagram](/top%20level%20design/ems_diagram.drawio.png)
+![Modules](/top%20level%20design/readme.md)
 
 #### 🍨List of Modules and Details Phase 1🍨(WIP)
 
