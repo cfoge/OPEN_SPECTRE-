@@ -18,10 +18,10 @@ entity digital_reg_file is
     regs_addr    : in std_logic_vector(12 downto 0);
     regs_wr_data : in std_logic_vector(31 downto 0);
     regs_rd_data : out std_logic_vector(31 downto 0);
-        --- Sniffer interface
-    read_sniiffer: in std_logic;
-    sniff_rom_addr : in STD_LOGIC_VECTOR(7 downto 0) := (others => '0');
-    sniff_rom_data : out STD_LOGIC_VECTOR(63 downto 0);
+    --- Sniffer interface
+    read_sniiffer  : in std_logic;
+    sniff_rom_addr : in std_logic_vector(7 downto 0) := (others => '0');
+    sniff_rom_data : out std_logic_vector(63 downto 0);
     -- outptus
     -- Pinmatrix
     matrix_out_addr : out std_logic_vector(5 downto 0);
@@ -57,23 +57,23 @@ entity digital_reg_file is
     noise_freq    : out std_logic_vector(9 downto 0);
     slew_in       : out std_logic_vector(2 downto 0);
     cycle_recycle : out std_logic;
-   --osc 
-   sync_sel_osc1 : out STD_LOGIC_VECTOR(1 downto 0);
-   osc_1_freq : out STD_LOGIC_VECTOR(9 downto 0);
-   osc_1_derv : out STD_LOGIC_VECTOR(9 downto 0);
-   sync_sel_osc2 : out STD_LOGIC_VECTOR(1 downto 0);
-   osc_2_freq : out STD_LOGIC_VECTOR(9 downto 0);
-   osc_2_derv : out STD_LOGIC_VECTOR(9 downto 0);
+    --osc 
+    sync_sel_osc1 : out std_logic_vector(1 downto 0);
+    osc_1_freq    : out std_logic_vector(9 downto 0);
+    osc_1_derv    : out std_logic_vector(9 downto 0);
+    sync_sel_osc2 : out std_logic_vector(1 downto 0);
+    osc_2_freq    : out std_logic_vector(9 downto 0);
+    osc_2_derv    : out std_logic_vector(9 downto 0);
 
-    y_level  : out std_logic_vector(11 downto 0);
-    cr_level : out std_logic_vector(11 downto 0);
-    cb_level : out std_logic_vector(11 downto 0);
+    y_level        : out std_logic_vector(11 downto 0);
+    cr_level       : out std_logic_vector(11 downto 0);
+    cb_level       : out std_logic_vector(11 downto 0);
     video_active_O : out std_logic;
 
     -- debug
-    debug : out std_logic_vector(127 downto 0);
-    exception_addr_o:out std_logic
-    
+    debug            : out std_logic_vector(127 downto 0);
+    exception_addr_o : out std_logic
+
   );
 end entity digital_reg_file;
 
@@ -100,7 +100,7 @@ architecture RTL of digital_reg_file is
   signal write_reg : std_logic_vector(31 downto 0);
   signal write_en  : std_logic;
   --sniffer interface
-  signal digital_matrix_data          : std_logic_vector(63 downto 0);
+  signal digital_matrix_data : std_logic_vector(63 downto 0);
   --digital side
   signal matrix_out_addr_int : std_logic_vector(5 downto 0);
   signal matrix_load_int     : std_logic;
@@ -137,11 +137,19 @@ architecture RTL of digital_reg_file is
   signal slew_in_i       : std_logic_vector(2 downto 0);
   signal cycle_recycle_i : std_logic;
   -- color output levels
-  signal y_level_i  : std_logic_vector(11 downto 0);
-  signal cr_level_i : std_logic_vector(11 downto 0);
-  signal cb_level_i : std_logic_vector(11 downto 0);
-  signal video_active :  std_logic;
-  signal exception_addr :  std_logic; -- toggles on address out of range error for reg file -- need better solution with reset + exception for sniffer
+  signal y_level_i      : std_logic_vector(11 downto 0);
+  signal cr_level_i     : std_logic_vector(11 downto 0);
+  signal cb_level_i     : std_logic_vector(11 downto 0);
+  signal video_active   : std_logic;
+  signal exception_addr : std_logic; -- toggles on address out of range error for reg file -- need better solution with reset + exception for sniffer
+
+  --osc 
+  signal sync_sel_osc1_i : std_logic_vector(1 downto 0);
+  signal osc_1_freq_i    : std_logic_vector(9 downto 0);
+  signal osc_1_derv_i    : std_logic_vector(9 downto 0);
+  signal sync_sel_osc2_i : std_logic_vector(1 downto 0);
+  signal osc_2_freq_i    : std_logic_vector(9 downto 0);
+  signal osc_2_derv_i    : std_logic_vector(9 downto 0);
 
 begin
 
@@ -216,19 +224,11 @@ begin
   regs(ra(x"68")) <= x"00000" & cb_level_i;
   regs(ra(x"6C")) <= x"000000" & "0000000" & video_active;
   -- osc 1 & 2 (put side by side in reg like shape gen)
--- pitch
--- deviation
---amplitude/sync (concatinated)
---   sync_sel_osc1 : out STD_LOGIC_VECTOR(1 downto 0);
---   osc_1_freq : out STD_LOGIC_VECTOR(9 downto 0);
---   osc_1_derv : out STD_LOGIC_VECTOR(9 downto 0);
---   sync_sel_osc2 : out STD_LOGIC_VECTOR(1 downto 0);
---   osc_2_freq : out STD_LOGIC_VECTOR(9 downto 0);
---   osc_2_derv : out STD_LOGIC_VECTOR(9 downto 0);
-
+  regs(ra(x"70")) <= x"00" & "00" & sync_sel_osc1_i & osc_1_derv_i & osc_1_freq_i;
+  regs(ra(x"74")) <= x"00" & "00" & sync_sel_osc2_i & osc_2_derv_i & osc_2_freq_i;
 
   -- other
-  regs(ra(x"70")) <= x"DEADBEEF"; --test reg 1
+  regs(ra(x"80")) <= x"DEADBEEF"; --test reg 1
   -- ---------------------------------------------------------------------------
   -- Write MUX
   ---------------------------------------------------------------------------
@@ -248,7 +248,7 @@ begin
           when x"1C" =>
             inv_lower <= write_reg;
           when x"20" =>
-            inv_lower <= write_reg;
+            inv_upper <= write_reg;
           when x"24" =>
             vid_span_int <= write_reg(7 downto 0);
           when x"28" =>
@@ -259,15 +259,12 @@ begin
             gain_in_int <= write_reg(4 downto 0);
           when x"34" =>
             anna_matrix_wr_int <= write_reg(0);
-          when x"38" =>
+          when x"3C" =>
             pos_h_i_1 <= write_reg(8 downto 0);
             pos_h_i_2 <= write_reg(17 downto 9);
-          when x"3C" =>
+          when x"40" =>
             pos_v_i_1 <= write_reg(8 downto 0);
             pos_v_i_2 <= write_reg(17 downto 9);
-          when x"40" =>
-            pos_h_i_1 <= write_reg(8 downto 0);
-            pos_h_i_2 <= write_reg(17 downto 9);
           when x"44" =>
             zoom_h_i_1 <= write_reg(8 downto 0);
             zoom_h_i_2 <= write_reg(17 downto 9);
@@ -283,7 +280,7 @@ begin
           when x"54" =>
             lantern_i_1 <= write_reg(8 downto 0);
             lantern_i_2 <= write_reg(17 downto 9);
-          when x"58" =>
+          when x"5C" =>
             fizz_i_1 <= write_reg(8 downto 0);
             fizz_i_2 <= write_reg(17 downto 9);
           when x"60" =>
@@ -291,43 +288,54 @@ begin
             slew_in_i       <= write_reg(12 downto 10);
             cycle_recycle_i <= write_reg(13);
 
-            when x"64" =>
-            y_level_i <= write_reg(11 downto 0);
+          when x"64" =>
+            y_level_i  <= write_reg(11 downto 0);
             cr_level_i <= write_reg(23 downto 12);
-            when x"68" =>
+          when x"68" =>
             cb_level_i <= write_reg(11 downto 0);
-            when x"6C" =>
+          when x"6C" =>
             video_active <= write_reg(0);
 
-            when others =>
-                    exception_addr <= not exception_addr;
+          when x"70" =>
+            osc_1_freq_i    <= write_reg(9 downto 0);
+            osc_1_derv_i       <= write_reg(12 downto 10);
+            sync_sel_osc1_i <= write_reg(14 downto 13);
+
+          when x"74" =>
+            osc_2_freq_i    <= write_reg(9 downto 0);
+            osc_2_derv_i       <= write_reg(12 downto 10);
+            sync_sel_osc2_i <= write_reg(14 downto 13);
+
+          when others =>
+            exception_addr <= not exception_addr;
 
             -- do nothing
         end case;
       end if;
     end if;
   end process;
-  
+
   ----------------------------------------------------------------------------
   -- Sniffer: reads analoge and digital martix writes and stores them to me read back later by processor
- -----------------------------------------------------------------------------
- digital_matrix_data <= mask_upper & mask_lower;
- 
+  -----------------------------------------------------------------------------
+  digital_matrix_data <= mask_upper & mask_lower;
+
   dirty_dog_i : entity work.reg_sniffer
-  Port map ( 
-    clk    => regs_clk,
-    rst   => regs_rst,
-    read_ram => read_sniiffer,
-    read_address => sniff_rom_addr, 
-    ram_data_out => sniff_rom_data,
-    matrix_out_addr => matrix_out_addr_int,
-    matrix_mask_out => digital_matrix_data, -- the pin settings for a single oputput
-    matrix_load    => matrix_load_int,
-    out_addr   =>   out_addr_int,
-    ch_addr   =>     ch_addr_int,
-    gain_in   =>    gain_in_int,
-    anna_matrix_wr => anna_matrix_wr_int
-  );
+    port map
+    (
+      clk             => regs_clk,
+      rst             => regs_rst,
+      read_ram        => read_sniiffer,
+      read_address    => sniff_rom_addr,
+      ram_data_out    => sniff_rom_data,
+      matrix_out_addr => matrix_out_addr_int,
+      matrix_mask_out => digital_matrix_data, -- the pin settings for a single oputput
+      matrix_load     => matrix_load_int,
+      out_addr        => out_addr_int,
+      ch_addr         => ch_addr_int,
+      gain_in         => gain_in_int,
+      anna_matrix_wr  => anna_matrix_wr_int
+    );
   ---------------------------------------------------------------------------
   -- Output signals
   ---------------------------------------------------------------------------
@@ -364,10 +372,18 @@ begin
   slew_in       <= slew_in_i;
   cycle_recycle <= cycle_recycle_i;
 
+  sync_sel_osc1 <= sync_sel_osc1_i; 
+  osc_1_derv <= osc_1_derv_i; 
+  osc_1_freq <= osc_1_freq_i;
+
+  sync_sel_osc2 <= sync_sel_osc2_i; 
+  osc_2_derv <= osc_2_derv_i; 
+  osc_2_freq <= osc_2_freq_i;
+
   y_level  <= y_level_i;
   cr_level <= cr_level_i;
   cb_level <= cb_level_i;
-  
+
   video_active_O <= video_active;
 
 end RTL;
