@@ -136,6 +136,14 @@ architecture RTL of digital_reg_file is
   signal noise_freq_i    : std_logic_vector(9 downto 0);
   signal slew_in_i       : std_logic_vector(2 downto 0);
   signal cycle_recycle_i : std_logic;
+   --osc 
+   signal sync_sel_osc1_i :  STD_LOGIC_VECTOR(1 downto 0);
+   signal osc_1_freq_i :  STD_LOGIC_VECTOR(9 downto 0);
+   signal osc_1_derv_i :  STD_LOGIC_VECTOR(9 downto 0);
+   signal sync_sel_osc2_i :  STD_LOGIC_VECTOR(1 downto 0);
+   signal osc_2_freq_i :  STD_LOGIC_VECTOR(9 downto 0);
+   signal osc_2_derv_i :  STD_LOGIC_VECTOR(9 downto 0);
+  
   -- color output levels
   signal y_level_i  : std_logic_vector(11 downto 0);
   signal cr_level_i : std_logic_vector(11 downto 0);
@@ -209,7 +217,12 @@ begin
   regs(ra(x"5C")) <= x"000" & "00" & fizz_i_2 & fizz_i_1;
 
   -- random gen
-  regs(ra(x"60")) <= x"0000" & "00" & cycle_recycle_i & slew_in_i & noise_freq_i;
+  regs(ra(x"60")) <= x"0000" & "00" & '0' & slew_in_i & noise_freq_i;
+  regs(ra(x"70")) <= x"000000" & "0000000" & cycle_recycle_i; -- put this back into the register above at some point
+  
+  -- OSC 1&2
+  regs(ra(x"74")) <= x"00" & "00" & sync_sel_osc1_i & osc_1_derv_i & osc_1_freq_i;
+  regs(ra(x"78")) <= x"00" & "00" & sync_sel_osc2_i & osc_2_derv_i & osc_2_freq_i;
 
   -- output y,cr,cb levels
   regs(ra(x"64")) <= x"00" & cr_level_i & y_level_i;
@@ -223,7 +236,7 @@ begin
 
 
   -- other
-  regs(ra(x"70")) <= x"DEADBEEF"; --test reg 1
+--  regs(ra(x"70")) <= x"DEADBEEF"; --test reg 1
   -- ---------------------------------------------------------------------------
   -- Write MUX
   ---------------------------------------------------------------------------
@@ -284,7 +297,17 @@ begin
           when x"60" =>
             noise_freq_i    <= write_reg(9 downto 0);
             slew_in_i       <= write_reg(12 downto 10);
-            cycle_recycle_i <= write_reg(13);
+--            cycle_recycle_i <= write_reg(13);
+          when x"70" => 
+            cycle_recycle_i <= write_reg(0);
+          when x"74" => 
+            sync_sel_osc1_i <= write_reg(21 downto 20);
+            osc_1_derv_i <= write_reg(19 downto 10);
+            osc_1_freq_i <= write_reg(9 downto 0);  
+          when x"78" => 
+            sync_sel_osc2_i <= write_reg(21 downto 20);
+            osc_2_derv_i <= write_reg(19 downto 10);
+            osc_2_freq_i <= write_reg(9 downto 0);
 
             when x"64" =>
             y_level_i <= write_reg(11 downto 0);
@@ -358,7 +381,14 @@ begin
   noise_freq    <= noise_freq_i;
   slew_in       <= slew_in_i;
   cycle_recycle <= cycle_recycle_i;
-
+  
+    sync_sel_osc1 <= sync_sel_osc1_i;
+    osc_1_freq <= osc_1_freq_i;
+    osc_1_derv  <= osc_1_derv_i; 
+    sync_sel_osc2 <= sync_sel_osc2_i;
+    osc_2_freq <= osc_2_freq_i;
+    osc_2_derv <= osc_2_derv_i;
+    
   y_level  <= y_level_i;
   cr_level <= cr_level_i;
   cb_level <= cb_level_i;
