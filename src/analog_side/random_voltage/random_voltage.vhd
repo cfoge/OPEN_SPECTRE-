@@ -41,7 +41,7 @@ architecture Behavioral of random_voltage is
 
 begin
 
-  
+  mux_in <= extra_in & noise_1_to_slew(0) & noise_freq(2 downto 0) & extra_in & noise_1_to_slew(1) & '1';
 
   sipo_clk <= cnt_match;
   
@@ -69,7 +69,7 @@ begin
         );
 
     mux_in_des <= mux_in(7 downto 0);
-    mux_sel_in <= spio_out_2(7)&spio_out_2(5)&(recycle xor extra_in);
+    mux_sel_in <= spio_out_2(7)&spio_out_2(5)&(recycle);
     
   mux_random : entity work.mux_8_to_1
       Port map( 
