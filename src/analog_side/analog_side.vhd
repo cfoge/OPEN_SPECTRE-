@@ -315,7 +315,8 @@ begin
     noise_freq => noise_freq,
     slew_in    => slew_in,
     noise_1    => noise_1,
-    noise_2    => noise_2
+    noise_2    => noise_2,
+    extra_in    => vsync
     );
 
 

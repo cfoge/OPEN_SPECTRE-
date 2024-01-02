@@ -23,7 +23,8 @@ entity random_voltage is
     noise_freq : in std_logic_vector(9 downto 0);
     slew_in : in std_logic_vector(2 downto 0);
     noise_1 : out std_logic_vector(9 downto 0);
-    noise_2 : out std_logic_vector(9 downto 0)
+    noise_2 : out std_logic_vector(9 downto 0);
+    extra_in   : in std_logic
     );
 
 end random_voltage;
@@ -68,7 +69,7 @@ begin
         );
 
     mux_in_des <= mux_in(7 downto 0);
-    mux_sel_in <= spio_out_2(7)&spio_out_2(5)&recycle;
+    mux_sel_in <= spio_out_2(7)&spio_out_2(5)&(recycle xor extra_in);
     
   mux_random : entity work.mux_8_to_1
       Port map( 
