@@ -18,7 +18,7 @@ end SinWaveGenerator;
 
 architecture Behavioral of SinWaveGenerator is
     signal counter : STD_LOGIC_VECTOR(9 downto 0) := (others => '0');
-    signal phase_accumulator : STD_LOGIC_VECTOR(11 downto 0) := (others => '0');  -- Use 12 bits for phase accumulator
+    signal phase_accumulator, scaled_freq: STD_LOGIC_VECTOR(11 downto 0) := (others => '0');  -- Use 12 bits for phase accumulator
     signal rom_address : integer range 0 to 180;
     signal sine_table : STD_LOGIC_VECTOR(11 downto 0);
     signal square_i : STD_LOGIC := '0';
@@ -391,6 +391,9 @@ architecture Behavioral of SinWaveGenerator is
     );
 
 begin
+
+    scaled_freq <= freq & "00";
+
     process(clk, reset, sync_in)
     begin
         if reset = '1' then
@@ -419,7 +422,7 @@ begin
                     else 
                     square_i <= '0';
                     end if; 
-                if counter = freq then
+                if counter = scaled_freq then
                     counter <= (others => '0');
                     phase_accumulator <= phase_accumulator + 1;
                     if phase_accumulator = "111111111111" then  -- Adjust the limit for 12 bits
