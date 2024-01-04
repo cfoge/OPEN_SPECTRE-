@@ -111,6 +111,7 @@ architecture Behavioral of analog_side is
   signal noise_2      : std_logic_vector(9 downto 0);
 
   --oscilator outputs
+  signal osc_1_derv_i , osc_2_derv_i : std_logic_vector(11 downto 0);
   signal osc1_out_sq_i  : std_logic;
   signal osc2_out_sq_i  : std_logic;
 
@@ -279,11 +280,15 @@ begin
       outputs      => outputs
     );
 
-    osc1: entity work.SinWaveGenerator
+    osc_1_derv_i <= osc_1_derv & "00";
+    osc_2_derv_i <= osc_2_derv & "00";
+
+    osc1: entity work.osc_wrapper
         Port map(
         clk => clk,
         reset => rst,
         freq => osc_1_freq,
+        dev_lv => osc_1_derv_i,
         sync_sel => sync_sel_osc1,
         sync_plus => vsync,
         sync_minus => hsync,
@@ -293,11 +298,12 @@ begin
         
         osc1_out_sq <= (others => osc1_out_sq_i);
         
-    osc2: entity work.SinWaveGenerator
+    osc2: entity work.osc_wrapper
         Port map(
         clk => clk,
         reset => rst,
         freq => osc_2_freq,
+        dev_lv => osc_2_derv_i,
         sync_sel => sync_sel_osc2,
         sync_plus => vsync,
         sync_minus => hsync,
