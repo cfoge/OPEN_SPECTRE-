@@ -20,37 +20,40 @@ end osc_wrapper;
 
 architecture Behavioral of osc_wrapper is
 
-  signal sin_out_main, sin_out_i, sin_1, sin_dev, sin_dev_d, sin_dev_d2, sin_dev_mix : std_logic_vector(11 downto 0);
-  signal freq_dev                                                       : std_logic_vector(9 downto 0);
+  signal sin_out_main,sin_out_main_div, sin_out_i, sin_1, sin_dev, sin_dev_mix_div, sin_dev_d, sin_dev_d2, sin_dev_mix : std_logic_vector(11 downto 0);
+  signal freq_main, freq_dev                                                   : std_logic_vector(9 downto 0);
   signal square_i                                                       : std_logic := '0';
 
 begin
-
-  freq_dev <= freq + 4;
+    freq_main <= freq + 4;
+    freq_dev <= freq;
   SinWaveGenerator : entity work.SinWaveGenerator
     port map
     (
       clk        => clk,
       reset      => reset,
-      freq       => freq,
+      freq       => freq_main,
       sync_sel   => sync_sel,
       sync_plus  => sync_plus,
       sync_minus => sync_minus,
       sin_out    => sin_out_main,
-      square_out => square_out
+      square_out => square_i
     );
+
+    sin_out_main_div <= '0' & sin_out_main(11 downto 1);
+    sin_dev_mix_div <= '0' & sin_dev_mix(11 downto 1);
 
   SinWaveGenerator_dev : entity work.SinWaveGenerator
     port
     map (
     clk        => clk,
     reset      => reset,
-    freq       => freq,
+    freq       => freq_dev,
     sync_sel   => sync_sel,
     sync_plus  => sync_plus,
     sync_minus => sync_minus,
     sin_out    => sin_dev,
-    square_out => square_out
+    square_out => open
     );
 
   process (clk) -- delay deviation oscilator mean that dev osc wont begin in phase with main osc
@@ -71,8 +74,8 @@ begin
     Adder_12bit_NoOverflow_inst : entity work.Adder_12bit_NoOverflow
       port
       map (
-      A        => sin_out_main,
-      B        => sin_dev_mix,
+      A        => sin_out_main_div,
+      B        => sin_dev_mix_div,
       Sum      => sin_out_i,
       Overflow => open
       );
