@@ -46,14 +46,14 @@ architecture Behavioral of shape_gen is
 
     signal pulse_x           : std_logic;
     signal ramp_x           : std_logic_vector(8 downto 0);
-    signal parab_x           : std_logic_vector(8 downto 0);
+    signal parab_x, parab_xa           : std_logic_vector(8 downto 0) := (others => '0');
     signal reset_ramp_x           : std_logic_vector(8 downto 0);
     signal reset_ramp_x_length           : unsigned(8 downto 0);
     signal noise_x           : std_logic_vector(8 downto 0);
     
     signal pulse_y           : std_logic;
     signal ramp_y           : std_logic_vector(8 downto 0);
-    signal parab_y           : std_logic_vector(8 downto 0);
+    signal parab_y, parab_ya           : std_logic_vector(8 downto 0) := (others => '0');
     signal reset_ramp_y           : std_logic_vector(8 downto 0);
     signal reset_ramp_y_length           : unsigned(8 downto 0);
     signal noise_y           : std_logic_vector(8 downto 0);
@@ -117,28 +117,28 @@ port map(
         begin
             if rising_edge(clk) then
                 if unsigned(counter_x) > unsigned(pos_h) then
-                    parab_x <= STD_LOGIC_VECTOR(unsigned(counter_x) - unsigned(pos_h) );
+                    parab_xa <= STD_LOGIC_VECTOR(unsigned(counter_x) - unsigned(pos_h) );
                 else
-                    parab_x <= STD_LOGIC_VECTOR(unsigned(pos_h) - unsigned(counter_x));
+                    parab_xa <= STD_LOGIC_VECTOR(unsigned(pos_h) - unsigned(counter_x));
                 end if;
                 
                 if unsigned(counter_y) > unsigned(pos_v) then
-                    parab_y <= STD_LOGIC_VECTOR(unsigned(counter_y) - unsigned(pos_v));
+                    parab_ya <= STD_LOGIC_VECTOR(unsigned(counter_y) - unsigned(pos_v));
                 else
-                    parab_y <= STD_LOGIC_VECTOR(unsigned(pos_v) - unsigned(counter_y));
+                    parab_ya <= STD_LOGIC_VECTOR(unsigned(pos_v) - unsigned(counter_y));
                 end if;
                 
---                if unsigned(zoom_h) > unsigned(parab_x)+1 then
---                    parab_x <= (others => '0');
---                else
---                    parab_x <= STD_LOGIC_VECTOR(unsigned(parab_x) - unsigned(zoom_h));
---                end if;
+                if unsigned(zoom_h) >= unsigned(parab_xa) then
+                    parab_x <= (others => '0');
+                else
+                    parab_x <= STD_LOGIC_VECTOR(unsigned(parab_xa) - unsigned(zoom_h));
+                end if;
                 
---                if unsigned(zoom_v) > unsigned(parab_y)+1 then
---                    parab_y <= (others => '0');
---                else
---                    parab_y <= STD_LOGIC_VECTOR(unsigned(parab_y) - unsigned(zoom_v));
---                end if;
+                if unsigned(zoom_v) >= unsigned(parab_ya) then
+                    parab_y <= (others => '0');
+                else
+                    parab_y <= STD_LOGIC_VECTOR(unsigned(parab_ya) - unsigned(zoom_v));
+                end if;
                 
             end if;
         end process;
