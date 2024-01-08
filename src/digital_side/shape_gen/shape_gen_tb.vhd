@@ -92,7 +92,7 @@ begin
     
     zoom_h_tb <= "111111111";    
     zoom_v_tb <=  "111111111";  
-    circle_i_tb <= "110000000";
+    circle_i_tb <= "000011000";
     
     
         rst_tb <= '1';
@@ -113,7 +113,7 @@ begin
             while true loop
             -- Increment counter_x and counter_y by 1
             counter_y_tb <= std_logic_vector(unsigned(counter_y_tb) + 1);
-            wait for 100 ns;
+            wait for 5120 ns;
         end loop;
 end process;
     -- Add assertions or other analysis processes if needed

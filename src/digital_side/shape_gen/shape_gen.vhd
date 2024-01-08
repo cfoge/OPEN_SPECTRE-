@@ -60,8 +60,10 @@ architecture Behavioral of shape_gen is
     
     signal mixed_parab        : std_logic_vector(8 downto 0);
     signal mixed_parab_i        : std_logic_vector(18 downto 0);
+    signal mixed_parab_cap        : std_logic_vector(18 downto 0);
     signal mixed_parab_t2        : std_logic_vector(18 downto 0);    
     signal mixed_parab_t1        : integer; 
+    
     
     signal moonlignt           : std_logic;
     signal criscross_inverted           : std_logic;
@@ -105,10 +107,32 @@ port map(
         zoom          => std_logic_vector(reset_ramp_x_length),
         pulse_out     => pulse_x,
         ramp_out      => ramp_x,
-        parab_out    => parab_x,
+        parab_out    => open,
         reset_ramp    => reset_ramp_x,
         noise_out     => noise_x
         );
+        
+        process (clk) 
+        begin
+            if rising_edge(clk) then
+                if unsigned(counter_x) > unsigned(pos_h) then
+                    parab_x <= STD_LOGIC_VECTOR(unsigned(counter_x) - unsigned(pos_h));
+                else
+                    parab_x <= STD_LOGIC_VECTOR(unsigned(pos_h) - unsigned(counter_x));
+                end if;
+                
+                if unsigned(counter_y) > unsigned(pos_v) then
+                    parab_y <= STD_LOGIC_VECTOR(unsigned(counter_y) - unsigned(pos_v));
+                else
+                    parab_y <= STD_LOGIC_VECTOR(unsigned(pos_v) - unsigned(counter_y));
+                end if;
+               
+            end if;
+        end process;
+        
+        
+       
+       
         
 y_pulse_gen : entity work.shapes_pulse_gen
 port map(
@@ -120,7 +144,7 @@ port map(
         zoom          => std_logic_vector(reset_ramp_y_length),
         pulse_out     => pulse_y,
         ramp_out      => ramp_y,
-        parab_out    => parab_y,
+        parab_out    => open,
         reset_ramp    => reset_ramp_y,
         noise_out     => noise_y
         );
@@ -140,6 +164,11 @@ process (clk)
             end if;
         end if;
 
+    if to_integer(unsigned(mixed_parab_i)) > 511 then
+        mixed_parab_cap <= (others => '1');
+        else 
+        mixed_parab_cap <=  mixed_parab_i;
+    end if;
         
     end if;
     end process;
@@ -150,7 +179,7 @@ port map(
        result => mixed_parab_i
         );
 
-mixed_parab <= mixed_parab_i(9 downto 1);
+mixed_parab <= mixed_parab_cap(8 downto 0);
 
 shape_logic : process (clk)
 begin
