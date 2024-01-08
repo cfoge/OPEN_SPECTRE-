@@ -60,6 +60,7 @@ architecture Behavioral of shape_gen is
     
     signal mixed_parab        : std_logic_vector(8 downto 0);
     signal mixed_parab_i        : std_logic_vector(18 downto 0);
+
     signal mixed_parab_cap        : std_logic_vector(18 downto 0);
     signal mixed_parab_t2        : std_logic_vector(18 downto 0);    
     signal mixed_parab_t1        : integer; 
@@ -116,7 +117,7 @@ port map(
         begin
             if rising_edge(clk) then
                 if unsigned(counter_x) > unsigned(pos_h) then
-                    parab_x <= STD_LOGIC_VECTOR(unsigned(counter_x) - unsigned(pos_h));
+                    parab_x <= STD_LOGIC_VECTOR(unsigned(counter_x) - unsigned(pos_h) );
                 else
                     parab_x <= STD_LOGIC_VECTOR(unsigned(pos_h) - unsigned(counter_x));
                 end if;
@@ -126,7 +127,19 @@ port map(
                 else
                     parab_y <= STD_LOGIC_VECTOR(unsigned(pos_v) - unsigned(counter_y));
                 end if;
-               
+                
+--                if unsigned(zoom_h) > unsigned(parab_x)+1 then
+--                    parab_x <= (others => '0');
+--                else
+--                    parab_x <= STD_LOGIC_VECTOR(unsigned(parab_x) - unsigned(zoom_h));
+--                end if;
+                
+--                if unsigned(zoom_v) > unsigned(parab_y)+1 then
+--                    parab_y <= (others => '0');
+--                else
+--                    parab_y <= STD_LOGIC_VECTOR(unsigned(parab_y) - unsigned(zoom_v));
+--                end if;
+                
             end if;
         end process;
         
@@ -153,14 +166,18 @@ port map(
 process (clk) 
     begin
         if rising_edge(clk) then
-        mixed_parab_t1 <=(to_integer(unsigned(parab_x) * unsigned(parab_x)) + to_integer(unsigned(parab_y) * unsigned(parab_y)));
+        mixed_parab_t1 <=(to_integer((unsigned(parab_x) * unsigned(parab_x))+ unsigned(zoom_h)) + (to_integer((unsigned(parab_y) * unsigned(parab_y))+ unsigned(zoom_h))));
+        
+--        mixed_parab_t1 <=(to_integer((unsigned(parab_x)+ unsigned(zoom_h)) * (unsigned(parab_y)+ unsigned(zoom_v)))) + (to_integer((unsigned(parab_y)+ unsigned(zoom_v)) * (unsigned(parab_x)+ unsigned(zoom_h))));
+
+
+        
         if (mixed_parab_t1 > 524287) then
             mixed_parab_t2 <= (others => '1');
         else     
-            if pulse_y = '1' then
-                mixed_parab_t2 <= std_logic_vector(to_unsigned(mixed_parab_t1, mixed_parab_t2'length));
-            else
-                mixed_parab_t2 <= "1111111111111111111";
+      
+          mixed_parab_t2 <= std_logic_vector(to_unsigned(mixed_parab_t1, mixed_parab_t2'length));
+    
             end if;
         end if;
 
@@ -170,7 +187,7 @@ process (clk)
         mixed_parab_cap <=  mixed_parab_i;
     end if;
         
-    end if;
+
     end process;
 
 sqrt_parab : entity work.SQRT
