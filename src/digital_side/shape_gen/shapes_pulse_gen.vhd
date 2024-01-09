@@ -199,6 +199,7 @@ begin
         port map (
             i_clk => ramp_tick, -- need to slow down more maybe devide counter change by 2 or 4
             i_rstb => rst,
+            i_preload => "000000000",
             i_sync_reset =>  pulse_active,
             i_fcw => reset_ramp_zoom,
             o_nco => rst_ramp_out

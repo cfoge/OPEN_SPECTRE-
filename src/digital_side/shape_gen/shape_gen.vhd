@@ -47,7 +47,7 @@ architecture Behavioral of shape_gen is
     signal pulse_x           : std_logic;
     signal ramp_x           : std_logic_vector(8 downto 0);
     signal parab_x, parab_xa           : std_logic_vector(8 downto 0) := (others => '0');
-    signal reset_ramp_x           : std_logic_vector(8 downto 0);
+    signal reset_ramp_x, reset_ramp_xd           : std_logic_vector(8 downto 0);
     signal reset_ramp_x_length           : unsigned(8 downto 0);
     signal noise_x           : std_logic_vector(8 downto 0);
     
@@ -87,6 +87,14 @@ architecture Behavioral of shape_gen is
     signal shape_a_sel        : std_logic_vector(2 downto 0) := "110";
     signal shape_b_sel        : std_logic_vector(2 downto 0) := "000";
     
+
+    signal sync_rst_x : std_logic;
+    signal sync_rst_y     : std_logic;
+    signal preload_x           : std_logic_vector(8 downto 0);
+    signal preload_y           : std_logic_vector(8 downto 0);
+
+
+    
     --mux function
  function multi321 (A,B: in std_logic_vector) return std_logic is
   begin
@@ -102,6 +110,7 @@ x_pulse_gen : entity work.shapes_pulse_gen_x
 port map(
         clk          => clk,
         rst           => rst,
+        sync_rst_i  => sync_rst_x,
         counter_in    => counter_x,
         pulse_start   => pos_h,
         pulse_len     => zoom_h,
@@ -109,11 +118,12 @@ port map(
         pulse_out     => pulse_x,
         ramp_out      => ramp_x,
         parab_out    => open,
+        i_preload   => preload_x,
         reset_ramp    => reset_ramp_x,
         noise_out     => noise_x
         );
         
-        process (clk) 
+        process (clk) -- avoild negitive number wraparound and handle zoom - from parabola
         begin
             if rising_edge(clk) then
                 if unsigned(counter_x) > unsigned(pos_h) then
@@ -139,6 +149,35 @@ port map(
                 else
                     parab_y <= STD_LOGIC_VECTOR(unsigned(parab_ya) - unsigned(zoom_v));
                 end if;
+                
+            end if;
+        end process;
+        
+        process (clk) --- handle reset ramp not returning to 0 after first ramp
+        begin
+            if rising_edge(clk) then
+                reset_ramp_xd <= reset_ramp_x;
+            
+                if (unsigned(counter_x) rem unsigned(zoom_h(4 downto 0) & "0000")  = 0) or (unsigned(reset_ramp_x)>= 254) then
+                    sync_rst_x <= '0';
+                    else 
+                    sync_rst_x <= '1';
+                end if;
+                
+                if unsigned(counter_y) = 0 then
+                    sync_rst_y <= '0';
+                    else 
+                    sync_rst_y <= '1';
+                end if;
+                
+                if unsigned(counter_x) < unsigned(zoom_h) then
+                    
+                         preload_x <= (others => '0');
+                    else 
+                        preload_x <= "010000000";
+                 
+                end if;
+                
                 
             end if;
         end process;
