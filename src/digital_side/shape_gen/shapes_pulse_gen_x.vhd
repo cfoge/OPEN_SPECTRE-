@@ -51,6 +51,7 @@ architecture Behavioral of shapes_pulse_gen_x is
 
     signal rst_ramp_out           : std_logic_vector(8 downto 0);
     signal rst_ramp_mux           : std_logic_vector(8 downto 0);
+    signal noise_i                : std_logic_vector(8 downto 0);
     
 
 begin
@@ -190,7 +191,7 @@ begin
             port map (
             clk => clk,
             reset => rst,
-            q => noise_out
+            q => noise_i
         );
     -- Random reset ramp * is it actual random?
         rst_ramp: entity work.nco
@@ -207,6 +208,7 @@ begin
     ramp_out <= std_logic_vector(ramp);
     parab_out <= std_logic_vector(parab);
     reset_ramp <= '0' & rst_ramp_out(8 downto 1);
+    noise_out <= noise_i(0) & noise_i(3) & noise_i(2 downto 1) & noise_i(8 downto 4);
 
 end architecture Behavioral;
 
