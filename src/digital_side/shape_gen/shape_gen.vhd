@@ -48,7 +48,7 @@ architecture Behavioral of shape_gen is
     signal ramp_x           : std_logic_vector(8 downto 0);
     signal parab_x, parab_xa           : std_logic_vector(8 downto 0) := (others => '0');
     signal reset_ramp_x, reset_ramp_xd           : std_logic_vector(8 downto 0);
-    signal reset_ramp_x_length           : unsigned(8 downto 0);
+    signal reset_ramp_x_length           : std_logic_vector(8 downto 0);
     signal noise_x           : std_logic_vector(8 downto 0);
     
     signal pulse_y           : std_logic;
@@ -89,11 +89,17 @@ architecture Behavioral of shape_gen is
     
 
     signal sync_rst_x : std_logic;
+        signal first_ramp_x : std_logic;
+        signal first_ramp_length        : integer; 
+
     signal sync_rst_y     : std_logic;
     signal preload_x           : std_logic_vector(8 downto 0);
     signal preload_y           : std_logic_vector(8 downto 0);
 
-
+type t_divition_lut is array (0 to 2**9) of integer range 0 to 2**9-1;
+constant C_DIV_LUT  : t_divition_lut := (
+512,256,171,128,102,85,73,64,57,51,47,43,39,37,34,32,30,28,27,26,24,23,22,21,20,20,19,18,18,17,17,16,16,15,15,14,14,13,13,13,12,12,12,12,11,11,11,11,10,10,10,10,10,9,9,9,9,9,9,9,8,8,8,8,8,8,8,8,7,7,7,7,7,7,7,7,7,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+);
     
     --mux function
  function multi321 (A,B: in std_logic_vector) return std_logic is
@@ -103,8 +109,11 @@ architecture Behavioral of shape_gen is
 
 begin
 
-reset_ramp_x_length <= shift_right(unsigned(zoom_h), 2);  -- zoom value x 4 so that the reset ram runs faster then h zoom but has a relation to it
-reset_ramp_y_length <= shift_right(unsigned(zoom_v), 2); 
+--reset_ramp_x_length <= shift_left(unsigned(zoom_h), 0);  -- zoom value x 4 so that the reset ram runs faster then h zoom but has a relation to it
+reset_ramp_y_length <= shift_left(unsigned(zoom_v), 0); 
+
+reset_ramp_x_length <= std_logic_vector(to_unsigned(C_DIV_LUT(to_integer(unsigned(zoom_h))),9));
+
 
 x_pulse_gen : entity work.shapes_pulse_gen_x
 port map(
@@ -114,7 +123,7 @@ port map(
         counter_in    => counter_x,
         pulse_start   => pos_h,
         pulse_len     => zoom_h,
-        zoom          => std_logic_vector(reset_ramp_x_length),
+        zoom          => zoom_h,--std_logic_vector(reset_ramp_x_length),
         pulse_out     => pulse_x,
         ramp_out      => ramp_x,
         parab_out    => open,
@@ -157,14 +166,17 @@ port map(
         begin
             if rising_edge(clk) then
                 reset_ramp_xd <= reset_ramp_x;
-                if (unsigned(counter_x) < unsigned(zoom_h)) then
-                    if (unsigned(counter_x) rem unsigned(zoom_h(4 downto 0) & "0000")  = 0) then
+                if (unsigned(counter_x) < unsigned(reset_ramp_x_length)) then
+                    first_ramp_x <= '1';
+ 
+                    if (unsigned(counter_x) rem unsigned(reset_ramp_x_length)  = 0) then
                         sync_rst_x <= '0';
                     else 
                         sync_rst_x <= '1';
                     end if;
                 else
-                        if (unsigned(reset_ramp_x)>= 254) then
+                        first_ramp_x <= '0';
+                        if (unsigned(reset_ramp_x)>= 251) then
                             sync_rst_x <= '0';
                         else 
                             sync_rst_x <= '1';
@@ -173,7 +185,7 @@ port map(
            
    
                 
-                if unsigned(counter_x) < unsigned(zoom_h) then
+                if unsigned(counter_x) < unsigned(reset_ramp_x_length) then
                     
                          preload_x <= (others => '0');
                     else 

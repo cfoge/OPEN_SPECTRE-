@@ -60,7 +60,7 @@ architecture Behavioral of shapes_pulse_gen_x is
     
 
 begin
-    reset_ramp_zoom <=  zoom(7 downto 0) & '0';
+    reset_ramp_zoom <=  zoom(8 downto 0);-- & '0';
 
  
 

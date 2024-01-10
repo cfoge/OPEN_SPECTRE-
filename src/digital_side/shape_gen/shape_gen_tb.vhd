@@ -90,17 +90,19 @@ begin
     stimulus_process: process
     begin
     
-    zoom_h_tb <= "000001000";    
+
+        zoom_h_tb <= "000001000";    
     zoom_v_tb <=  "000010000";  
     circle_i_tb <= "001011000";
     pos_h_tb <= "100000000";
     pos_v_tb <= "100000000";
     
     
-    
         rst_tb <= '1';
         wait for 10 ns;
         rst_tb <= '0';
+        wait for 10ns;
+
 
         while true loop
             -- Increment counter_x and counter_y by 1

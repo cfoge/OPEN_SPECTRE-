@@ -26,10 +26,10 @@ begin
       r_fcw        <= (others => '0');
       r_nco        <= unsigned(i_preload); -- Initialize with preload value
     elsif(rising_edge(i_clk)) then
-      r_sync_reset <= i_sync_reset;
+--      r_sync_reset <= i_sync_reset;
       r_fcw        <= unsigned(i_fcw);
 
-      if(r_sync_reset = '0') then
+      if(i_sync_reset = '0') then
         r_nco <= unsigned(i_preload); -- Reset to preload value
       else
         r_nco <= r_nco + r_fcw;
