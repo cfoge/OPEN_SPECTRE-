@@ -157,18 +157,21 @@ port map(
         begin
             if rising_edge(clk) then
                 reset_ramp_xd <= reset_ramp_x;
-            
-                if (unsigned(counter_x) rem unsigned(zoom_h(4 downto 0) & "0000")  = 0) or (unsigned(reset_ramp_x)>= 254) then
-                    sync_rst_x <= '0';
+                if (unsigned(counter_x) < unsigned(zoom_h)) then
+                    if (unsigned(counter_x) rem unsigned(zoom_h(4 downto 0) & "0000")  = 0) then
+                        sync_rst_x <= '0';
                     else 
-                    sync_rst_x <= '1';
+                        sync_rst_x <= '1';
+                    end if;
+                else
+                        if (unsigned(reset_ramp_x)>= 254) then
+                            sync_rst_x <= '0';
+                        else 
+                            sync_rst_x <= '1';
+                        end if;
                 end if;
-                
-                if unsigned(counter_y) = 0 then
-                    sync_rst_y <= '0';
-                    else 
-                    sync_rst_y <= '1';
-                end if;
+           
+   
                 
                 if unsigned(counter_x) < unsigned(zoom_h) then
                     
