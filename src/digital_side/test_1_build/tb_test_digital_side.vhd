@@ -15,7 +15,26 @@ architecture behavior of tb_test_digital_side is
             matrix_in_addr: in std_logic_vector(5 downto 0);
             matrix_load: in STD_LOGIC;
             clk_x_out  : out STD_LOGIC;
-            clk_y_out  : out STD_LOGIC
+            clk_y_out  : out STD_LOGIC;
+
+                                     -- Shape gens move to anagloge side later?
+        sgen_pos_h_0   : in  std_logic_vector(8 downto 0);
+        sgen_pos_v_0   : in  std_logic_vector(8 downto 0);
+        sgen_zoom_h_0   : in  std_logic_vector(8 downto 0);
+        sgen_zoom_v_0   : in  std_logic_vector(8 downto 0);
+        sgen_circle_i_0   : in  std_logic_vector(8 downto 0);
+        sgen_gear_i_0   : in  std_logic_vector(8 downto 0);
+        sgen_lantern_i_0   : in  std_logic_vector(8 downto 0);
+        sgen_fizz_i_0   : in  std_logic_vector(8 downto 0);
+        
+        sgen_pos_h_1   : in  std_logic_vector(8 downto 0);
+        sgen_pos_v_1   : in  std_logic_vector(8 downto 0);
+        sgen_zoom_h_1   : in  std_logic_vector(8 downto 0);
+        sgen_zoom_v_1   : in  std_logic_vector(8 downto 0);
+        sgen_circle_i_1   : in  std_logic_vector(8 downto 0);
+        sgen_gear_i_1   : in  std_logic_vector(8 downto 0);
+        sgen_lantern_i_1   : in  std_logic_vector(8 downto 0);
+        sgen_fizz_i_1   : in  std_logic_vector(8 downto 0)
         );
     end component;
     
@@ -43,6 +62,24 @@ architecture behavior of tb_test_digital_side is
     signal matrix_cs:  std_logic_vector(3 downto 0);
     signal clk_x_out: std_logic := '0';
     signal clk_Y_out: std_logic := '0';
+
+    signal    sgen_pos_h_0   :   std_logic_vector(8 downto 0);
+    signal    sgen_pos_v_0   :   std_logic_vector(8 downto 0);
+     signal   sgen_zoom_h_0   :   std_logic_vector(8 downto 0);
+    signal    sgen_zoom_v_0   :   std_logic_vector(8 downto 0);
+    signal    sgen_circle_i_0   :   std_logic_vector(8 downto 0);
+    signal    sgen_gear_i_0   :   std_logic_vector(8 downto 0);
+    signal    sgen_lantern_i_0   :   std_logic_vector(8 downto 0);
+    signal    sgen_fizz_i_0   :   std_logic_vector(8 downto 0);   
+    signal    sgen_pos_h_1   :   std_logic_vector(8 downto 0);
+    signal    sgen_pos_v_1   :   std_logic_vector(8 downto 0);
+    signal    sgen_zoom_h_1   :   std_logic_vector(8 downto 0);
+    signal    sgen_zoom_v_1   :   std_logic_vector(8 downto 0);
+    signal    sgen_circle_i_1   :   std_logic_vector(8 downto 0);
+    signal   sgen_gear_i_1   :   std_logic_vector(8 downto 0);
+    signal   sgen_lantern_i_1   :   std_logic_vector(8 downto 0);
+    signal    sgen_fizz_i_1   :   std_logic_vector(8 downto 0);
+    
     
   
 
@@ -58,7 +95,24 @@ begin
             matrix_in_addr => matrix_in_addr,
             matrix_load => matrix_load,
             clk_x_out => clk_x_out,
-            clk_Y_out => clk_Y_out
+            clk_Y_out => clk_Y_out,
+                    sgen_pos_h_0 => sgen_pos_h_0,
+        sgen_pos_v_0 =>  sgen_pos_v_0,
+        sgen_zoom_h_0 =>  sgen_zoom_h_0,
+        sgen_zoom_v_0 => sgen_zoom_v_0 ,
+        sgen_circle_i_0  => sgen_circle_i_0,
+        sgen_gear_i_0 => sgen_gear_i_0,
+        sgen_lantern_i_0 => sgen_lantern_i_0,
+        sgen_fizz_i_0  =>sgen_fizz_i_0,
+        
+        sgen_pos_h_1 =>  sgen_pos_h_1,
+        sgen_pos_v_1 =>  sgen_pos_v_1,
+        sgen_zoom_h_1 => sgen_zoom_h_1,
+        sgen_zoom_v_1  => sgen_zoom_v_1,
+        sgen_circle_i_1 => sgen_circle_i_1,
+        sgen_gear_i_1  => sgen_gear_i_1,
+        sgen_lantern_i_1 => sgen_lantern_i_1,
+        sgen_fizz_i_1   => sgen_fizz_i_1
         );
         
         -- logging
@@ -85,6 +139,15 @@ begin
 
     simulation: process
     begin
+
+        sgen_pos_h_0 <= "000100000";
+        sgen_pos_v_0 <= "000100000";
+        sgen_zoom_h_0 <= "001011110";
+        sgen_zoom_v_0 <= "001011110";
+        sgen_circle_i_0  <= "001100000";
+        sgen_gear_i_0 <= "011100000";
+        sgen_lantern_i_0 <= "000100110";
+        sgen_fizz_i_0 <= "000101000";
         -- Reset
         rst <= '0';
         wait for 100 ns;
