@@ -47,6 +47,25 @@ entity test_digital_side is
     invert_matrix  : in std_logic_vector(63 downto 0); --inverts a matrix input globaly
     vid_span       : in std_logic_vector(7 downto 0);
 
+    -- Shape gens move to anagloge side later?
+        sgen_pos_h_0   : in  std_logic_vector(8 downto 0);
+        sgen_pos_v_0   : in  std_logic_vector(8 downto 0);
+        sgen_zoom_h_0   : in  std_logic_vector(8 downto 0);
+        sgen_zoom_v_0   : in  std_logic_vector(8 downto 0);
+        sgen_circle_i_0   : in  std_logic_vector(8 downto 0);
+        sgen_gear_i_0   : in  std_logic_vector(8 downto 0);
+        sgen_lantern_i_0   : in  std_logic_vector(8 downto 0);
+        sgen_fizz_i_0   : in  std_logic_vector(8 downto 0);
+        
+        sgen_pos_h_1   : in  std_logic_vector(8 downto 0);
+        sgen_pos_v_1   : in  std_logic_vector(8 downto 0);
+        sgen_zoom_h_1   : in  std_logic_vector(8 downto 0);
+        sgen_zoom_v_1   : in  std_logic_vector(8 downto 0);
+        sgen_circle_i_1   : in  std_logic_vector(8 downto 0);
+        sgen_gear_i_1   : in  std_logic_vector(8 downto 0);
+        sgen_lantern_i_1   : in  std_logic_vector(8 downto 0);
+        sgen_fizz_i_1   : in  std_logic_vector(8 downto 0);
+
     clk_x_out : out std_logic;
     clk_y_out : out std_logic;
     video_on  : out std_logic;
@@ -115,6 +134,11 @@ architecture Behavioral of test_digital_side is
   signal ff_out_b          : std_logic;
 
   signal comp_output : std_logic_vector (6 downto 0);
+
+signal shape_a_0 : STD_LOGIC;
+signal shape_b_0 : STD_LOGIC;
+signal shape_a_1 : STD_LOGIC;
+signal shape_b_1 : STD_LOGIC;
 
   --To analog side
   signal acm_out1 : std_logic;
@@ -307,6 +331,46 @@ begin
     b => invert_matrix,
     y => matrix_in_inv
     );
+
+
+shape_gen_0 : entity work.shape_gen -- move to analoge side later!!!! just for organisational clarity
+    port map (
+        clk      => clk    ,
+        counter_x  => x_count    ,
+        counter_y  => y_count       ,
+        rst      => rst   ,
+        pos_h  => sgen_pos_h_0 ,
+        pos_v    =>  sgen_pos_v_0,
+        zoom_h    => sgen_zoom_h_0 ,
+        zoom_v    =>  sgen_zoom_v_0,
+        circle_i   => sgen_circle_i_0 ,
+        gear_i   =>  sgen_gear_i_0 ,
+        lantern_i   =>  sgen_lantern_i_0 ,
+        fizz_i   =>  sgen_fizz_i_0 ,
+
+        shape_a    => shape_a_0 ,
+        shape_b     => shape_b_0
+    );
+    
+    shape_gen_1 : entity work.shape_gen
+    port map (
+        clk      => clk    ,
+        counter_x  => x_count    ,
+        counter_y  => y_count       ,
+        rst      => rst   ,
+        pos_h  => sgen_pos_h_1 ,
+        pos_v    =>  sgen_pos_v_1,
+        zoom_h    => sgen_zoom_h_1 ,
+        zoom_v    =>  sgen_zoom_v_1,
+        circle_i   => sgen_circle_i_1 ,
+        gear_i   =>  sgen_gear_i_1 ,
+        lantern_i   =>  sgen_lantern_i_1 ,
+        fizz_i   =>  sgen_fizz_i_1 ,
+
+        shape_a    => shape_a_1 ,
+        shape_b     => shape_b_1
+    );
+                                       
   ---------------------------------------------------------------
   -- HUGE MULTIPLEXER 
   pin_matrix : entity work.or_matrix_full
@@ -343,6 +407,11 @@ begin
   matrix_in(36)           <= delay_out;
   matrix_in(37)           <= ff_out_a;
   matrix_in(38)           <= ff_out_b;
+
+      matrix_in(40) <= shape_a_0;
+       matrix_in(41) <= shape_b_0;
+       matrix_in(40) <= shape_a_1;
+       matrix_in(41) <= shape_b_1;
   --shapes1 a&b
   --shapes2 a&b
   matrix_in(49 downto 43) <= comp_output; -- migh tneed to be reveresed to match the pinout on the moriginal
