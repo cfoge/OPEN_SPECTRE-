@@ -202,11 +202,12 @@ begin
     simulation: process
     begin
 
-        sgen_pos_h_0 <= "000100000";
-        sgen_pos_v_0 <= "000100000";
-        sgen_zoom_h_0 <= "001011110";
-        sgen_zoom_v_0 <= "001011110";
-        sgen_circle_i_0  <= "001100000";
+
+        sgen_pos_h_0 <= "100000000";
+        sgen_pos_v_0 <= "100000000";
+        sgen_zoom_h_0 <= "000000000";
+        sgen_zoom_v_0 <= "000000000";
+        sgen_circle_i_0  <= "001011000";
         sgen_gear_i_0 <= "011100000";
         sgen_lantern_i_0 <= "000100110";
         sgen_fizz_i_0 <= "000101000";
