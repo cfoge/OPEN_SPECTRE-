@@ -72,6 +72,15 @@ architecture behavior of tb_test_digital_side is
     
         );
     end component;
+    
+    component vga_trimming_signals is
+    port (
+        clk_25mhz    : in  std_logic;    -- 40mhz clock input SVGA 800x600
+        h_sync       : out std_logic;    -- horizontal sync output
+        v_sync       : out std_logic;    -- vertical sync output
+        video_on     : out std_logic     -- video on/off output
+    );
+end component vga_trimming_signals;
 
     signal sys_clk: std_logic := '0';
     signal clk_25_in: std_logic := '0';
@@ -79,11 +88,11 @@ architecture behavior of tb_test_digital_side is
     signal RBG_out: std_logic_vector(23 downto 0);
     signal RBG: std_logic_vector(23 downto 0);
     
-    signal matrix_in_addr :  std_logic_vector(5 downto 0);
+    signal matrix_in_addr :  std_logic_vector(5 downto 0) := (others => '0');
     signal matrix_load    :  std_logic;
-    signal matrix_mask_in :  std_logic_vector(63 downto 0) ; --controls which inputs are routed to a selected output
-    signal invert_matrix  :  std_logic_vector(63 downto 0); --inverts a matrix input globaly
-    signal vid_span       :  std_logic_vector(7 downto 0) ;
+    signal matrix_mask_in :  std_logic_vector(63 downto 0) := (others => '0'); --controls which inputs are routed to a selected output
+    signal invert_matrix  :  std_logic_vector(63 downto 0) := (others => '0'); --inverts a matrix input globaly
+    signal vid_span       :  std_logic_vector(7 downto 0) := (others => '0');
     
     signal matrix_cs:  std_logic_vector(3 downto 0);
     signal clk_x_out: std_logic := '0';
@@ -109,10 +118,26 @@ architecture behavior of tb_test_digital_side is
     signal   sgen_lantern_i_1   :   std_logic_vector(8 downto 0);
     signal    sgen_fizz_i_1   :   std_logic_vector(8 downto 0);
     
-
+    function left_shift_by_decimal(input_val : natural) return std_logic_vector is
+        variable result : std_logic_vector(63 downto 0) := (others => '0');
+    begin
+        result := "0000000000000000000000000000000000000000000000000000000000000001"; -- Binary representation of 1
+        for i in 1 to input_val loop
+            result :=  result(62 downto 0) & '0'; -- Left shift by 1 position
+        end loop;
+        return result;
+    end left_shift_by_decimal;
 
 begin
     RBG<= RBG_out;
+    
+    timing: vga_trimming_signals
+    port map(
+        clk_25mhz    => sys_clk ,
+        h_sync      => clk_x,
+        v_sync      => clk_y,
+        video_on     => open
+    );
 
     DUT: test_digital_side
         port map (
@@ -195,76 +220,30 @@ begin
         wait for 100 ns;
         rst <= '0';
         wait for 100 ns;
+        
+        -- Set all the outputs to gnd
+         for i in 0 to 63 loop
+            matrix_in_addr <= std_logic_vector(to_unsigned(i, 6));
+            matrix_mask_in <= left_shift_by_decimal(50);
+            wait for 50 ns;
+            matrix_load <= '1';
+            wait for 50 ns;
+            matrix_load <= '0';
+        end loop;
+        
         -- Test case 1
-        
+        wait for 500 ns;
         ---------------------------------------------------------MUX WR COMAND -- 
-        matrix_in_addr <= std_logic_vector(to_unsigned(17, 6)); -- this is the output
-        matrix_mask_in  <= std_logic_vector(to_unsigned(5, 64)); -- ithis is the input
-        matrix_cs <= "0001";   
-        wait for 50 ns;
-        matrix_load <= '1';
---        matrix_latch <= '1';
-        wait for 50 ns;
-        matrix_load <= '0';
---        matrix_latch <= '0';
-        ---------------------------------------------------------
-        ---------------------------------------------------------MUX WR COMAND -- 
-        matrix_in_addr <=std_logic_vector(to_unsigned(6, 6)); -- this is the output
-        matrix_mask_in  <= std_logic_vector(to_unsigned(16, 64)); -- ithis is the input
-        matrix_cs <= "0001";   
-        wait for 50 ns;
-        matrix_load <= '1';
---        matrix_latch <= '1';
-        wait for 50 ns;
-        matrix_load <= '0';
---        matrix_latch <= '0';
-        ---------------------------------------------------------
-        ---------------------------------------------------------
-        matrix_in_addr <= std_logic_vector(to_unsigned(43, 6)); -- this is the output
-        matrix_mask_in  <= std_logic_vector(to_unsigned(6, 64)); -- ithis is the input
-        matrix_cs <= "0001";   
-        wait for 50 ns;
-        matrix_load <= '1';
-        wait for 50 ns;
-        matrix_load <= '0';
-        ---------------------------------------------------------
-                ---------------------------------------------------------
         matrix_in_addr <= std_logic_vector(to_unsigned(46, 6)); -- this is the output
-        matrix_mask_in  <= std_logic_vector(to_unsigned(16, 64)); -- ithis is the input
-        matrix_cs <= "0001";   
+        matrix_mask_in  <= std_logic_vector(to_unsigned(50, 64)); -- ithis is the input
         wait for 50 ns;
         matrix_load <= '1';
+--        matrix_latch <= '1';
         wait for 50 ns;
         matrix_load <= '0';
+--        matrix_latch <= '0';
         ---------------------------------------------------------
-        matrix_in_addr <= std_logic_vector(to_unsigned(30, 6)); -- this is the output
-        matrix_mask_in  <= std_logic_vector(to_unsigned(3, 64)); -- ithis is the input
-        matrix_cs <= "0001";   
-        wait for 50 ns;
-        matrix_load <= '1';
-        wait for 50 ns;
-        matrix_load <= '0';
-        ---------------------------------------------------------
-        ---------------------------------------------------------
-        matrix_in_addr <= std_logic_vector(to_unsigned(3, 6)); -- this is the output
-        matrix_mask_in  <= std_logic_vector(to_unsigned(6, 64)); -- ithis is the input
-        matrix_cs <= "0001";   
-        wait for 50 ns;
-        matrix_load <= '1';
-        wait for 50 ns;
-        matrix_load <= '0';
-        ---------------------------------------------------------
-                ---------------------------------------------------------
-        matrix_in_addr <= std_logic_vector(to_unsigned(40, 6)); -- this is the output
-        matrix_mask_in  <= std_logic_vector(to_unsigned(33, 64)); -- ithis is the input
-        matrix_cs <= "0001";   
-        wait for 50 ns;
-        matrix_load <= '1';
-        wait for 50 ns;
-        matrix_load <= '0';
 
-        ---------------------------------------------------------
-        
 
 
         -- End simulation
