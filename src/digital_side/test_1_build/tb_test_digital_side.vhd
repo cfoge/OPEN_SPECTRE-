@@ -233,9 +233,11 @@ begin
         
         -- Test case 1
         wait for 500 ns;
-        ---------------------------------------------------------MUX WR COMAND -- 
-        matrix_in_addr <= std_logic_vector(to_unsigned(46, 6)); -- this is the output
-        matrix_mask_in  <= std_logic_vector(to_unsigned(50, 64)); -- ithis is the input
+--        ---------------------------------------------------------MUX WR COMAND -- 
+        matrix_in_addr <= std_logic_vector(to_unsigned(49, 6)); -- this is the output
+        matrix_mask_in  <= left_shift_by_decimal(40);
+
+--        matrix_mask_in  <= std_logic_vector(to_unsigned(8, 64)); -- ithis is the input
         wait for 50 ns;
         matrix_load <= '1';
 --        matrix_latch <= '1';

@@ -410,8 +410,8 @@ shape_gen_0 : entity work.shape_gen -- move to analoge side later!!!! just for o
 
       matrix_in(40) <= shape_a_0;
        matrix_in(41) <= shape_b_0;
-       matrix_in(40) <= shape_a_1;
-       matrix_in(41) <= shape_b_1;
+       matrix_in(42) <= shape_a_1;
+       matrix_in(43) <= shape_b_1;
   --shapes1 a&b
   --shapes2 a&b
   matrix_in(49 downto 43) <= comp_output; -- migh tneed to be reveresed to match the pinout on the moriginal
