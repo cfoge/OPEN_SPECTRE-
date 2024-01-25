@@ -34,11 +34,11 @@ entity shape_gen is
     lantern_i : in std_logic_vector(8 downto 0);
     fizz_i    : in std_logic_vector(8 downto 0);
 
-    x5_i      : in std_logic; --x5 counter
-    x6_i      : in std_logic; 
-    x7_i      : in std_logic; 
-    y6_i      : in std_logic; 
-    y7_i      : in std_logic; 
+--    x5_i      : in std_logic; --x5 counter
+--    x6_i      : in std_logic; 
+--    x7_i      : in std_logic; 
+--    y6_i      : in std_logic; 
+--    y7_i      : in std_logic; 
 
     shape_a : out std_logic;
     shape_b : out std_logic
@@ -60,6 +60,11 @@ architecture Behavioral of shape_gen is
   signal reset_ramp_y        : std_logic_vector(8 downto 0);
   signal reset_ramp_y_length : unsigned(8 downto 0);
   signal noise_y             : std_logic_vector(8 downto 0);
+  
+ 
+  signal x5_i_analoge          : std_logic_vector(8 downto 0);
+  signal frizz_size          : std_logic_vector(8 downto 0);
+
 
   signal mixed_parab   : std_logic_vector(8 downto 0);
   signal mixed_parab_i : std_logic_vector(18 downto 0);
@@ -299,12 +304,12 @@ begin
         lantern <= '0';
       end if;
 
-    -- Gear (x5 + gear voltge)>mixed parab
-    if (unsigned(x5_i) > unsigned(mixed_parab)) then
-        gear <= '1';
-      else
-        gear <= '0';
-      end if;
+--    -- Gear (x5 + gear voltge)>mixed parab
+--    if (unsigned(x5_i) > unsigned(mixed_parab)) then
+--        gear <= '1';
+--      else
+--        gear <= '0';
+--      end if;
     -- circle
     if (unsigned(circle_i) > unsigned(mixed_parab)) then
       circle <= '1';

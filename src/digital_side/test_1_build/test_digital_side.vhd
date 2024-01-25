@@ -43,9 +43,9 @@ entity test_digital_side is
     --register file controlls
     matrix_in_addr : in std_logic_vector(5 downto 0);
     matrix_load    : in std_logic;
-    matrix_mask_in : in std_logic_vector(63 downto 0); --controls which inputs are routed to a selected output
-    invert_matrix  : in std_logic_vector(63 downto 0); --inverts a matrix input globaly
-    vid_span       : in std_logic_vector(7 downto 0);
+    matrix_mask_in : in std_logic_vector(63 downto 0) := (others => '0'); --controls which inputs are routed to a selected output
+    invert_matrix  : in std_logic_vector(63 downto 0):= (others => '0'); --inverts a matrix input globaly
+    vid_span       : in std_logic_vector(7 downto 0) := (others => '0');
 
     -- Shape gens move to anagloge side later?
         sgen_pos_h_0   : in  std_logic_vector(8 downto 0);
@@ -71,13 +71,13 @@ entity test_digital_side is
     video_on  : out std_logic;
 
     -- inputs form analoge side
-    osc1_sqr : in std_logic;
-    osc2_sqr : in std_logic;
-    random1  : in std_logic;
-    random2  : in std_logic;
-    audio_T  : in std_logic;
-    audio_B  : in std_logic;
-    extinput : in std_logic;
+    osc1_sqr : in std_logic := '0';
+    osc2_sqr : in std_logic := '0';
+    random1  : in std_logic := '0';
+    random2  : in std_logic := '0';
+    audio_T  : in std_logic := '0';
+    audio_B  : in std_logic := '0';
+    extinput : in std_logic := '0';
    -- outputs to analoge side
     shape_a_analog : out std_logic_vector(7 downto 0);
     shape_b_analog : out std_logic_vector(7 downto 0);
