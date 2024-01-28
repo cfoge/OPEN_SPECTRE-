@@ -24,7 +24,8 @@ entity write_file_ex is
         vs    : in  std_logic;   
         r    : in  std_logic_vector(7 downto 0);  
         g    : in  std_logic_vector(7 downto 0);   
-        b    : in  std_logic_vector(7 downto 0)   
+        b    : in  std_logic_vector(7 downto 0);
+        vid_active : in    std_logic
 
     );
 end write_file_ex;
@@ -57,6 +58,8 @@ begin
                     write(write_col_to_output_buf, g);
                     write(write_col_to_output_buf, string'(","));
                     write(write_col_to_output_buf, b);
+                    write(write_col_to_output_buf, string'(","));
+                    write(write_col_to_output_buf, vid_active);
                     writeline(output_buf, write_col_to_output_buf);    -- write in new line 2
                 end if;
             end loop;

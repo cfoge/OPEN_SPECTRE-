@@ -336,8 +336,8 @@ begin
 shape_gen_0 : entity work.shape_gen -- move to analoge side later!!!! just for organisational clarity
     port map (
         clk      => clk    ,
-        counter_x  => x_count    ,
-        counter_y  => y_count       ,
+        counter_x  => x_count_low_hi    ,
+        counter_y  => y_count_low_hi       ,
         rst      => rst   ,
         pos_h  => sgen_pos_h_0 ,
         pos_v    =>  sgen_pos_v_0,
@@ -355,8 +355,8 @@ shape_gen_0 : entity work.shape_gen -- move to analoge side later!!!! just for o
     shape_gen_1 : entity work.shape_gen
     port map (
         clk      => clk    ,
-        counter_x  => x_count    ,
-        counter_y  => y_count       ,
+        counter_x  => x_count_low_hi    ,
+        counter_y  => y_count_low_hi       ,
         rst      => rst   ,
         pos_h  => sgen_pos_h_1 ,
         pos_v    =>  sgen_pos_v_1,

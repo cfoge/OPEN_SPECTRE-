@@ -68,7 +68,8 @@ architecture behavior of tb_test_digital_side is
             vs    : in  std_logic;   
             r    : in  std_logic_vector(7 downto 0);  
             g    : in  std_logic_vector(7 downto 0);   
-            b    : in  std_logic_vector(7 downto 0)   
+            b    : in  std_logic_vector(7 downto 0);
+            vid_active : in    std_logic 
     
         );
     end component;
@@ -81,6 +82,8 @@ architecture behavior of tb_test_digital_side is
         video_on     : out std_logic     -- video on/off output
     );
 end component vga_trimming_signals;
+
+    signal vid_active: std_logic := '0';
 
     signal sys_clk: std_logic := '0';
     signal clk_25_in: std_logic := '0';
@@ -136,7 +139,7 @@ begin
         clk_25mhz    => sys_clk ,
         h_sync      => clk_x,
         v_sync      => clk_y,
-        video_on     => open
+        video_on     => vid_active
     );
 
     DUT: test_digital_side
@@ -185,7 +188,8 @@ begin
             vs   => clk_y_out,  
             r    => RBG(7 downto 0),
             g    => RBG(15 downto 8),
-            b    => RBG(23 downto 16)
+            b    => RBG(23 downto 16),
+            vid_active => vid_active
             
         );
 
@@ -203,11 +207,15 @@ begin
     begin
 
 
-        sgen_pos_h_0 <= "100000000";
+        sgen_pos_h_0 <= "111000000";
         sgen_pos_v_0 <= "100000000";
         sgen_zoom_h_0 <= "000000000";
         sgen_zoom_v_0 <= "000000000";
-        sgen_circle_i_0  <= "001011000";
+        sgen_circle_i_0  <= "010011000";
+        
+        
+        
+        
         sgen_gear_i_0 <= "011100000";
         sgen_lantern_i_0 <= "000100110";
         sgen_fizz_i_0 <= "000101000";
@@ -232,10 +240,38 @@ begin
             matrix_load <= '0';
         end loop;
         
-        -- Test case 1
+        -- Test case 1 (route shape 0A to some luma outs
         wait for 500 ns;
+        
+        
 --        ---------------------------------------------------------MUX WR COMAND -- 
         matrix_in_addr <= std_logic_vector(to_unsigned(49, 6)); -- this is the output
+        matrix_mask_in  <= left_shift_by_decimal(40);
+
+--        matrix_mask_in  <= std_logic_vector(to_unsigned(8, 64)); -- ithis is the input
+        wait for 50 ns;
+        matrix_load <= '1';
+--        matrix_latch <= '1';
+        wait for 50 ns;
+        matrix_load <= '0';
+--        matrix_latch <= '0';
+        ---------------------------------------------------------
+        
+        --        ---------------------------------------------------------MUX WR COMAND -- 
+        matrix_in_addr <= std_logic_vector(to_unsigned(48, 6)); -- this is the output
+        matrix_mask_in  <= left_shift_by_decimal(40);
+
+--        matrix_mask_in  <= std_logic_vector(to_unsigned(8, 64)); -- ithis is the input
+        wait for 50 ns;
+        matrix_load <= '1';
+--        matrix_latch <= '1';
+        wait for 50 ns;
+        matrix_load <= '0';
+--        matrix_latch <= '0';
+        ---------------------------------------------------------
+        
+                --        ---------------------------------------------------------MUX WR COMAND -- 
+        matrix_in_addr <= std_logic_vector(to_unsigned(47, 6)); -- this is the output
         matrix_mask_in  <= left_shift_by_decimal(40);
 
 --        matrix_mask_in  <= std_logic_vector(to_unsigned(8, 64)); -- ithis is the input

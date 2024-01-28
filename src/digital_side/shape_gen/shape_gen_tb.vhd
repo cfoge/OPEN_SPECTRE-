@@ -90,12 +90,12 @@ begin
     stimulus_process: process
     begin
     
-
-        zoom_h_tb <= "000001000";    
-    zoom_v_tb <=  "000010000";  
-    circle_i_tb <= "001011000";
     pos_h_tb <= "100000000";
     pos_v_tb <= "100000000";
+    zoom_h_tb <= "000000000";    
+    zoom_v_tb <=  "000000000";  
+    circle_i_tb <= "001011000";
+
     
     
         rst_tb <= '1';

@@ -6,6 +6,9 @@ def convert_csv_to_image(csv_file, output_image):
     with open(csv_file, 'r') as file:
         reader = csv.reader(file)
         rows = list(reader)
+    for row in rows:
+        for i in range(len(row)):
+            row[i] = row[i].replace('U', '0')
 
     # Calculate image dimensions
     width = 1800
@@ -28,11 +31,15 @@ def convert_csv_to_image(csv_file, output_image):
             if (h_delay == 0)and(h == 1):
                 x = 0
                 y += 1 
-                   
-            r = int(row[3], 2)
-            g = int(row[4], 2)
-            b = int(row[5], 2)
-            pixels[x, y] = (r, g, b)
+            if( int(row[6], 2)<1):      
+                r = int(row[3], 2)
+                g = int(row[4], 2)
+                b = int(row[5], 2)
+                pixels[x, y] = (r, g, b)
+            else:
+                r = 50
+                g = 50
+                b = 50
             x += 1
         
             h_delay = int(row[1], 2)
@@ -45,10 +52,8 @@ def convert_csv_to_image(csv_file, output_image):
 
 # Usage example
     
-
-x = 1 << 40
 # csv_file = 'F://FPGA_PERSONAl/OPEN_SPECTRE/MVP_1/MVP_1.sim/sim_1/behav/xsim/frame_out.txt'
-csv_file = 'C:/Users/robertjo/Downloads/ems_shapes/ems_shapes.sim/sim_1/behav/xsim/frame_out.txt'
+csv_file = 'F:/FPGA_PERSONAL/Open_spectre_shapes_fixup/ems_shapes_fixup/ems_shapes_fixup.sim/sim_1/behav/xsim/frame_out.txt'
 # csv_file = 'frame_out.txt'
 output_image = 'output.png'
 convert_csv_to_image(csv_file, output_image)
