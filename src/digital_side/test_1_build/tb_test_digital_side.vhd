@@ -207,11 +207,11 @@ begin
     begin
 
 
-        sgen_pos_h_0 <= "111000000";
+        sgen_pos_h_0 <= "100000000";
         sgen_pos_v_0 <= "100000000";
         sgen_zoom_h_0 <= "000000000";
         sgen_zoom_v_0 <= "000000000";
-        sgen_circle_i_0  <= "010011000";
+        sgen_circle_i_0  <= "010000000";  
         
         
         

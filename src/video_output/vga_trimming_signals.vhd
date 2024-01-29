@@ -27,6 +27,9 @@ architecture rtl of vga_trimming_signals is
     -- Internal counters
     signal h_count : integer range 0 to h_total - 1 := 0;
     signal v_count : integer range 0 to v_total - 1 := 0;
+
+    signal video_on_x : std_logic;
+    signal video_on_y : std_logic;
     
 begin
 
@@ -39,30 +42,33 @@ begin
                 -- Vertical counter
                 if v_count = v_total - 1 then
                     v_count <= 0;
-                    video_on <= '1';
                 else
                     v_count <= v_count + 1;
-                    video_on <= '0';
                 end if;
             else
                 h_count <= h_count + 1;
-                video_on <= '0';
             end if;
             
             -- Horizontal sync
             if h_count < h_sync_width + h_front_porch then
                 h_sync <= '1';
+                video_on_x <= '0';
             else
                 h_sync <= '0';
+                video_on_x <= '1';
             end if;
             
             -- Vertical sync
             if v_count < v_sync_width + v_front_porch then
                 v_sync <= '1';
+                video_on_y <= '0';
             else
                 v_sync <= '0';
+                video_on_y <= '1';
             end if;
         end if;
     end process;
+    
+    video_on <= video_on_x and video_on_y;
 
 end rtl;

@@ -1,3 +1,4 @@
+circle in centre 3 different sizes
 shapegen0:
         sgen_pos_h_0 <= "100000000";
         sgen_pos_v_0 <= "100000000";
@@ -17,4 +18,61 @@ shapegen3:
         sgen_zoom_h_0 <= "000000000";
         sgen_zoom_v_0 <= "000000000";
         sgen_circle_i_0  <= "010011000";
-        
+
+
+circle shifted to the left:
+shapegen4:
+        sgen_pos_h_0 <= "111000000";F:\FPGA_PERSONAL\Open_spectre_shapes_fixup\src\synth_tools\output.png
+        sgen_pos_v_0 <= "100000000";
+        sgen_zoom_h_0 <= "000000000";
+        sgen_zoom_v_0 <= "000000000";
+        sgen_circle_i_0  <= "010011000";     
+
+circle in the top left
+shapegen5:
+        sgen_pos_h_0 <= "000000000";
+        sgen_pos_v_0 <= "000000000";
+        sgen_zoom_h_0 <= "000000000";
+        sgen_zoom_v_0 <= "000000000";
+        sgen_circle_i_0  <= "010011000";  
+
+circule in bottom right:
+shapegen6:
+      sgen_pos_h_0 <= "111111111";
+        sgen_pos_v_0 <= "111111111";
+        sgen_zoom_h_0 <= "000000000";
+        sgen_zoom_v_0 <= "000000000";
+        sgen_circle_i_0  <= "010011000"; 
+
+circle center, max size:
+shapegen7:
+        sgen_pos_h_0 <= "100000000";
+        sgen_pos_v_0 <= "100000000";
+        sgen_zoom_h_0 <= "000000000";
+        sgen_zoom_v_0 <= "000000000";
+        sgen_circle_i_0  <= "111111111"; 
+
+circle center, min size:
+shapegen8:
+        sgen_pos_h_0 <= "100000000";
+        sgen_pos_v_0 <= "100000000";
+        sgen_zoom_h_0 <= "000000000";
+        sgen_zoom_v_0 <= "000000000";
+        sgen_circle_i_0  <= "000000000"; 
+
+circle center, scale x (issue circle is stretching):
+shapegen9:
+        sgen_pos_h_0 <= "100000000";
+        sgen_pos_v_0 <= "100000000";
+        sgen_zoom_h_0 <= "001000000";
+        sgen_zoom_v_0 <= "000000000";
+        sgen_circle_i_0  <= "010000000";  
+
+
+circle center, scale y (issue circle is stretching):
+shapegen10        sgen_pos_h_0 <= "100000000";
+        sgen_pos_v_0 <= "100000000";
+        sgen_zoom_h_0 <= "000000000";
+        sgen_zoom_v_0 <= "001000000";
+        sgen_circle_i_0  <= "010000000";
+

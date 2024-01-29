@@ -23,15 +23,22 @@ def convert_csv_to_image(csv_file, output_image):
     row_cnt = 0
 
     # Populate the image pixels
+    x = 0
     y = 0
     for row in rows:
         
         if row[0] != 'clk':
             h = int(row[1], 2)
+            v = int(row[2], 2)
             if (h_delay == 0)and(h == 1):
+                pixels[x, y] = (50, 50, 50)
+                pixels[x+1, y] = (50, 50, 50)
+                pixels[x+2, y] = (50, 50, 50)
+                pixels[x+3, y] = (50, 50, 50)
                 x = 0
                 y += 1 
-            if( int(row[6], 2)<1):      
+
+            if( h == 0 and v == 0 ):      
                 r = int(row[3], 2)
                 g = int(row[4], 2)
                 b = int(row[5], 2)
@@ -40,6 +47,7 @@ def convert_csv_to_image(csv_file, output_image):
                 r = 50
                 g = 50
                 b = 50
+                pixels[x, y] = (r, g, b)
             x += 1
         
             h_delay = int(row[1], 2)
