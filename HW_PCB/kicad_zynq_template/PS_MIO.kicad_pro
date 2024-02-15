@@ -224,7 +224,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "FPGA-Misc.kicad_pro",
+    "filename": "PS_MIO.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -301,7 +301,7 @@
   },
   "sheets": [
     [
-      "14e74cbc-e902-4c17-bebc-1fef8aa95644",
+      "8ce7caa4-68d6-40f4-b108-479c479b80bc",
       ""
     ]
   ],
@@ -311,7 +311,7 @@
     "ADDRESS3": "",
     "ADDRESS4": "",
     "CONFIGURATORNAME": "",
-    "DOCUMENTNUMBER": "11",
+    "DOCUMENTNUMBER": "9",
     "ISUSERCONFIGURABLE": "",
     "ORGANIZATION": "Trenz Electronic GmbH / TT",
     "SHEETTOTAL": "13",

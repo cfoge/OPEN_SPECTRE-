@@ -224,7 +224,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "FPGA.kicad_pro",
+    "filename": "B35.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -289,7 +289,7 @@
       "version": 1
     },
     "net_format_name": "",
-    "page_layout_descr_file": "empty.kicad_wks",
+    "page_layout_descr_file": "",
     "plot_directory": "",
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
@@ -301,36 +301,8 @@
   },
   "sheets": [
     [
-      "324f3618-2ea6-4543-8532-4e19f3973599",
+      "ccabc23c-34b7-4f3b-9c64-a2ba38419fc0",
       ""
-    ],
-    [
-      "728d1763-49c3-43a2-bdb3-9eaaf9d867ed",
-      "B13"
-    ],
-    [
-      "259c12df-0046-49d3-9420-8a986cc2b8e8",
-      "B34"
-    ],
-    [
-      "945ca0ac-d622-46ba-b5d9-c05ecc1a12ef",
-      "B35"
-    ],
-    [
-      "dc73d1c7-5bd1-499e-b0fb-d49218b0a151",
-      "PS_MIO"
-    ],
-    [
-      "3d134360-e6fe-4b51-8df2-649e91cb3f83",
-      "PS-DDR"
-    ],
-    [
-      "725a53c0-af17-40bc-b1dd-dd776ed23c88",
-      "FPGA-Misc"
-    ],
-    [
-      "c957c05b-bd5b-497a-a0bc-a99a5f67efdc",
-      "FPGA-Power"
     ]
   ],
   "text_variables": {
@@ -339,7 +311,7 @@
     "ADDRESS3": "",
     "ADDRESS4": "",
     "CONFIGURATORNAME": "",
-    "DOCUMENTNUMBER": "9",
+    "DOCUMENTNUMBER": "8",
     "ISUSERCONFIGURABLE": "",
     "ORGANIZATION": "Trenz Electronic GmbH / TT",
     "SHEETTOTAL": "13",

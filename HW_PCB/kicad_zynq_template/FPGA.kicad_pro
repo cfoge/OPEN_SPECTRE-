@@ -224,7 +224,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "PS-DDR.kicad_pro",
+    "filename": "FPGA.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -289,7 +289,7 @@
       "version": 1
     },
     "net_format_name": "",
-    "page_layout_descr_file": "",
+    "page_layout_descr_file": "empty.kicad_wks",
     "plot_directory": "",
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
@@ -301,8 +301,36 @@
   },
   "sheets": [
     [
-      "42371ecb-2d68-48e2-ae2a-f048dcd9ecf8",
+      "7e265894-d432-4f37-8ab4-6b92e20d5cd8",
       ""
+    ],
+    [
+      "81d28927-a6d4-4cc7-a25b-0123e020f2a2",
+      ""
+    ],
+    [
+      "9a5af163-e4be-4167-8112-ace70aa2f736",
+      ""
+    ],
+    [
+      "0e1d8197-c3b0-4db7-a505-0801274644a1",
+      ""
+    ],
+    [
+      "6b3ea1a2-885f-46b6-a2ef-a59e6e0e547d",
+      ""
+    ],
+    [
+      "acc821e7-323d-43c4-a4cf-4d957bb4f5e4",
+      "B35"
+    ],
+    [
+      "643d02a7-d797-4c7f-a15e-7dd0442a6db9",
+      "PS_MIO"
+    ],
+    [
+      "05b23092-874d-45f9-bed9-8cabce152e81",
+      "PS-DDR"
     ]
   ],
   "text_variables": {
@@ -311,7 +339,7 @@
     "ADDRESS3": "",
     "ADDRESS4": "",
     "CONFIGURATORNAME": "",
-    "DOCUMENTNUMBER": "10",
+    "DOCUMENTNUMBER": "9",
     "ISUSERCONFIGURABLE": "",
     "ORGANIZATION": "Trenz Electronic GmbH / TT",
     "SHEETTOTAL": "13",

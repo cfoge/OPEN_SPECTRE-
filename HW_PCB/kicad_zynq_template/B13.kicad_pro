@@ -224,7 +224,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "B35.kicad_pro",
+    "filename": "B13.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -301,7 +301,7 @@
   },
   "sheets": [
     [
-      "d2424f2f-41b2-4ba8-a370-be349391d251",
+      "a8110ff9-8a07-4292-9c38-2375cdd5549e",
       ""
     ]
   ],
@@ -311,7 +311,7 @@
     "ADDRESS3": "",
     "ADDRESS4": "",
     "CONFIGURATORNAME": "",
-    "DOCUMENTNUMBER": "8",
+    "DOCUMENTNUMBER": "6",
     "ISUSERCONFIGURABLE": "",
     "ORGANIZATION": "Trenz Electronic GmbH / TT",
     "SHEETTOTAL": "13",
