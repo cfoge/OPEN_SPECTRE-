@@ -61,6 +61,13 @@ signal data_out_o     :  std_logic_vector(16-1 downto 0);
 signal    button_state_o      : std_logic_vector(g_NUM_KEY_COLUMNS*g_NUM_KEY_ROWS-1 downto 0);
 signal    button_event_o      : std_logic_vector(g_NUM_KEY_COLUMNS*g_NUM_KEY_ROWS-1 downto 0);   
 
+attribute keep : string;
+attribute keep of data_out_o : signal is "true";
+attribute keep of rotary_event_o : signal is "true";
+attribute keep of rotary_dir_o : signal is "true";
+
+
+
 begin
 
 --debounced_button_decoder_inst : entity work.debounced_button_decoder
