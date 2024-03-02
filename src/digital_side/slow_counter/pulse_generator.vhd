@@ -8,6 +8,7 @@ entity pulse_generator is
     );
     port (
         clk : in std_logic;
+        enable: in std_logic;    -- enable input
         output : out std_logic
     );
 end entity pulse_generator;
@@ -19,11 +20,13 @@ begin
     process(clk)
     begin
         if rising_edge(clk) then
-            if toggle_counter = toggle_period - 1 then
-                toggle_output <= not toggle_output;
-                toggle_counter <= 0;
-            else
-                toggle_counter <= toggle_counter + 1;
+            if enable = '1' then
+                if toggle_counter = toggle_period - 1 then
+                    toggle_output <= not toggle_output;
+                    toggle_counter <= 0;
+                else
+                    toggle_counter <= toggle_counter + 1;
+                end if;
             end if;
         end if;
     end process;

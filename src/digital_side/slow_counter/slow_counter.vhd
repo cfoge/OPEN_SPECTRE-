@@ -33,6 +33,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity slow_counter is
     Port ( clk : in STD_LOGIC;
+           enable: in std_logic;    -- enable input
            hz6 : out STD_LOGIC;
            hz3 : out STD_LOGIC;
            hz1_5 : out STD_LOGIC;
@@ -51,6 +52,7 @@ hz6_counter : entity work.pulse_generator
     )
     port map(
         clk => clk,
+        enable => enable,
         output => hz6
     );
     
@@ -60,6 +62,7 @@ hz3_counter : entity work.pulse_generator
     )
     port map(
         clk => clk,
+        enable => enable,
         output => hz3
     );
 
@@ -69,6 +72,7 @@ hz1_5_counter : entity work.pulse_generator
     )
     port map(
         clk => clk,
+        enable => enable,
         output => hz1_5
     );
 
@@ -78,6 +82,7 @@ hz_6_counter : entity work.pulse_generator
     )
     port map(
         clk => clk,
+        enable => enable,
         output => hz_6
     );
     
@@ -87,6 +92,7 @@ hz_4_counter : entity work.pulse_generator
     )
     port map(
         clk => clk,
+        enable => enable,
         output => hz_4
     );
 
@@ -96,6 +102,7 @@ hz_2_counter : entity work.pulse_generator
     )
     port map(
         clk => clk,
+        enable => enable,
         output => hz_2
     );
 
