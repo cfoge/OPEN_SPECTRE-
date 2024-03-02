@@ -84,9 +84,9 @@ entity analog_side is
     vid_span : out std_logic_vector(11 downto 0);
     
     
-    y_out    : out std_logic_vector(11 downto 0);
-    u_out    : out std_logic_vector(11 downto 0);
-    v_out    : out std_logic_vector(11 downto 0)
+    y_out    : out std_logic_vector(7 downto 0);
+    u_out    : out std_logic_vector(7 downto 0);
+    v_out    : out std_logic_vector(7 downto 0)
 --    outputs_o      : out array_12(19 downto 0) -- 12-bit wide outputs
 
     
@@ -103,10 +103,10 @@ architecture Behavioral of analog_side is
   signal ch_addr_int  : integer;
 
   --matrix inputs
-  signal osc1_out_sq  : std_logic_vector(9 downto 0);
-  signal osc1_out_sin : std_logic_vector(9 downto 0);
-  signal osc2_out_sq  : std_logic_vector(9 downto 0);
-  signal osc2_out_sin : std_logic_vector(9 downto 0);
+  signal osc1_out_sq  : std_logic_vector(11 downto 0);
+  signal osc1_out_sin : std_logic_vector(11 downto 0);
+  signal osc2_out_sq  : std_logic_vector(11 downto 0);
+  signal osc2_out_sin : std_logic_vector(11 downto 0);
   signal noise_1      : std_logic_vector(9 downto 0);
   signal noise_2      : std_logic_vector(9 downto 0);
 
@@ -179,10 +179,10 @@ begin
   ch_addr_int  <= to_integer(unsigned(ch_addr));
 
   --analoge matrix inputs
-  mixer_inputs(0)  <= osc1_out_sq  & "00";
-  mixer_inputs(1)  <= osc1_out_sin & "00";
-  mixer_inputs(2)  <= osc2_out_sq  & "00";
-  mixer_inputs(3)  <= osc2_out_sin & "00";
+  mixer_inputs(0)  <= osc1_out_sq;
+  mixer_inputs(1)  <= osc1_out_sin;
+  mixer_inputs(2)  <= osc2_out_sq;
+  mixer_inputs(3)  <= osc2_out_sin ;
   mixer_inputs(4)  <= noise_1     & "00";
   mixer_inputs(5)  <= noise_2     & "00";
   mixer_inputs(6)  <= audio_in_t   & "00";
@@ -315,7 +315,8 @@ begin
     noise_freq => noise_freq,
     slew_in    => slew_in,
     noise_1    => noise_1,
-    noise_2    => noise_2
+    noise_2    => noise_2,
+    extra_in    => vsync
     );
 
 
@@ -357,9 +358,9 @@ begin
     v_result  => v_result
     );
 
-  y_out <= y_result;
-  u_out <= u_result;
-  v_out <= v_result;
+  y_out <= y_result(11 downto 4);
+  u_out <= u_result(11 downto 4);
+  v_out <= v_result(11 downto 4);
 --  outputs_o <= outputs;
 
 end Behavioral;
