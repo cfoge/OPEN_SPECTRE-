@@ -224,7 +224,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "B13.kicad_pro",
+    "filename": "PS-DDR.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -301,7 +301,7 @@
   },
   "sheets": [
     [
-      "b5d154e3-de6a-485a-b9e8-92dbd234ef97",
+      "4966d0d7-47c1-4287-ba13-6ab9a131328a",
       ""
     ]
   ],
@@ -311,7 +311,7 @@
     "ADDRESS3": "",
     "ADDRESS4": "",
     "CONFIGURATORNAME": "",
-    "DOCUMENTNUMBER": "6",
+    "DOCUMENTNUMBER": "10",
     "ISUSERCONFIGURABLE": "",
     "ORGANIZATION": "Trenz Electronic GmbH / TT",
     "SHEETTOTAL": "13",

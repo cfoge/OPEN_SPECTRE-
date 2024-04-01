@@ -1,0 +1,160 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 7e265894-d432-4f37-8ab4-6b92e20d5cd8)
+
+  (paper "A4")
+
+  (title_block
+    (title "ZoM Mod A - FPGA")
+    (date "12/16/2014")
+    (rev "01")
+  )
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 43.18 159.2072) (size 38.1 12.7) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 128 0 0 1))
+    (fill (color 128 255 128 1.0000))
+    (uuid 05b23092-874d-45f9-bed9-8cabce152e81)
+    (property "Sheetname" "PS-DDR" (at 43.18 156.6672 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "PS-DDR.kicad_sch" (at 43.18 159.2072 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (instances
+      (project "TE0719"
+        (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e" (page "10"))
+      )
+      (project "FPGA"
+        (path "/7e265894-d432-4f37-8ab4-6b92e20d5cd8" (page "8"))
+      )
+    )
+  )
+
+  (sheet (at 43.18 77.9272) (size 38.1 12.7) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 128 0 0 1))
+    (fill (color 128 255 128 1.0000))
+    (uuid 0e1d8197-c3b0-4db7-a505-0801274644a1)
+    (property "Sheetname" "" (at 43.18 77.2156 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "" (at 43.18 91.2118 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "TE0719"
+        (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e" (page "#"))
+      )
+      (project "FPGA"
+        (path "/7e265894-d432-4f37-8ab4-6b92e20d5cd8" (page "4"))
+      )
+    )
+  )
+
+  (sheet (at 43.18 138.8872) (size 38.1 12.7) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 128 0 0 1))
+    (fill (color 128 255 128 1.0000))
+    (uuid 643d02a7-d797-4c7f-a15e-7dd0442a6db9)
+    (property "Sheetname" "PS_MIO" (at 43.18 136.3472 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "PS_MIO.kicad_sch" (at 43.18 138.8872 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (instances
+      (project "TE0719"
+        (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e" (page "9"))
+      )
+      (project "FPGA"
+        (path "/7e265894-d432-4f37-8ab4-6b92e20d5cd8" (page "7"))
+      )
+    )
+  )
+
+  (sheet (at 43.18 98.2472) (size 38.1 12.7) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 128 0 0 1))
+    (fill (color 128 255 128 1.0000))
+    (uuid 6b3ea1a2-885f-46b6-a2ef-a59e6e0e547d)
+    (property "Sheetname" "" (at 43.18 97.5356 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "" (at 43.18 111.5318 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "TE0719"
+        (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e" (page "#"))
+      )
+      (project "FPGA"
+        (path "/7e265894-d432-4f37-8ab4-6b92e20d5cd8" (page "5"))
+      )
+    )
+  )
+
+  (sheet (at 43.18 37.2872) (size 38.1 12.7) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 128 0 0 1))
+    (fill (color 128 255 128 1.0000))
+    (uuid 81d28927-a6d4-4cc7-a25b-0123e020f2a2)
+    (property "Sheetname" "" (at 43.18 36.5756 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "" (at 43.18 50.5718 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "TE0719"
+        (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e" (page "#"))
+      )
+      (project "FPGA"
+        (path "/7e265894-d432-4f37-8ab4-6b92e20d5cd8" (page "2"))
+      )
+    )
+  )
+
+  (sheet (at 43.18 57.6072) (size 38.1 12.7) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 128 0 0 1))
+    (fill (color 128 255 128 1.0000))
+    (uuid 9a5af163-e4be-4167-8112-ace70aa2f736)
+    (property "Sheetname" "" (at 43.18 56.8956 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "" (at 43.18 70.8918 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "TE0719"
+        (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e" (page "#"))
+      )
+      (project "FPGA"
+        (path "/7e265894-d432-4f37-8ab4-6b92e20d5cd8" (page "3"))
+      )
+    )
+  )
+
+  (sheet (at 43.18 118.5672) (size 38.1 12.7) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 128 0 0 1))
+    (fill (color 128 255 128 1.0000))
+    (uuid acc821e7-323d-43c4-a4cf-4d957bb4f5e4)
+    (property "Sheetname" "B35" (at 43.18 116.0272 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "B35.kicad_sch" (at 43.18 118.5672 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (instances
+      (project "TE0719"
+        (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e" (page "8"))
+      )
+      (project "FPGA"
+        (path "/7e265894-d432-4f37-8ab4-6b92e20d5cd8" (page "6"))
+      )
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+)

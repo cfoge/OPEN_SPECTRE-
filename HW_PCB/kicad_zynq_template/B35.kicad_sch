@@ -2199,470 +2199,199 @@
     (uuid fe478c16-c81a-425b-ab2e-d902572b06ed)
   )
 
-  (polyline
-    (pts
-      (xy 220.98 194.7672)
-      (xy 220.98 199.8472)
-    )
-    (stroke (width 0) (type solid) (color 0 0 0 1))
-    (fill (type none))
-    (uuid 0463123e-9418-42a9-864f-374bd4e4d786)
-  )
-  (polyline
-    (pts
-      (xy 167.64 204.9272)
-      (xy 167.64 179.5272)
-      (xy 198.12 179.5272)
-    )
-    (stroke (width 0) (type solid) (color 0 0 0 1))
-    (fill (type none))
-    (uuid 12a0f08a-5c35-47ec-841f-06c91384fe33)
-  )
-  (polyline
-    (pts
-      (xy 208.28 187.1472)
-      (xy 208.28 194.7672)
-      (xy 198.12 194.7672)
-    )
-    (stroke (width 0) (type solid) (color 0 0 0 1))
-    (fill (type none))
-    (uuid 5fffdd72-5049-4a3f-bb04-3f75b845b5f9)
-  )
-  (polyline
-    (pts
-      (xy 198.12 199.8472)
-      (xy 198.12 204.9272)
-    )
-    (stroke (width 0) (type solid) (color 0 0 0 1))
-    (fill (type none))
-    (uuid 702a1dc4-4d0d-4595-9fb4-d0e2f92b311a)
-  )
-  (polyline
-    (pts
-      (xy 266.7 194.7672)
-      (xy 266.7 187.1472)
-    )
-    (stroke (width 0) (type solid) (color 0 0 0 1))
-    (fill (type none))
-    (uuid 748153a9-acb2-4099-b2b3-74032f0ca8af)
-  )
-  (polyline
-    (pts
-      (xy 287.02 187.1472)
-      (xy 198.12 187.1472)
-    )
-    (stroke (width 0) (type solid) (color 0 0 0 1))
-    (fill (type none))
-    (uuid 7bd76c09-eac7-4842-8f98-40f91333cde3)
-  )
-  (polyline
-    (pts
-      (xy 266.7 194.7672)
-      (xy 266.7 199.8472)
-    )
-    (stroke (width 0) (type solid) (color 0 0 0 1))
-    (fill (type none))
-    (uuid 82bad4f7-1e0a-440f-97f3-0d3527edbdcd)
-  )
-  (polyline
-    (pts
-      (xy 198.12 199.8472)
-      (xy 198.12 179.5272)
-      (xy 287.02 179.5272)
-    )
-    (stroke (width 0) (type solid) (color 0 0 0 1))
-    (fill (type none))
-    (uuid a74d8a8b-747d-4459-b32b-579cf6eb90ee)
-  )
-  (polyline
-    (pts
-      (xy 208.28 194.7672)
-      (xy 287.02 194.7672)
-    )
-    (stroke (width 0) (type solid) (color 0 0 0 1))
-    (fill (type none))
-    (uuid b89c7a1b-c17f-402c-bbb3-3bced28aac90)
-  )
-  (polyline
-    (pts
-      (xy 198.12 199.8472)
-      (xy 287.02 199.8472)
-      (xy 287.02 179.5272)
-    )
-    (stroke (width 0) (type solid) (color 0 0 0 1))
-    (fill (type none))
-    (uuid dd311b23-9ff1-440f-864c-abd068e5e637)
-  )
-
-  (image (at 182.245 192.7172) (scale 0.698446)
-    (uuid 6a520842-8804-493b-9e50-98273073261c)
-    (data
-      iVBORw0KGgoAAAANSUhEUgAAAcMAAAFyCAIAAAAGciZZAAAAA3NCSVQICAjb4U/gAAAVJ0lEQVR4
-      nO3dzbHbOBYGULqrg3CVNw7DQTgZR+JkHITD8MZVzuLNQlNqWU+iSPxeAOfULKbaTxQEEh8v+Pvh
-      7e1tm8WXr99//vjWuxXAcj7MkaRfvn5//x+lKtDGDEn6MEav5ClQ2z+9G5BrP0aP/AFApuGT9Ahh
-      ClQ1dpIej0hhCtQzdpKeIkyBShZK0k2YAnWslaSbMAUqWC5JN2EKlLZikm7CFChq0STdhClQzrpJ
-      ClDKv+2/Ms498p54AhTRuiZ9Nqf+8vW76TYwqKZJeuQe+cZ5Kr6BfO2eBXU2sw7Ou4tEoTk+kCPu
-      GSfVIjCKRjVpciy+rBZLBW5CWfr+q9W2sKa4NelF2Mr0YcPCthaoKnqSbq0eiV8qBF2EAAsaIEm3
-      eLWeB/UDt1okaZFYaZBNZb9CmMI6xqhJL55lU9jzPMIUFjFSkm6yCQhpsCR9Jtp5p3oLBAJqkaRl
-      Z9/DZdNwDQbOGrImjfM0qYOEKcxtyCQFCGXUJK1XllaqH5WlMLFRk3Trmk2RjyQA7Q2cpA9Fzjhl
-      KcyqUZJWCrjhTj0BU5qtJg1OWQpTGj5JlaVAd+2StHG65XzdkcoxefnKUpjP8DXpDpUp0MYMSarK
-      A/pqmqTti8S0bzz4KRN84GKGmnTbzSZzfKC21knaJdfqfamYBrZpatKXokWeCT7MpEOS9gq1nz++
-      Hfnqs82LltFAe/PUpAervP3gE4tAgj5J2jewnhWnya2Sv7C4f3s3oJvu8ffl6/dnbbitr7u3E3ip
-      2+x+soAo+HPuDlN8+frd6SkIrudxUmF6nDCFyOY547RNETc7P2GCXwez6pykytJThCnE1L8mFaan
-      CFMIqH+SbsIUGFyIJOUUZSlEEyVJi9RxcYrBGrel3hKmEMrrJL1cz9jgqsY4OVjEZD8H2PHh7e3t
-      4T+8zM2WL14+KGZ4nXpn36mfH/P3woIe1KQHy89KVep86fD+Nv/5fiMs7r4mTQvHGtFwtiVzxNOa
-      vxpG91dNmlxjKk5LWfNXw+j+S9LMNKwx2T8eK8sGkJP4EEHhq6BqhOnLlFw2RoEg/n+ctGwC1ou2
-      u3ZOmaEJ62LKfoCBVEnSzdjO47wTjKXWPU6O3wHr+GerlnrCtBldDX3Vve/eCE9jtg5jqf4EE2EK
-      TC/Ks6C4oyyFgbRIUmVpAzoZOmpUkxrnCZSlMIp2s3thCszKcdLQlKUwhKZJqixNIEwhPjUpQK7W
-      SaosTaAsheDUpGMQphDZP1vzUaos/fzpY+8mACWpSZv6/OljcowqSyGsPkm6YFmak6FXO2EqZ6Ej
-      NWkLBafzR17HAjT231ua29eJKyTCswz99ftP/sIvq2yFboTg/u3dgGk1OK0kQyEIs/sqnJ2HpfyX
-      pO0LnCnPOxU5swSMRU1akgyFNf2VpI67ASRQkwLkuk9Sd44CnKUmBcj1IEkdLQU4RU0KkOtxkipL
-      AY5TkwLkepqkylKAg/ZqUmEKcMSL2b0wBXjJcVKAXK+TVFkKsO9QTSpMAXYcnd0LU4BnThwnrRGm
-      AhqYwLkzToIP4L3T5+4LhqlcBuaQ8m7Rnz++ea7o3F6+RqXIW6bTpL3ipWODmznbMyv0STP/ve8+
-      QU6eTlmQHt+UY27ECSHV7IcUfEdWzM5PVqRnJuuT9rKSdEsN03FjtP077w5u4gcbtrO0nJ9WbxzW
-      6/Be2XHkFx1pW42eqd0n07wy8n1Hpczub10y8VSejhujE8vcxC8fLzsOa4+6Gm1uplLnXBc7aLd0
-      VOZu0Z8/vh3MRzEaUKlhWXA5zYqXlt9VRJsGj9UnEeTWpLduU/KuShWgYYUaM70aM0R92rhzhuiT
-      OEom6S3ROYSygzNz1HXP9M+fPoYNjo77mLB9EopnQa2re3JdxZlix2nJrb5NCtghAUnSRcUZHnFa
-      chWqSREaE6ENwUlSykibA4YdokEaFqQZW6SWxCRJVxRkVARpxjPdm9e9ARxX64wTYQW5ortUMyrd
-      a3BdgvMtV3rj4mEnSNJz9rek0e8WbSYz4w723vXPcr6uV3zUuIlekXvr0mOl+kSSriXCWGp/W2qR
-      SG2p0i45vx8y9yvRCoiCD5qQpDz2cIt5uOW1GR5FvuXX7z8JgyfmrDY/0UbZr1RS9nk9zjjxl1+/
-      /1z+l/CvR3R/Jl5a+6OFTqn9SsKnonVFmuKPPVOT8n8J88Szm2Ocp/alFacRlO2QcfshR43tUE3K
-      tmUcf6w67Q218AiJU6NDAh64iOZIF0lSGo2lgE90HytM63XIWP2QqdJ2KElXF7MkadaqmD//vVHa
-      GVy9fYAkXdqI7w4p7lQndPkhAcvzEVU9TC9JCWeFUU1jtc92StJ1xSxIu8Ro5OyO3LZRNLhoRJLC
-      OZGPVOSYNbLbXHsnSQmk42CeNUcW1+wSZkm6qJhTe+7I98aSO1ySwml2D0NouZokKVF0r7+6N2Ag
-      8fcljW9NlqRUFH+8MaX2T3g49ASTu5fX3/I25hEpvoZgNaXp8qCcvSTdCdD3fyNSWUrMh5ZmmuDR
-      UL2eN/Z0dn8kRu/+/uxH4CpIKgVpBmk6PrbxcZImZ6IwBbro+/TbB0mamYaKUy5GnyfCcfdJWioE
-      hSnQTPfXMfx1xqls/H35+t1pKA5SwJKse4xutzVpjSpSZRqQkyrMJEKMbg2uzBemQCVBYnS7JmnV
-      vBOmTMkRib7ixOjW7G5RYQoUFCpGt5b33QtToIiAs4F/toYZJ0yBLmqfaPUsKGAk0eb1F62TVFkK
-      JIsZo1uXmlSYAgnCxuhmdg8MIXKMbgef9FycG0m55bYr9gWP0W3b/jHXBiILeM3Te91m9xIceCkt
-      RtvPchwnBabS5WDRPx2PVypLuRhi+kZ78Q+PXqlJgYgGitGte5IqS4H3xorRrXuSMjHXNpFmuBjd
-      JCkQyqAHzfsnqQk+27Djh7JGuebpvf5JCpAsQoxulyR14yZcqY57GfHw6FWf++5ZxK/ff44Pj8+f
-      PnYfGJfW7rS5ewtnNXSMbpIUTrkd8KFG8tBGj9EtyHFSJ52IwLy+izm6/f9J6lAplZyqHQYaVNFq
-      okGNe7L+ToiaFK56helAIT6NaWJ0k6RAFzPF6HabpCb4VHJ2629fHp79xrDjeW6Ru11NSkTm2nOb
-      4GT9nb+SVFlKJZGHgYK0sflidFOTElabslTx29iUMbq9T1JlaRsLDuCE8VC7l2Yd1WFN3OFqUkL7
-      /OljpTxdcGfW19wd/iBJlaVtzL1hPZRcXxTvq8kuwYlv+g5/XJMK0zQJl/vsb2HzpW1OmBbpjeTl
-      DDSqo1mhw0M8wWTx4J4vLvedekDUncsH08bYav08uvjr63Y7fJqkP39882ARYrqOsSORWmRAjlUf
-      0d5eTSpMqSSnLL3VpmwRo7z04tx9g3n34lP7l+LPcdKMEk+jtJO+Xl8FJelOMfCOi99X8VtIEIeu
-      JxWmVPLr95+waRW2YQR09Mr8SmE6ZUYbgWcF7LGATSKyE/c4FU+9KWP0wjg8K06PRS6TCevc3aIT
-      Z19xRuNZESKsewMY1On77kuF6QqhXGpYznr6/qFeeRohxxlXyj1OlxDMudR0hRi9uAzOpaKwiJb9
-      JkDJl363aFqerpOht+Rpmqr9JkAp6MPb21v+Ug7m6Zox+tDLdDDOH8pPVR1LDWWS9OphpApQqnoW
-      r0KTZgonKcCCPDMfIFeI55Ny3N1M1gSWdXz+9DHsBq8mBQZwqSHCXgAjSYHobgM0ZphKUmAwAcNU
-      kgKhBczN9yQpqxtioK7s/VmmgOedJCnrKvXmZ2q7jc6AMbpJUpYlQ8dyCdCYMbpJUtYkRkcUNkY3
-      SQqQT5IC5JKkALkkKUAuSQqQS5IC5JKkALkkKUAuT3qGRhZ5Svf7ux5m/aW3JGlhx2+eibZ5xWn5
-      qRuQDjZmf5lHvvHui47HYsH7qWr0zKlvTPuZt/+U1qp6O6FSm70kLSNhtFw/0jdS47Q8LXGCdOND
-      O7/obGvjrKZn33Lq77uvrJz+3B61X5Lmyq84er2dJk7Li1RtO0O0y132pb60yGra6oRXcts6vpGp
-      0sYmSdMVn7U127bitLx4xo1b8lRayO3SIswhbj/eeDVV3dgkaaKDa+V2W3n5kTbbVpyWJ7Tk4Kf6
-      voTyWQtPNSn/0O3DZZbqlrOnlR62reVqqtGf1z/79fvPh7e3t8SmLSz/+FfyEjIPvXdseY3l9OrG
-      nSU8bFLBDC1yhi25hy8fTO695M7pvtnvLERNmqhIxfFwi7wuv9KOOk7Li7Rke55fcY7BdRnz2+5q
-      2vK2sZwT8b9+/2l8zLrgSb/9LnVl/jmlIuD6qWZnSOK0vGxL3n+2+0HSq1Ix+qy3jzTg2Qczr5TY
-      MracIi3Jkdyf7z97/f9q0hPyJ24PPdxRl61M47S8UktKLSRHpbq40mra8rax7r19RMuNrU+Sfvn6
-      /f1//PnjW/uWHFdvrdQWp+VxWlJc8QOvyct5qP20esf7xtQ4otV4Y2uapA8D9P2/BozUemul9vYd
-      vOVzxOidaDF6XVqpqU/8tdZ+n90oSfcz9OEfB8zTW/lrpdTZ1bN6tTz/bMxSanROkcq01Oy4cY1c
-      e2NrccbpVIxmfqqGGhGwf0qx10V/acu8XbhwLFKQttyPxpn1l9Jln129Js0JxCGK07MKXpbRWE7L
-      FaTH1e6ZUMdMp1E3SYvUlV++fg8VpkUuxCu1zFPitHzWGC11hLSx40dL46+4XvvsirP7gtPzjjP9
-      Uht6+xiN0/IIYTGK4PtUnqlVkxbPviCVadmio+UGPW7LIVmzDbVKTVqphIxzDuqgz58+Fr9rpY2q
-      LY/8wxuLU613udGo8TdWNdjdoo3DNHnz2kmirck2NG7Lx1XkZqQiLYn2Xc103DOVn90PVzkWN24S
-      jdtyeK/lRjveffdBDpg+NG4S1Wt5nAks1DPY7P6iV9m7/2COyDE6bsthCIVr0jWn9uMmUfuWB+8Q
-      SDPe7P4iyBxfhgLbuEna3bhJ1P2iguD9AwlKHidtPLVvfyThmkFilDt6b3Fq0nMGTaJeT/DbPC+D
-      NQx57v6qdll6/LEO0WJ03JavzC6nrJb9OXaSRjBuEo3bcvJNmdodN2lJmm7cgq5vy6ccw2nibD9x
-      WjKo4ZO0yxWsMvTslzb+xnHZzZTVrD+LJems1+SPmwKRWy4v+tL/xQ1fk8LQ2r9Yae43wfR6UZUk
-      TTHuLr1Xy1d4ERsrmyFJu1wLVTUI9p8qclzwlgvTi5a7mbkL0osuu+0ZkrSBlpFUdrFxWt4+1nfc
-      NSZgptdoUsCf2Uzt314sSSM8T6S94qun2bYep+UrD++rBruZh0ubryC9aL/bVpMe9WybK/gKz0pr
-      Ok7L47QkoKqDf6kYvagdpncbmyQ9oVIQNBj/cVpeL0yPPF/myMc7ejb481fTwe+aTL3+fL+xSdJz
-      doIgYfW0rKHitLxsSx5+8MhyYl5OUHZPM3SRXkSz/vzw9vaWsMSH+l6c3/JA7cvVsL/DTxvnDz97
-      trLo2PJTizqykMzfsrOEhyG7f5KqbImX2Tn5PfNsUfV+5qkNr+xmn7+x/fr9x1P1Urx8UlxOIdD3
-      GXfNWr7fkvxK6khjnrWhex1Xr3NWmNS/V3tj28zuk437mqM4La/0EIBxn4pwq1LPFF/mKOpt9pcl
-      l6xJf/74Nuvd9w9derBU/dJyKw/V8oKPgk5L8+4V6DMFV9PKGXpVdbM3u8+Vv3p6beVxWt63JWUH
-      WHGZzZOhdyptbJMkaff7Aq6de3wN5W/iRQZJl5YHbMn+t+98UZuoOts5xVtV+/B945YU78+S5+4v
-      ukzwuycpsDJnnABySVKAXOWT1EQbWI2aFCBXlSRVlgJLmaEmFdxAX7WSVLoB65ihJgXoq2KStilL
-      Fb9Ad3VrUjEHrGDs2b2kBiKonqTCDphei5q0UpjKaCCIRrP74qknRoE42j2fdLUn6i/ubl3b8zG3
-      pmecSg0nwzK497tMO1Hm1vrcfX4IitHgnoWmMGViHd4+conChHElQ4GYul1P+vPHt1PJKEYnoCxl
-      VuXf45RgZ4AJ0LEcyUrrlPmEeLeooQUMbey7RRmROT7zkaQAuSQpQC5JSgcm+ExGkgLkkqQAuSQp
-      fZjgMxNJCpBLkgLkWjRJv3z9bnYJlBLibtE29h+a6Y5VIFmIJ5jUdrz8lKeZzlb6Opw5zD+7PzW2
-      TfmBBJMnaUIyOoSaQ43JmmZO0pxAFKbAcdMmqSgEmpk2SfPJYuCgOZO0VAgK0wQOlbKgCZO0bPwJ
-      U+ClCZMUoLHZkrRGCaksPcsEn9XMlqQA7UnSQ5SlZx0pS5WuTGOqJJV3QBcLPQsq05ev39VQV3c7
-      rYc98/PHN/s2FjFVTUobD59P+DA0d/Y9dkvMRJJSjAqUZc2TpA2GsaTYCj2BVEHKZOZJUiJ4Nse/
-      jU4xynycceKEIwXps1NzApSJqUnPMcEH3pOklGd/w2okKUAuScpR3i0Iz0hSgFySFCCXJKUWE3zW
-      IUlPExDAHUkKkEuSAuSSpAC53Hffx9mneQ7K47FZhCRtbeeE1eWf6kXP7VcLOCjI7L6pg89SqvG9
-      d4t99pR7IME8SdqsyEr+ouPJVTbjXlbBQKZ5kjS4s5lVKuNeLuf4FzkgAM9I0riaFYwqU8gkSVvo
-      FVW9jifAaqZK0vmmnwIOhjBVksYUvyBN+3vgSpKe077sDRVw81X9UMRsSRptqIfKwZfGai3EMVuS
-      TknAQXATJmm9sjRawbujXvgO1AnQzIRJOiXXlkJkcyZpkLpJKsEi5kzSGoKkcwTHu0KnsYhpk9QY
-      TqaUhrOmTdKtaJhGyOVQARehQyCOmZO0FKnx0Mtu0W+sY/IkNZiBBiZP0i07TGXxjp3O0W8sZf4k
-      3TJGdU4chDqseVbm45/FKKtZIkm3bfv549vZ4R0wDmKm813fBuw3qG2td4v+/PHtSBjJggQ6jZWt
-      laTbzYBf5I3zQAPLJelV7dA8WP8CE1jlOClAPZIUIJckBcglSefk1Bm0JEkBcklSgFySFCCXJK2o
-      78FKh0qhGUk6kmbhKIXhFEkKkEuS1mWCDyuQpAC5JCn3VLJwliStrlQwpS1HLEIDknR+whRqk6T8
-      RexCAknaQn48eUMqRCZJV3EkTAUupJGkjeSEVJtzVmIUkknSdiJE1bM2RGgbjGvdN+KNonjGXRZ4
-      fVufDIV8H97e3nq3YS2nXjgq5mAIZvetCUeYj5q0m5fFqcyFUUjSnp6FqQyFsUhSgFz/A7uKhvBK
-      vgIJAAAAAElFTkSuQmCC
-    )
-  )
-
-  (text "Rev." (at 267.716 189.6872 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 1f726762-1afc-4a74-b9e2-d90e1e816ca1)
-  )
-  (text "Title:" (at 199.136 182.0672 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 236aca50-90bd-4e24-a67f-b39b156bd657)
-  )
-  (text "${##}" (at 281.94 198.5772 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 2a47af83-8f06-4635-af1d-ff301a2e621b)
-  )
-  (text "${#}" (at 273.05 198.5772 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 372c024d-59b7-4753-b26c-8aadf5d2201d)
-  )
-  (text "${REVISION}" (at 274.828 192.9892 0)
-    (effects (font (size 1.778 1.778)) (justify left bottom))
-    (uuid 45215a84-8623-4093-8aa4-1a0f80cc8611)
-  )
-  (text "${FILENAME}" (at 221.742 204.1652 0)
-    (effects (font (size 1.778 1.778)) (justify left bottom))
-    (uuid 49f6054b-1a28-4343-8160-954430ca3fed)
-  )
-  (text "${VARIANTNAME}" (at 219.71 194.5132 0)
-    (effects (font (size 1.778 1.778)) (justify left bottom))
-    (uuid 50f7ae12-4f1c-48d8-913c-fff1328cb9ed)
-  )
-  (text "Zeichner:" (at 221.996 198.5772 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 5a91a5ff-6f58-49af-aa7b-641a1b6ef889)
-  )
-  (text "Blatt" (at 267.716 198.5772 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 5f094bdb-4dce-4624-8131-72b658dc3d04)
-  )
-  (text "${ORGANIZATION}" (at 232.41 198.5772 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 746c1a7c-92e0-465d-be8c-489871cca3b6)
-  )
-  (text "${TITLE}" (at 205.994 185.1152 0)
-    (effects (font (size 1.778 1.778)) (justify left bottom))
-    (uuid 761c18f4-adf2-459f-9699-f6aad235d68c)
-  )
-  (text "Nummer:" (at 209.55 189.6872 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 9ad4cf2f-8c77-46c6-8598-5581a5541cc2)
-  )
-  (text "A4" (at 201.676 192.2272 0)
-    (effects (font (size 1.778 1.778)) (justify left bottom))
-    (uuid 9c258953-0d2b-49f2-b9d4-65c8a3fefd3b)
-  )
-  (text "${ISSUE_DATE}" (at 208.28 198.5772 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid a2e20067-2cde-4884-95ff-01582e3a4c2a)
-  )
-  (text "Filename:" (at 199.136 203.6572 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid ba39f614-c254-4109-838e-7254e12fc821)
-  )
-  (text "von" (at 277.622 198.5772 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid c1430370-af2a-4df9-a56d-4f382c208fca)
-  )
-  (text "Datum:" (at 199.136 198.5772 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid d59e4970-3976-4331-a02e-98c49143c9fe)
-  )
-  (text "${DOCUMENTNUMBER}" (at 219.71 191.2112 0)
-    (effects (font (size 1.778 1.778)) (justify left bottom))
-    (uuid d8cab975-7977-4b71-9864-4e5d40daab41)
-  )
-
-  (label "B35_L6_P" (at 127 121.1072 180)
+  (label "B35_L6_P" (at 127 121.1072 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 01fe7b23-b6af-4ede-9786-a87927f7c04b)
   )
-  (label "B35_L17_N" (at 218.44 103.3272 180)
+  (label "B35_L17_N" (at 218.44 103.3272 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 09b266f8-1da1-446d-96c0-ccf56a7887a4)
   )
-  (label "B35_L16_P" (at 218.44 95.7072 180)
+  (label "B35_L16_P" (at 218.44 95.7072 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 0a8be6e1-afb3-49db-a997-bd22cc389c82)
   )
-  (label "B35_L9_N" (at 127 138.8872 180)
+  (label "B35_L9_N" (at 127 138.8872 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 0add7a1f-c3f7-4c87-8301-f73ccc8f51bf)
   )
-  (label "B35_IO0" (at 127 85.5472 180)
+  (label "B35_IO0" (at 127 85.5472 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 0cd08b7b-aa82-4ed5-a7cc-973df8538b48)
   )
-  (label "B35_L2_N" (at 127 103.3272 180)
+  (label "B35_L2_N" (at 127 103.3272 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 121280fc-ca16-487b-b4db-26a3725fb3a3)
   )
-  (label "B35_L17_P" (at 218.44 100.7872 180)
+  (label "B35_L17_P" (at 218.44 100.7872 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 19014062-d6c7-4b6e-bc28-40c857b5fba5)
   )
-  (label "B35_L10_N" (at 218.44 67.7672 180)
+  (label "B35_L10_N" (at 218.44 67.7672 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 26ff5ae8-d59b-49c3-8287-ea01b3f3737a)
   )
-  (label "B35_L8_N" (at 127 133.8072 180)
+  (label "B35_L8_N" (at 127 133.8072 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 28b2a9a3-b19e-4901-ac1b-ff5cdf209596)
   )
-  (label "B35_L22_N" (at 218.44 128.7272 180)
+  (label "B35_L22_N" (at 218.44 128.7272 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 2e7fb1fb-af65-4221-bec5-779996967374)
   )
-  (label "B35_L2_P" (at 127 100.7872 180)
+  (label "B35_L2_P" (at 127 100.7872 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 3247bd1c-29fb-4949-922c-4a23ba709f13)
   )
-  (label "B35_L18_N" (at 218.44 108.4072 180)
+  (label "B35_L18_N" (at 218.44 108.4072 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 413b14a2-ba5d-4ce0-8a87-41ba22a2f927)
   )
-  (label "B35_IO25" (at 127 90.6272 180)
+  (label "B35_IO25" (at 127 90.6272 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 42bc1a8c-6621-4c69-83d7-dd9c5f86b79e)
   )
-  (label "B35_L23_P" (at 218.44 131.2672 180)
+  (label "B35_L23_P" (at 218.44 131.2672 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 462273f0-c576-4112-9a35-3b60fc1234d1)
   )
-  (label "B35_L10_P" (at 218.44 65.2272 180)
+  (label "B35_L10_P" (at 218.44 65.2272 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 48431303-7257-42e7-9b86-f76cee5a6037)
   )
-  (label "B35_L7_P" (at 127 126.1872 180)
+  (label "B35_L7_P" (at 127 126.1872 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 4876a9b5-2b52-41ae-8340-d9e61a5dba52)
   )
-  (label "B35_L14_N" (at 218.44 88.0872 180)
+  (label "B35_L14_N" (at 218.44 88.0872 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 4d38019f-b717-42ea-9aed-9ad8d6b16c2a)
   )
-  (label "B35_L13_N" (at 218.44 83.0072 180)
+  (label "B35_L13_N" (at 218.44 83.0072 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 54db83ae-aeff-4fb4-958a-2ac0e00fbc03)
   )
-  (label "B35_L16_N" (at 218.44 98.2472 180)
+  (label "B35_L16_N" (at 218.44 98.2472 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 5ea52103-acea-4433-96f7-14c395cc7c44)
   )
-  (label "B35_L9_P" (at 127 136.3472 180)
+  (label "B35_L9_P" (at 127 136.3472 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 64cbb7d7-a709-4641-8393-87e9fb4de7ee)
   )
-  (label "B35_L22_P" (at 218.44 126.1872 180)
+  (label "B35_L22_P" (at 218.44 126.1872 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 65126e72-8295-4c81-84f8-3194c7a251dc)
   )
-  (label "B35_L12_N" (at 218.44 77.9272 180)
+  (label "B35_L12_N" (at 218.44 77.9272 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 67c3eb3b-794e-4e45-b830-56f984416d19)
   )
-  (label "B35_L6_N" (at 127 123.6472 180)
+  (label "B35_L6_N" (at 127 123.6472 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 69d3f4b2-ebe9-4160-9613-57e802ba1e54)
   )
-  (label "B35_L1_N" (at 127 98.2472 180)
+  (label "B35_L1_N" (at 127 98.2472 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 6ff0a40f-6819-4494-ae93-14e7423909d4)
   )
-  (label "B35_L8_P" (at 127 131.2672 180)
+  (label "B35_L8_P" (at 127 131.2672 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 72d184f8-ab5e-482e-8e1d-e6e34f7944a6)
   )
-  (label "B35_L15_P" (at 218.44 90.6272 180)
+  (label "B35_L15_P" (at 218.44 90.6272 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 7342de44-4180-4b1f-b0e7-7a7b0fc7aa73)
   )
-  (label "B35_L3_N" (at 127 108.4072 180)
+  (label "B35_L3_N" (at 127 108.4072 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 79085ddf-9e95-4523-9c8f-ab89b4bdc9b8)
   )
-  (label "B35_L21_N" (at 218.44 123.6472 180)
+  (label "B35_L21_N" (at 218.44 123.6472 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 7a898275-b3f7-4814-b6a8-a5f5e396b046)
   )
-  (label "B35_L15_N" (at 218.44 93.1672 180)
+  (label "B35_L15_N" (at 218.44 93.1672 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 8155ac9d-89a1-440f-b534-2cf7ff4519fe)
   )
-  (label "B35_L23_N" (at 218.44 133.8072 180)
+  (label "B35_L23_N" (at 218.44 133.8072 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 842abbd6-ce33-4e3e-9932-d59b8d831684)
   )
-  (label "B35_L3_P" (at 127 105.8672 180)
+  (label "B35_L3_P" (at 127 105.8672 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 8fa612d3-dccd-4be8-81e5-83c63f29e543)
   )
-  (label "B35_L4_N" (at 106.68 108.4072 180)
+  (label "B35_L4_N" (at 106.68 108.4072 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 9587c2aa-4bd3-419d-8ff4-6f8eaa2a60a3)
   )
-  (label "B35_L11_P" (at 218.44 70.3072 180)
+  (label "B35_L11_P" (at 218.44 70.3072 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 980e0196-54ce-4dbb-a6f0-38ad49b4a585)
   )
-  (label "B35_L20_N" (at 218.44 118.5672 180)
+  (label "B35_L20_N" (at 218.44 118.5672 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 9d94b3e3-8687-449d-887c-3d26587ef64e)
   )
-  (label "B35_L5_N" (at 127 118.5672 180)
+  (label "B35_L5_N" (at 127 118.5672 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid a817ab03-e52f-4ec4-92f8-f8089008ebce)
   )
-  (label "B35_L24_N" (at 218.44 138.8872 180)
+  (label "B35_L24_N" (at 218.44 138.8872 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid ad7e2ed6-979b-477d-af23-e0f45b51c1bf)
   )
-  (label "B35_L5_P" (at 127 116.0272 180)
+  (label "B35_L5_P" (at 127 116.0272 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid b2978df9-9061-4a7a-8e47-f5c71e2406bb)
   )
-  (label "B35_L11_N" (at 218.44 72.8472 180)
+  (label "B35_L11_N" (at 218.44 72.8472 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid b93be9a1-f991-4854-b722-bf4149aa2d5e)
   )
-  (label "B35_L18_P" (at 218.44 105.8672 180)
+  (label "B35_L18_P" (at 218.44 105.8672 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid c120dfaa-b2ef-421f-9eb8-55125091abb6)
   )
-  (label "B35_L19_P" (at 218.44 110.9472 180)
+  (label "B35_L19_P" (at 218.44 110.9472 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid c5a3ab4b-dc91-4863-bf79-9efc1902fcd3)
   )
-  (label "B35_L24_P" (at 218.44 136.3472 180)
+  (label "B35_L24_P" (at 218.44 136.3472 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid c6a27883-5138-4ed6-a822-d3f17b47fe30)
   )
-  (label "B35_L7_N" (at 127 128.7272 180)
+  (label "B35_L7_N" (at 127 128.7272 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid c9104472-2b15-4538-8f8f-05d55378212b)
   )
-  (label "B35_L19_N" (at 218.44 113.4872 180)
+  (label "B35_L19_N" (at 218.44 113.4872 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid d1adc14f-1807-41a5-932b-e69d10fdb5af)
   )
-  (label "B35_L12_P" (at 218.44 75.3872 180)
+  (label "B35_L12_P" (at 218.44 75.3872 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid dd240d87-d33b-4648-a182-0095608c1062)
   )
-  (label "B35_L13_P" (at 218.44 80.4672 180)
+  (label "B35_L13_P" (at 218.44 80.4672 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid e6040973-4a6c-4e4c-870a-73e9d447c277)
   )
-  (label "B35_L21_P" (at 218.44 121.1072 180)
+  (label "B35_L21_P" (at 218.44 121.1072 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid e744814a-40d2-4c88-a9c0-bc9f6ba4dd35)
   )
-  (label "B35_L14_P" (at 218.44 85.5472 180)
+  (label "B35_L14_P" (at 218.44 85.5472 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid eff796f7-421b-4e7b-8971-512cdc647ec3)
   )
-  (label "B35_L20_P" (at 218.44 116.0272 180)
+  (label "B35_L20_P" (at 218.44 116.0272 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid fc35c786-01c4-431d-81df-8f23e5580e51)
   )
-  (label "B35_L4_P" (at 127 110.9472 180)
+  (label "B35_L4_P" (at 127 110.9472 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid fe120715-1b53-4172-a476-af9e1aaedd7e)
   )
@@ -2709,6 +2438,16 @@
     (pin "2" (uuid 0897730c-7511-4ec4-ae8e-20a8f410dc97))
     (pin "1" (uuid 2b669ea0-c46d-4a5f-9483-a7954f4b3fd0))
     (instances
+      (project "FPGA"
+        (path "/7e265894-d432-4f37-8ab4-6b92e20d5cd8/acc821e7-323d-43c4-a4cf-4d957bb4f5e4"
+          (reference "C18") (unit 1)
+        )
+      )
+      (project "B35"
+        (path "/ccabc23c-34b7-4f3b-9c64-a2ba38419fc0"
+          (reference "C18") (unit 1)
+        )
+      )
       (project "TE0719"
         (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e/acc821e7-323d-43c4-a4cf-4d957bb4f5e4"
           (reference "C18") (unit 1)
@@ -3148,6 +2887,16 @@
     (pin "C19" (uuid 4d4be679-6919-4fb5-bff2-75476c200beb))
     (pin "M16" (uuid 61ea97c0-bb4f-4312-80ce-1d2dbb0ff173))
     (instances
+      (project "FPGA"
+        (path "/7e265894-d432-4f37-8ab4-6b92e20d5cd8/acc821e7-323d-43c4-a4cf-4d957bb4f5e4"
+          (reference "U2") (unit 3)
+        )
+      )
+      (project "B35"
+        (path "/ccabc23c-34b7-4f3b-9c64-a2ba38419fc0"
+          (reference "U2") (unit 3)
+        )
+      )
       (project "TE0719"
         (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e/acc821e7-323d-43c4-a4cf-4d957bb4f5e4"
           (reference "U2") (unit 3)
@@ -3173,6 +2922,11 @@
     )
     (pin "" (uuid 3d8a797d-7ea2-473c-b7ba-a02677fa7a34))
     (instances
+      (project "B35"
+        (path "/ccabc23c-34b7-4f3b-9c64-a2ba38419fc0"
+          (reference "#PWR?") (unit 1)
+        )
+      )
       (project "TE0719"
         (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e/acc821e7-323d-43c4-a4cf-4d957bb4f5e4"
           (reference "#PWR?") (unit 1)
@@ -3223,6 +2977,16 @@
     (pin "2" (uuid d00682bd-4e61-424b-9c62-e8ce08b40c0f))
     (pin "1" (uuid 13f69033-2126-4ad8-9497-669f6f3adf2c))
     (instances
+      (project "FPGA"
+        (path "/7e265894-d432-4f37-8ab4-6b92e20d5cd8/acc821e7-323d-43c4-a4cf-4d957bb4f5e4"
+          (reference "C16") (unit 1)
+        )
+      )
+      (project "B35"
+        (path "/ccabc23c-34b7-4f3b-9c64-a2ba38419fc0"
+          (reference "C16") (unit 1)
+        )
+      )
       (project "TE0719"
         (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e/acc821e7-323d-43c4-a4cf-4d957bb4f5e4"
           (reference "C16") (unit 1)
@@ -3273,6 +3037,16 @@
     (pin "1" (uuid eda06550-f787-4d33-a39d-fa25b8b3b28f))
     (pin "2" (uuid bf51fd56-d036-45c3-a727-09aa6da003f0))
     (instances
+      (project "FPGA"
+        (path "/7e265894-d432-4f37-8ab4-6b92e20d5cd8/acc821e7-323d-43c4-a4cf-4d957bb4f5e4"
+          (reference "C19") (unit 1)
+        )
+      )
+      (project "B35"
+        (path "/ccabc23c-34b7-4f3b-9c64-a2ba38419fc0"
+          (reference "C19") (unit 1)
+        )
+      )
       (project "TE0719"
         (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e/acc821e7-323d-43c4-a4cf-4d957bb4f5e4"
           (reference "C19") (unit 1)
@@ -3320,6 +3094,16 @@
     (pin "2" (uuid f369afe1-2524-40d0-99a1-26312a2bc558))
     (pin "1" (uuid a086e594-2ab3-4f31-98e9-5e342b4bd925))
     (instances
+      (project "FPGA"
+        (path "/7e265894-d432-4f37-8ab4-6b92e20d5cd8/acc821e7-323d-43c4-a4cf-4d957bb4f5e4"
+          (reference "C17") (unit 1)
+        )
+      )
+      (project "B35"
+        (path "/ccabc23c-34b7-4f3b-9c64-a2ba38419fc0"
+          (reference "C17") (unit 1)
+        )
+      )
       (project "TE0719"
         (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e/acc821e7-323d-43c4-a4cf-4d957bb4f5e4"
           (reference "C17") (unit 1)
@@ -3345,6 +3129,11 @@
     )
     (pin "" (uuid 109750ad-4e65-4c52-b3dc-26f4c1d15c3d))
     (instances
+      (project "B35"
+        (path "/ccabc23c-34b7-4f3b-9c64-a2ba38419fc0"
+          (reference "#PWR?") (unit 1)
+        )
+      )
       (project "TE0719"
         (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e/acc821e7-323d-43c4-a4cf-4d957bb4f5e4"
           (reference "#PWR?") (unit 1)
@@ -3370,11 +3159,20 @@
     )
     (pin "" (uuid bd99218a-919a-4a9f-a811-3f56aa0a0b26))
     (instances
+      (project "B35"
+        (path "/ccabc23c-34b7-4f3b-9c64-a2ba38419fc0"
+          (reference "#PWR?") (unit 1)
+        )
+      )
       (project "TE0719"
         (path "/d514f09d-dfc3-4295-ae09-da2acd084311/b4f4a224-ea42-476a-8a80-0b906789a83e/acc821e7-323d-43c4-a4cf-4d957bb4f5e4"
           (reference "#PWR?") (unit 1)
         )
       )
     )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
   )
 )
