@@ -9,12 +9,9 @@ DCP = $(PROCNAME).dcp
 # we use VHDL 
 VHDL_EN  = 1
 
-
-
-
 psu: %.bd: %.tcl
 	@echo **************************************
-	@echo "    Now Building" $(basename $<):
+	@echo "    Now Building PSU" $(basename $<):
 	@echo **************************************
 	@rm -f $(basename $<).hwdef
 	@vivado -mode batch -source $(TCL_PATH)/generate_bd.tcl -tclargs $(basename $<) $(TARGET_DEVICE) $(NO_SYNTH) $(VHDL_EN)
