@@ -1,0 +1,32 @@
+# name of PSU block diagram TCL file
+PROCNAME = processing_systemu
+TARGET_DEVICE = xc7a35ticsg324-1L
+BUILD_DIR=build_dir_$(basename $<)
+TCL_PATH = ../scripts/vivado
+
+BD  = $(PROCNAME).bd
+DCP = $(PROCNAME).dcp
+# we use VHDL 
+VHDL_EN  = 1
+
+
+
+
+psu: %.bd: %.tcl
+	@echo **************************************
+	@echo "    Now Building" $(basename $<):
+	@echo **************************************
+	@rm -f $(basename $<).hwdef
+	@vivado -mode batch -source $(TCL_PATH)/generate_bd.tcl -tclargs $(basename $<) $(TARGET_DEVICE) $(NO_SYNTH) $(VHDL_EN)
+	@cp ${PROCNAME}.srcs/sources_1/bd/${PROCNAME}/${BD} .
+
+
+# remove anything we might have created (ominous)
+.phony: clean
+clean:
+	@rm -fr build_dir_* NA
+	@rm -fr edit_*
+	@rm -f  *.hwdef *.dcp *.bd $(PROJECT)_dcplist.tcl # *.ngc *.vhd
+	@rm -f *.log *.jou
+	@rm -fr *.srcs *.cache *.runs *.xpr *.hw *.ip_user_files .Xil $(PROCNAME).gen  $(PROCNAME).sim
+	@rm -f *.hdf *.bd *.os *.upd *.xsa
