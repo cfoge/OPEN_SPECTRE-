@@ -30,7 +30,7 @@ architecture Behavioral of rot_reg is
   constant REG_COUNT  : integer := 4; -- Number of input registers
   constant ADDR_WIDTH : integer := 5; -- Address width for 32 registers (2^5 = 32)
 
-  signal rotary_event, rotary_event_d, rotary_event_d2, rotary_event_d3 : std_logic;
+  signal rotary_event, rotary_event_d, rotary_event_d2, rotary_event_d3 : std_logic := '0';
   signal rotary_dir                                                     : std_logic;
   signal rotary_dir_reg                                                 : std_logic;
   signal input_data                                                     : std_logic_vector(12 - 1 downto 0);
@@ -80,7 +80,7 @@ begin
             rotary_dir_reg                      <= rotary_dir;
         end if;
 
-          if rotary_event_d3 = '1' and rotary_event_d2 = '0' then -- 3 cycles after the event 
+          if rotary_event_d2 = '1' and rotary_event_d = '0' then -- 3 cycles after the event 
             output_regs(to_integer(unsigned(input_addr))) <= data_out;
         end if;
 
@@ -93,8 +93,8 @@ end process;
 adder_subtractor : entity work.Adder_Subtractor_12bit_OverflowProtection
   port
   map (
-  A         => input_data,
-  B         => output_regs_e1,
+  A         => output_regs_e1,
+  B         => "000000000001",
   Mode      => rotary_dir_reg,
   Result    => data_out,
   Overflow  => open,
