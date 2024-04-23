@@ -1,20 +1,30 @@
 # name of PSU block diagram TCL file
-PROCNAME = processing_systemu
-TARGET_DEVICE = xc7a35ticsg324-1L
+PROCNAME = test
+TARGET_DEVICE = xc7z020clg400-1
 BUILD_DIR=build_dir_$(basename $<)
-TCL_PATH = ../scripts/vivado
+TCL_PATH = vivado
 
+     
+BD_SET    = read_bd ../$(PROCDIR)/${PROCNAME}.srcs/sources_1/bd/${PROCNAME}/
+BD_LIST   := $(foreach dcpi, $(BD), "$(BD_SET)$(dcpi)")
+DCP_SET   = read_checkpoint ../$(PROCDIR)/
+DCP_LIST  := $(foreach dcpi, $(DCP), "$(DCP_SET)$(dcpi)")
 BD  = $(PROCNAME).bd
 DCP = $(PROCNAME).dcp
 # we use VHDL 
+NO_SYNTH = 0
 VHDL_EN  = 1
 
-psu: %.bd: %.tcl
+hello:
+	echo "Hello, World"
+	echo "This line will print if the file hello does not exist."
+
+psu: 
 	@echo **************************************
-	@echo "    Now Building PSU" $(basename $<):
+	@echo "    Now Building PSU" ${PROCNAME}:
 	@echo **************************************
-	@rm -f $(basename $<).hwdef
-	@vivado -mode batch -source $(TCL_PATH)/generate_bd.tcl -tclargs $(basename $<) $(TARGET_DEVICE) $(NO_SYNTH) $(VHDL_EN)
+	@rm -f ${PROCNAME}.hwdef
+	@vivado -mode batch -source $(TCL_PATH)/generate_bd.tcl -tclargs ${PROCNAME} $(TARGET_DEVICE) $(NO_SYNTH) $(VHDL_EN)
 	@cp ${PROCNAME}.srcs/sources_1/bd/${PROCNAME}/${BD} .
 
 
