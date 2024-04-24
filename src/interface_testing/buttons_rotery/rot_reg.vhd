@@ -17,9 +17,11 @@ entity rot_reg is
   (
     sw_a  : in std_logic;
     sw_b  : in std_logic;
+    step_size : in std_logic; -- 0 = stepsize of 1, 1 = stepsize of 4
     input_addr : in  std_logic_vector(4 - 1 downto 0);
     rst   : in std_logic;
-    clk   : in std_logic
+    clk   : in std_logic;
+    output_regs_o : out std_logic_vector(12 downto 0 * (4 - 1) - 1 downto 0)
  
   );
 end rot_reg;
@@ -36,6 +38,7 @@ architecture Behavioral of rot_reg is
   signal input_data                                                     : std_logic_vector(12 - 1 downto 0);
   signal data_out                                                       : std_logic_vector(12 - 1 downto 0);
   
+  signal step_size_adder                                                     : std_logic_vector(12 - 1 downto 0);
   signal output_regs_e1                                                 : std_logic_vector(12 - 1 downto 0); -- reg value stored here before math
 
   type output_regs_a is array (0 to REG_COUNT - 1) of std_logic_vector(12 - 1 downto 0);
@@ -46,6 +49,17 @@ architecture Behavioral of rot_reg is
   --   attribute keep of rotary_event_o : signal is "true";
   --   attribute keep of rotary_dir_o   : signal is "true";
 begin
+
+ process (clk) -- set stepsize
+  begin
+    if rising_edge(clk) then
+        if step_size ='0' then
+            step_size_adder  <= "000000000001"; 
+        else
+            step_size_adder  <= "000000000100";
+        end if;
+    end if;  
+end process;
 
   customized_rotary_encoder_quad_inst : entity work.customized_rotary_encoder_quad
     generic
@@ -94,10 +108,15 @@ adder_subtractor : entity work.Adder_Subtractor_12bit_OverflowProtection
   port
   map (
   A         => output_regs_e1,
-  B         => "000000000001",
+  B         => step_size_adder,
   Mode      => rotary_dir_reg,
   Result    => data_out,
   Overflow  => open,
   Underflow => open
   );
+
+
+-- assign output regs as a single bus
+  output_regs_o <= output_regs(3) & output_regs(2) & output_regs(1) & output_regs(0);
+
   end Behavioral;

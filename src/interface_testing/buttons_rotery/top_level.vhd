@@ -84,19 +84,21 @@ begin
 --    button_state_o => button_state_o,
 --    button_event_o => button_event_o
 --  );
-  
-  customized_rotary_encoder_quad_inst : entity work.customized_rotary_encoder_quad
-  generic map (
-    g_DATA_WIDTH => 16
-  )
-  port map (
-    clk_i => clk,
-    swa_i => ja_p1,
-    swb_i => ja_n1,
-    rotary_event_o => rotary_event_o,
-    rotary_dir_o => rotary_dir_o,
-    data_out_o => data_out_o
-  );
+g_GENERATE_ROT: for ii in 0 to 4 generate
+      rot_reg_inst : entity work.rot_reg
+      port map (
+        sw_a => sw_a(ii),
+        sw_b => sw_b(ii),
+        step_size => step_size,
+        input_addr => input_addr,
+        rst => rst,
+        clk => clk,
+        output_regs_o => output_regs_o(ii)
+      );
+end generate g_GENERATE_ROT;
+
+
+
 
 led0 <= rotary_event_o;
 led1 <= rotary_dir_o;
