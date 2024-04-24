@@ -21,7 +21,7 @@ entity rot_reg is
     input_addr : in  std_logic_vector(4 - 1 downto 0);
     rst   : in std_logic;
     clk   : in std_logic;
-    output_regs_o : out std_logic_vector(12 downto 0 * (4 - 1) - 1 downto 0)
+    output_regs_o : out std_logic_vector(12 downto 0 * (4 - 1) - 1 downto 0) --all regs concatinated together
  
   );
 end rot_reg;

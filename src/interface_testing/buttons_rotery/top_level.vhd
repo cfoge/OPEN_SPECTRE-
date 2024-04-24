@@ -53,6 +53,7 @@ architecture Behavioral of top_level is
 
 constant   g_NUM_KEY_ROWS      : integer := 5;
  constant   g_NUM_KEY_COLUMNS   : integer := 6;
+ constant   g_NUM_ROT     : integer := 5;
 
 signal rotary_event_o :  std_logic;
 signal rotary_dir_o   :  std_logic;                 -- '1': Left, '0' :Right 
@@ -60,6 +61,12 @@ signal data_out_o     :  std_logic_vector(16-1 downto 0);
 
 signal    button_state_o      : std_logic_vector(g_NUM_KEY_COLUMNS*g_NUM_KEY_ROWS-1 downto 0);
 signal    button_event_o      : std_logic_vector(g_NUM_KEY_COLUMNS*g_NUM_KEY_ROWS-1 downto 0);   
+
+-- rotery encoder
+signal    sw_a      : std_logic_vector(g_NUM_ROT-1 downto 0);
+signal    sw_b      : std_logic_vector(g_NUM_ROT-1 downto 0);
+type output_rot_a is array (0 to 5 - 1) of std_logic_vector(12 downto 0 * (4 - 1) - 1 downto 0); -- each of these 0,1,2,3,4 represetn all 4 registers for each rotery as one long vector
+signal output_regs_rot    : output_rot_a;
 
 attribute keep : string;
 attribute keep of data_out_o : signal is "true";
@@ -93,7 +100,7 @@ g_GENERATE_ROT: for ii in 0 to 4 generate
         input_addr => input_addr,
         rst => rst,
         clk => clk,
-        output_regs_o => output_regs_o(ii)
+        output_regs_o => output_regs_rot(ii)
       );
 end generate g_GENERATE_ROT;
 
