@@ -57,10 +57,10 @@ architecture Behavioral of top_level is
 
   -- buttons
   signal debounce_strobe_i : std_logic := '1'; --should be a 10ms strobe
-  signal columns_i      : std_logic_vector(g_NUM_KEY_COLUMNS - 1 downto 0);
-  signal rows_o         : std_logic_vector(g_NUM_KEY_ROWS - 1 downto 0);
-  signal button_state_o : std_logic_vector(g_NUM_KEY_COLUMNS * g_NUM_KEY_ROWS - 1 downto 0);
-  signal button_event_o : std_logic_vector(g_NUM_KEY_COLUMNS * g_NUM_KEY_ROWS - 1 downto 0);
+  signal columns_i         : std_logic_vector(g_NUM_KEY_COLUMNS - 1 downto 0);
+  signal rows_o            : std_logic_vector(g_NUM_KEY_ROWS - 1 downto 0);
+  signal button_state_o    : std_logic_vector(g_NUM_KEY_COLUMNS * g_NUM_KEY_ROWS - 1 downto 0);
+  signal button_event_o    : std_logic_vector(g_NUM_KEY_COLUMNS * g_NUM_KEY_ROWS - 1 downto 0);
 
   -- rotery encoders
   signal rotary_event_o : std_logic_vector(g_NUM_ROT - 1 downto 0); -- rotery events for all roter encoders to use for interupts
