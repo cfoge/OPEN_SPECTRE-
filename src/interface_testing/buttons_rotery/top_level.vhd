@@ -55,42 +55,43 @@ constant   g_NUM_KEY_ROWS      : integer := 5;
  constant   g_NUM_KEY_COLUMNS   : integer := 6;
  constant   g_NUM_ROT     : integer := 5;
 
-signal rotary_event_o :  std_logic;
-signal rotary_dir_o   :  std_logic;                 -- '1': Left, '0' :Right 
-signal data_out_o     :  std_logic_vector(16-1 downto 0);
+
 
 signal    button_state_o      : std_logic_vector(g_NUM_KEY_COLUMNS*g_NUM_KEY_ROWS-1 downto 0);
 signal    button_event_o      : std_logic_vector(g_NUM_KEY_COLUMNS*g_NUM_KEY_ROWS-1 downto 0);   
 
 -- rotery encoder
+signal rotary_event_o :  std_logic_vector(g_NUM_ROT-1 downto 0); -- rotery events for all roter encoders to use for interupts
+signal step_size   :  std_logic := '1'; --rotery encoder step size is 4, hook up so there is a way to control this  
 signal    sw_a      : std_logic_vector(g_NUM_ROT-1 downto 0);
 signal    sw_b      : std_logic_vector(g_NUM_ROT-1 downto 0);
 type output_rot_a is array (0 to 5 - 1) of std_logic_vector(12 downto 0 * (4 - 1) - 1 downto 0); -- each of these 0,1,2,3,4 represetn all 4 registers for each rotery as one long vector
 signal output_regs_rot    : output_rot_a;
 
-attribute keep : string;
-attribute keep of data_out_o : signal is "true";
-attribute keep of rotary_event_o : signal is "true";
-attribute keep of rotary_dir_o : signal is "true";
+-- attribute keep : string;
+-- attribute keep of rotary_event_o : signal is "true";
+-- attribute keep of rotary_dir_o : signal is "true";
 
 
 
 begin
 
---debounced_button_decoder_inst : entity work.debounced_button_decoder
---  generic map (
---    g_NUM_KEY_ROWS => g_NUM_KEY_ROWS,
---    g_NUM_KEY_COLUMNS => g_NUM_KEY_COLUMNS
---  )
---  port map (
---    reset_n => sw0,
---    clock_i => clk,
---    debounce_strobe_i => debounce_strobe_i,
---    columns_i => columns_i,
---    rows_o => rows_o,
---    button_state_o => button_state_o,
---    button_event_o => button_event_o
---  );
+debounced_button_decoder_inst : entity work.debounced_button_decoder
+ generic map (
+   g_NUM_KEY_ROWS => g_NUM_KEY_ROWS,
+   g_NUM_KEY_COLUMNS => g_NUM_KEY_COLUMNS
+ )
+ port map (
+   reset_n => sw0,
+   clock_i => clk,
+   debounce_strobe_i => debounce_strobe_i,
+   columns_i => columns_i,
+   rows_o => rows_o,
+   button_state_o => button_state_o,
+   button_event_o => button_event_o
+ );
+
+
 g_GENERATE_ROT: for ii in 0 to 4 generate
       rot_reg_inst : entity work.rot_reg
       port map (
@@ -100,7 +101,8 @@ g_GENERATE_ROT: for ii in 0 to 4 generate
         input_addr => input_addr,
         rst => rst,
         clk => clk,
-        output_regs_o => output_regs_rot(ii)
+        output_regs_o => output_regs_rot(ii),
+        rotary_event_o(ii)
       );
 end generate g_GENERATE_ROT;
 
