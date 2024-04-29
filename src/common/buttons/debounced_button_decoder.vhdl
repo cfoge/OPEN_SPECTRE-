@@ -4,7 +4,7 @@ use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 
 library work;
-use work.types_pkg.all;
+--use work.types_pkg.all;
 
 entity debounced_button_decoder is
   generic (
@@ -26,6 +26,9 @@ end debounced_button_decoder;
 
 ---------------------------------------------------------------------------------
 architecture rtl of debounced_button_decoder is
+  type t_slv2_array    is array (natural range <>) of std_logic_vector(1 downto 0); 
+  type t_slv3_array    is array (natural range <>) of std_logic_vector(2 downto 0);
+  
 
   signal debounce_count     : integer range 0 to (g_NUM_KEY_ROWS-1);
   signal raw_button_state   : std_logic_vector(g_NUM_KEY_COLUMNS*g_NUM_KEY_ROWS-1 downto 0);

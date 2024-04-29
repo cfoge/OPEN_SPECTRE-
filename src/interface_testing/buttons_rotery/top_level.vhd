@@ -32,13 +32,24 @@ use IEEE.STD_LOGIC_1164.all;
 entity top_level is
   port
   (
-    ja_p1 : in std_logic;
-    ja_n1 : in std_logic;
-    ja_p2 : in std_logic;
-    ja_n2 : in std_logic;
+    ja_1 : in std_logic;
+    ja_2 : in std_logic;
+--    ja_p2 : in std_logic;
+--    ja_n2 : in std_logic;
+    re1a  : in std_logic;
+    re1b  : in std_logic;
+    re2a  : in std_logic;
+    re2b  : in std_logic;
+    re_menue_a  : in std_logic;
+    re_menue_b  : in std_logic;
+
+
+
+
     btn0  : in std_logic;
     btn1  : in std_logic;
     sw0   : in std_logic;
+    sw1   : in std_logic;
     clk   : in std_logic;
     led0  : out std_logic;
     led1  : out std_logic;
@@ -54,6 +65,7 @@ architecture Behavioral of top_level is
   constant g_NUM_ROT         : integer := 5;
 
   signal rst : std_logic := '0';
+  signal rst_n : std_logic := '1';
 
   -- buttons
   signal debounce_strobe_i : std_logic := '1'; --should be a 10ms strobe
@@ -69,7 +81,7 @@ architecture Behavioral of top_level is
   signal step_size : std_logic := '1'; --rotery encoder step size is 4, hook up so there is a way to control this  
   signal sw_a      : std_logic_vector(g_NUM_ROT - 1 downto 0);
   signal sw_b      : std_logic_vector(g_NUM_ROT - 1 downto 0);
-  type output_rot_a is array (0 to 5 - 1) of std_logic_vector(12 downto 0 * (4 - 1) - 1 downto 0); -- each of these 0,1,2,3,4 represetn all 4 registers for each rotery as one long vector
+  type output_rot_a is array (0 to 5 - 1) of std_logic_vector(47 downto 0); -- each of these 0,1,2,3,4 represetn all 4 registers for each rotery as one long vector
   signal output_regs_rot : output_rot_a;
 
   attribute keep : string;
@@ -77,6 +89,13 @@ architecture Behavioral of top_level is
   attribute keep of output_regs_rot : signal is "true";
 
 begin
+
+
+sw_a <= re_menue_a & re1a & re2a & ja_1 & '0';
+sw_b <= re_menue_b & re1b & re2b & ja_2 & '0';
+
+input_addr <= "00" & btn0 & sw0;
+
 
   debounced_button_decoder_inst : entity work.debounced_button_decoder
     generic
@@ -86,7 +105,7 @@ begin
     )
     port map
     (
-      reset_n           => not rst,
+      reset_n           =>  '1',
       clock_i           => clk,
       debounce_strobe_i => debounce_strobe_i,
       columns_i         => columns_i,
@@ -94,6 +113,8 @@ begin
       button_state_o    => button_state_o,
       button_event_o    => button_event_o
     );
+
+
   g_GENERATE_ROT : for ii in 0 to 4 generate
     rot_reg_inst : entity work.rot_reg
       port
@@ -105,9 +126,11 @@ begin
       rst           => rst,
       clk           => clk,
       output_regs_o => output_regs_rot(ii),
-      rotary_event_o(ii)
+      rotary_event_o => rotary_event_o(ii)
       );
   end generate g_GENERATE_ROT;
-  led0 <= rotary_event_o;
-  led1 <= rotary_dir_o;
+  led0 <= rotary_event_o(0);
+  led1 <= rotary_event_o(1);
+  led2 <= rotary_event_o(2);
+  led3 <= rotary_event_o(3);
 end Behavioral;

@@ -21,8 +21,8 @@ entity rot_reg is
     input_addr : in  std_logic_vector(4 - 1 downto 0);
     rst   : in std_logic;
     clk   : in std_logic;
-    output_regs_o : out std_logic_vector(12 downto 0 * (4 - 1) - 1 downto 0) --all regs concatinated together
-    rotary_event_o : out std_logic;
+    output_regs_o : out std_logic_vector(47 downto 0); --all regs concatinated together
+    rotary_event_o : out std_logic
   );
 end rot_reg;
 
@@ -118,5 +118,6 @@ adder_subtractor : entity work.Adder_Subtractor_12bit_OverflowProtection
 
 -- assign output regs as a single bus
   output_regs_o <= output_regs(3) & output_regs(2) & output_regs(1) & output_regs(0);
+  rotary_event_o <= rotary_event;
 
   end Behavioral;
