@@ -22,6 +22,32 @@ entity digital_reg_file is
     read_sniiffer: in std_logic;
     sniff_rom_addr : in STD_LOGIC_VECTOR(7 downto 0) := (others => '0');
     sniff_rom_data : out STD_LOGIC_VECTOR(63 downto 0);
+
+    --Hardware interface
+    annaloge_in_1 : in std_logic_vector(31 downto 0);
+    annaloge_in_2 : in std_logic_vector(31 downto 0);
+    annaloge_in_3 : in std_logic_vector(31 downto 0);
+      --Rotery Encoders each has 4 registers per encoder
+    rot_enc_0_r0 : in std_logic_vector(11 downto 0);
+    rot_enc_0_r1 : in std_logic_vector(11 downto 0);
+    rot_enc_0_r2 : in std_logic_vector(11 downto 0);
+    rot_enc_0_r3 : in std_logic_vector(11 downto 0);
+    rot_enc_1_r0 : in std_logic_vector(11 downto 0);
+    rot_enc_1_r1 : in std_logic_vector(11 downto 0);
+    rot_enc_1_r2 : in std_logic_vector(11 downto 0);
+    rot_enc_1_r3 : in std_logic_vector(11 downto 0);
+    rot_enc_2_r0 : in std_logic_vector(11 downto 0);
+    rot_enc_2_r1 : in std_logic_vector(11 downto 0);
+    rot_enc_2_r2 : in std_logic_vector(11 downto 0);
+    rot_enc_2_r3 : in std_logic_vector(11 downto 0);
+    rot_enc_3_r0 : in std_logic_vector(11 downto 0);
+    rot_enc_3_r1 : in std_logic_vector(11 downto 0);
+    rot_enc_3_r2 : in std_logic_vector(11 downto 0);
+    rot_enc_3_r3 : in std_logic_vector(11 downto 0);
+      --Buttons
+    button_state : in std_logic_vector(29 downto 0);
+    button_event : in std_logic_vector(29 downto 0);
+
     -- outptus
     -- Pinmatrix
     matrix_out_addr : out std_logic_vector(5 downto 0);
