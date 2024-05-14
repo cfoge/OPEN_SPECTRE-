@@ -8,6 +8,9 @@ library UNISIM;
 use UNISIM.vcomponents.all;
 
 entity digital_reg_file is
+  generic (
+    regs_clk     STD_LOGIC_VECTOR(7 downto 0) := (others => '0');
+  );
   port
   (
     -- CPU interface
@@ -44,6 +47,10 @@ entity digital_reg_file is
     rot_enc_3_r1 : in std_logic_vector(11 downto 0);
     rot_enc_3_r2 : in std_logic_vector(11 downto 0);
     rot_enc_3_r3 : in std_logic_vector(11 downto 0);
+    rot_enc_4_r0 : in std_logic_vector(11 downto 0);
+    rot_enc_4_r1 : in std_logic_vector(11 downto 0);
+    rot_enc_4_r2 : in std_logic_vector(11 downto 0);
+    rot_enc_4_r3 : in std_logic_vector(11 downto 0);
       --Buttons
     button_state : in std_logic_vector(29 downto 0);
     button_event : in std_logic_vector(29 downto 0);
@@ -112,11 +119,11 @@ architecture RTL of digital_reg_file is
   -- Function for converting byte adresses to an index
   -- into the 32 bit register array.
   function ra (
-    byte_addr : std_logic_vector(7 downto 0)
+    byte_addr : std_logic_vector(11 downto 0)
   ) return natural is
     variable ret : natural;
   begin
-    ret := to_integer(unsigned(byte_addr(7 downto 2)));
+    ret := to_integer(unsigned(byte_addr(11 downto 2)));
     return ret;
   end ra;
 
@@ -180,7 +187,7 @@ begin
       if regs_en = '0' then
         read_reg <= x"00000000";
       else
-        read_reg <= regs(ra(regs_addr(7 downto 0)));
+        read_reg <= regs(ra(regs_addr(11 downto 0)));
       end if;
     end if;
   end process;
@@ -206,7 +213,7 @@ begin
   -- Assemble the register read array
   ---------------------------------------------------------------------------
   -- outgoing, so inputs to this block
-  -- regs(ra(x"00")) <= xxxxxxxxxxxxxxxxxxxxx;  -- read only reg with the FPGA build number
+  regs(ra(x"00")) <= xxxxxxxxxxxxxxxxxxxxx;  -- read only reg with the FPGA build number
 
   -- digital side
   regs(ra(x"04")) <= x"000000" & "00" & matrix_out_addr_int; -- this is the matrix output
@@ -245,6 +252,40 @@ begin
 -- pitch
 -- deviation
 --amplitude/sync (concatinated)
+
+--Hardware interface
+regs(ra(x"200")) <= annaloge_in_1;
+regs(ra(x"204")) <= annaloge_in_2;
+regs(ra(x"208")) <= annaloge_in_3;
+
+regs(ra(x"20C")) <= "00" & button_state;
+regs(ra(x"210")) <= "00" & button_event;
+
+regs(ra(x"220")) <= 0x"000" & rot_enc_0_r0;
+regs(ra(x"224")) <= 0x"000" & rot_enc_0_r1;
+regs(ra(x"228")) <= 0x"000" & rot_enc_0_r2;
+regs(ra(x"22C")) <= 0x"000" & rot_enc_0_r3;
+
+regs(ra(x"230")) <= 0x"000" & rot_enc_1_r0;
+regs(ra(x"234")) <= 0x"000" & rot_enc_1_r1;
+regs(ra(x"238")) <= 0x"000" & rot_enc_1_r2;
+regs(ra(x"23C")) <= 0x"000" & rot_enc_1_r3;
+
+regs(ra(x"240")) <= 0x"000" & rot_enc_2_r0;
+regs(ra(x"244")) <= 0x"000" & rot_enc_2_r1;
+regs(ra(x"248")) <= 0x"000" & rot_enc_2_r2;
+regs(ra(x"24C")) <= 0x"000" & rot_enc_2_r3;
+
+regs(ra(x"250")) <= 0x"000" & rot_enc_3_r0;
+regs(ra(x"254")) <= 0x"000" & rot_enc_3_r1;
+regs(ra(x"258")) <= 0x"000" & rot_enc_3_r2;
+regs(ra(x"25C")) <= 0x"000" & rot_enc_3_r3;
+
+regs(ra(x"260")) <= 0x"000" & rot_enc_4_r0;
+regs(ra(x"264")) <= 0x"000" & rot_enc_4_r1;
+regs(ra(x"268")) <= 0x"000" & rot_enc_4_r2;
+regs(ra(x"26C")) <= 0x"000" & rot_enc_4_r3;
+
 
 
 
