@@ -76,7 +76,7 @@ if (OUTPUT_TYPE == 'html'):
         vhdl_symbol = repository['vhdl_symbol']
         verilog_symbol = repository['verilog_symbol']
 
-        html_index += f"    <li>Project: <a href=\"{name}_doc/index.html\">{name}</a> (<a href=\"{url}\">go to Github project</a>) </li>\n"
+        html_index += f"    <li>Project: <a href=\"{gh_pages/index.html\">{name}</a> (<a href=\"{url}\">go to Github project</a>) </li>\n"
         git_clone(url)
         execute_teroshdl(name, folder, OUTPUT_TYPE, vhdl_symbol, verilog_symbol)
     html_index += '</ul>\n'
@@ -99,7 +99,7 @@ if (OUTPUT_TYPE == 'markdown'):
         vhdl_symbol = repository['vhdl_symbol']
         verilog_symbol = repository['verilog_symbol']
 
-        html_index += f"- Project: [{name} ](./{name}_doc/README.md) ([go to Github project]({url}))\n"
+        html_index += f"- Project: [{name} ](./gh_pages/README.md) ([go to Github project]({url}))\n"
         git_clone(url)
         execute_teroshdl(name, folder, OUTPUT_TYPE, vhdl_symbol, verilog_symbol)
 
