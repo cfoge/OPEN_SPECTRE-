@@ -1,4 +1,6 @@
 
+-- OPEN SPECTRE REGISTER FILE
+
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -8,6 +10,10 @@ library UNISIM;
 use UNISIM.vcomponents.all;
 
 entity digital_reg_file is
+  generic
+  (
+    fpga_rev_id : std_logic_vector(7 downto 0) := 0x"00"
+  );
   port
   (
     -- CPU interface
@@ -37,7 +43,7 @@ entity digital_reg_file is
     Rotery_enc_2_preset : out std_logic_vector(31 downto 0);
     Rotery_enc_3_preset : out std_logic_vector(31 downto 0);
     Rotery_enc_4_preset : out std_logic_vector(31 downto 0);
-
+    button_matrix       : in std_logic_vector(31 downto 0);
     -- Leds out
     led_output     : out std_logic_vector(31 downto 0); -- leds shifted out via shift reg to front pannel leds, so no pwm per led.
     led_global_pwm : out std_logic_vector(31 downto 0); -- global pwm mosfet for led brighness?
@@ -45,7 +51,7 @@ entity digital_reg_file is
 
     -- Fan Interface
     fan_pwm : out std_logic_vector(31 downto 0);
-    fan_rpm : out std_logic_vector(31 downto 0); 
+    fan_rpm : out std_logic_vector(31 downto 0);
 
     -- Pinmatrix
     matrix_out_addr : out std_logic_vector(5 downto 0);
@@ -126,6 +132,23 @@ architecture RTL of digital_reg_file is
   signal write_en  : std_logic;
   --sniffer interface
   signal digital_matrix_data : std_logic_vector(63 downto 0);
+  --Hardware interface
+  signal Rotery_addr_mux_i : std_logic_vector(3 downto 0); -- this address tells the rotery encoders which part of the register to write to, think of it like pages on a midi controller. (no processor state memory requiered)
+  -- Rotery encoder preset registers (used to set envoder values from the CPU)
+  signal Rotery_enc_preset_w_i : std_logic; -- write values to rotery encoder regs.
+  signal Rotery_enc_0_preset_i : std_logic_vector(31 downto 0);
+  signal Rotery_enc_1_preset_i : std_logic_vector(31 downto 0);
+  signal Rotery_enc_2_preset_i : std_logic_vector(31 downto 0);
+  signal Rotery_enc_3_preset_i : std_logic_vector(31 downto 0);
+  signal Rotery_enc_4_preset_i : std_logic_vector(31 downto 0);
+
+  -- Leds
+  signal led_output_i     : std_logic_vector(31 downto 0); -- leds shifted via shift reg to front pannel leds, so no pwm per led.
+  signal led_global_pwm_i : std_logic_vector(31 downto 0); -- global pwm mosfet for led brighness?
+  signal lcd_backligh_i   : std_logic;
+
+  -- Fan Interface
+  signal fan_pwm_i : std_logic_vector(31 downto 0);
   --digital side
   signal matrix_out_addr_int : std_logic_vector(5 downto 0);
   signal matrix_load_int     : std_logic;
@@ -213,7 +236,7 @@ begin
   -- Assemble the register read array
   ---------------------------------------------------------------------------
   -- outgoing, so inputs to this block
-  -- regs(ra(x"00")) <= xxxxxxxxxxxxxxxxxxxxx;  -- read only reg with the FPGA build number
+  regs(ra(x"00")) <= x"000000" & fpga_rev_id; -- read only reg with the FPGA build number
 
   -- digital side
   regs(ra(x"04")) <= x"000000" & "00" & matrix_out_addr_int; -- this is the matrix output
@@ -253,13 +276,29 @@ begin
   regs(ra(x"64")) <= x"00" & cr_level_i & y_level_i;
   regs(ra(x"68")) <= x"00000" & cb_level_i;
   regs(ra(x"6C")) <= x"000000" & "0000000" & video_active;
-  -- osc 1 & 2 (put side by side in reg like shape gen)
-  -- pitch
-  -- deviation
-  --amplitude/sync (concatinated)
+
+  -- hardware interface
+  regs(ra(x"70")) <= 0x"0000000" & Rotery_addr_mux_i;
+  regs(ra(x"74")) <= Rotery_enc_0; -- read only
+  regs(ra(x"78")) <= Rotery_enc_1; -- read only
+  regs(ra(x"7C")) <= Rotery_enc_2; -- read only
+  regs(ra(x"80")) <= Rotery_enc_3; -- read only
+  regs(ra(x"84")) <= Rotery_enc_4; -- read only
+  regs(ra(x"88")) <= 0x"0000000" & "000" & Rotery_enc_preset_w_i;
+  regs(ra(x"8C")) <= Rotery_enc_0_preset_i;
+  regs(ra(x"90")) <= Rotery_enc_1_preset_i;
+  regs(ra(x"94")) <= Rotery_enc_2_preset_i;
+  regs(ra(x"98")) <= Rotery_enc_3_preset_i;
+  regs(ra(x"9C")) <= Rotery_enc_4_preset_i;
+  regs(ra(x"A0")) <= led_output_i;
+  regs(ra(x"A4")) <= led_global_pwm_i;
+  regs(ra(x"A8")) <= 0x"0000000" & "000" & lcd_backligh_i;
+  regs(ra(x"AC")) <= fan_pwm_i;
+  regs(ra(x"B0")) <= fan_rpm_; -- read only
+  regs(ra(x"B4")) <= button_matrix; -- read only
 
   -- other
-  --  regs(ra(x"70")) <= x"DEADBEEF"; --test reg 1
+  regs(ra(x"B8")) <= x"DEADBEEF"; --test reg 1
   -- ---------------------------------------------------------------------------
   -- Write MUX
   ---------------------------------------------------------------------------
@@ -340,6 +379,29 @@ begin
           when x"6C" =>
             video_active <= write_reg(0);
 
+          when x"70" =>
+            Rotery_addr_mux_i <= write_reg(3 downto 0);
+          when x"88" =>
+            Rotery_enc_preset_w_i <= write_reg(0);
+          when x"8C" =>
+            Rotery_enc_0_preset_i <= write_reg;
+          when x"90" =>
+            Rotery_enc_1_preset_i <= write_reg;
+          when x"94" =>
+            Rotery_enc_2_preset_i <= write_reg;
+          when x"98" =>
+            Rotery_enc_3_preset_i <= write_reg;
+          when x"9C" =>
+            Rotery_enc_4_preset_i <= write_reg;
+          when x"A0" =>
+            led_output_i <= write_reg;
+          when x"A4" =>
+            led_global_pwm_i <= write_reg;
+          when x"A8" =>
+            lcd_backligh_i <= write_reg(0);
+          when x"AC" =>
+            fan_pwm_i <= <= write_reg;
+
           when others =>
             exception_addr <= not exception_addr;
 
@@ -418,5 +480,17 @@ begin
   cb_level <= cb_level_i;
 
   video_active_O <= video_active;
+
+  Rotery_addr_mux     <= Rotery_addr_mux_i;
+  Rotery_enc_preset_w <= Rotery_enc_preset_w_i;
+  Rotery_enc_0_preset <= Rotery_enc_0_preset_i;
+  Rotery_enc_1_preset <= Rotery_enc_1_preset_i;
+  Rotery_enc_2_preset <= Rotery_enc_2_preset_i;
+  Rotery_enc_3_preset <= Rotery_enc_3_preset_i;
+  Rotery_enc_4_preset <= Rotery_enc_4_preset_i;
+  led_output          <= led_output_i;
+  led_global_pwm      <= led_global_pwm_i;
+  lcd_backligh        <= lcd_backligh_i;
+  fan_pwm             <= fan_pwm_i;
 
 end RTL;
