@@ -1,24 +1,23 @@
--- CPU WRAPPER
-
+--Auto generated VHDL Wrapper
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+library unisim;
+use unisim.vcomponents.all;
 
-entity cpu_wrapper is
+
+entity cpu_reg_wrapper is
   port
   (
     clk : in std_logic;
     rst : in std_logic;
-    --------------------------------------------
-    -- MICROBLAZE INTERFACE
-    --------------------------------------------
-    mb_int0  : in std_logic;
-    mb_int1  : in std_logic;
-    mb_int3  : in std_logic;
-    vert_int : in std_logic;
-    --------------------------------------------
-    -- REGISTER INTERFACE
-    --------------------------------------------
+    -- Register Interface
+    regs_en      : in std_logic;
+    regs_wen     : in std_logic_vector(3 downto 0);
+    regs_addr    : in std_logic_vector(12 downto 0);
+    regs_wr_data : in std_logic_vector(31 downto 0);
+    regs_rd_data : out std_logic_vector(31 downto 0);
+
     -- Digital Matrix Control
     matrix_out_addr : out std_logic_vector(5 downto 0);
     matrix_mask_out : out std_logic_vector(63 downto 0);
@@ -87,73 +86,42 @@ entity cpu_wrapper is
     y_level        : out std_logic_vector(11 downto 0);
     cr_level       : out std_logic_vector(11 downto 0);
     cb_level       : out std_logic_vector(11 downto 0);
-    video_active_o : out std_logic --a signal designed to black the video output under SW control
+    video_active_o : out std_logic
+
+  )
+end cpu_reg_wrapper;
+
+architecture rtl of cpu_reg_wrapper is
+begin
+
+  signal read_sniiffer  : std_logic;
+  signal sniff_rom_addr : std_logic_vector(7 downto 0) := others => 0;
+  signal sniff_rom_data : std_logic_vector(63 downto 0);
+ 
+  signal debug            : std_logic_vector(127 downto 0);
+  signal exception_addr_o : std_logic;
+  signal read_ram         : std_logic                    := 0;
+  signal read_address     : std_logic_vector(7 downto 0) := others => 0;
+  signal ram_data_out     : std_logic_vector(63 downto 0);
 
 
-    --------------------------------------------
-    -- VIDEO CANVAS???? BRAM INTERFACE?
-    --------------------------------------------
-
-  );
-
-  end cpu_wrapper;
-
-  architecture rtl of cpu_wrapper is
-
-    signal regs_en : std_logic;
-    signal regs_wen : std_logic_vector(3 downto 0);
-    signal regs_addr : std_logic_vector(12 downto 0);
-    signal regs_wr_data : std_logic_vector(31 downto 0);
-    signal regs_rd_data : std_logic_vector(31 downto 0);
-  
-  begin
-
-  -- Microblaze Design Wrapper
-  MB_CPU : entity design_1_wrapper
-    port map
-    (
-      mb_int0         => mb_int0,
-      mb_int1         => mb_int1,
-      mb_int3         => mb_int3,
-      sys_clk         => clk,
-      sys_reg_addr    => sys_reg_addr,
-      sys_reg_clk     => sys_reg_clk,
-      sys_reg_din     => sys_reg_din,
-      sys_reg_dout    => sys_reg_dout,
-      sys_reg_en      => sys_reg_en,
-      sys_reg_rst     => open, --sys_reg_rst, -- what is this for??
-      sys_reg_we      => sys_reg_we,
-      sys_rst_n       => not rst, -- check that is correct
-      vert_int        => vert_int,
-      vid_canvas_addr => open, --vid_canvas_addr,
-      vid_canvas_clk  => open, --vid_canvas_clk,
-      vid_canvas_din  => open, --vid_canvas_din,
-      vid_canvas_dout => open, --vid_canvas_dout,
-      vid_canvas_en   => open, --vid_canvas_en,
-      vid_canvas_rst  => open, --vid_canvas_rst,
-      vid_canvas_we   => open--vid_canvas_we
-    );
-
-  -- CPU SYS REG
-  cpu_reg_wrapper_inst : entity work.cpu_reg_wrapper
-    port
+  digital_reg_file_i : entity work.digital_reg_file
+    generic
     map (
-    clk                 => sys_reg_clk,
-    rst                 => rst,
-    regs_en             => sys_reg_en,
-    regs_wen            => sys_reg_we,
-    regs_addr           => sys_reg_addr,
-    regs_wr_data        => sys_reg_dout,
-    regs_rd_data        => sys_reg_din,
-    matrix_out_addr     => matrix_out_addr,
-    matrix_mask_out     => matrix_mask_out,
-    matrix_load         => matrix_load,
-    invert_matrix       => invert_matrix,
-    vid_span            => vid_span,
-    out_addr            => out_addr,
-    ch_addr             => ch_addr,
-    gain_in             => gain_in,
-    anna_matrix_wr      => anna_matrix_wr,
+    fpga_rev_id => fpga_rev_id
+    );
+  port map
+  (
+    regs_clk            => clk,
+    regs_rst            => rst,
+    regs_en             => regs_en,
+    regs_wen            => regs_wen,
+    regs_addr           => regs_addr,
+    regs_wr_data        => regs_wr_data,
+    regs_rd_data        => regs_rd_data,
+    read_sniiffer       => read_sniiffer,
+    sniff_rom_addr      => sniff_rom_addr,
+    sniff_rom_data      => sniff_rom_data,
     rotery_addr_mux     => rotery_addr_mux,
     rotery_enc_0        => rotery_enc_0,
     rotery_enc_1        => rotery_enc_1,
@@ -172,6 +140,15 @@ entity cpu_wrapper is
     lcd_backligh        => lcd_backligh,
     fan_pwm             => fan_pwm,
     fan_rpm             => fan_rpm,
+    matrix_out_addr     => matrix_out_addr,
+    matrix_mask_out     => matrix_mask_out,
+    matrix_load         => matrix_load,
+    invert_matrix       => invert_matrix,
+    vid_span            => vid_span,
+    out_addr            => out_addr,
+    ch_addr             => ch_addr,
+    gain_in             => gain_in,
+    anna_matrix_wr      => anna_matrix_wr,
     pos_h_1             => pos_h_1,
     pos_v_1             => pos_v_1,
     zoom_h_1            => zoom_h_1,
@@ -200,7 +177,26 @@ entity cpu_wrapper is
     y_level             => y_level,
     cr_level            => cr_level,
     cb_level            => cb_level,
-    video_active_o      => video_active_o
+    video_active_o      => video_active_o,
+    debug               => debug,
+    exception_addr_o    => exception_addr_o
+  );
+
+  reg_sniffer_i : entity work.reg_sniffer
+    port
+    map (
+    clk             => clk,
+    rst             => rst,
+    read_ram        => read_ram,
+    read_address    => read_address,
+    ram_data_out    => ram_data_out,
+    matrix_out_addr => matrix_out_addr,
+    matrix_mask_out => matrix_mask_out,
+    matrix_load     => matrix_load,
+    out_addr        => out_addr,
+    ch_addr         => ch_addr,
+    gain_in         => gain_in,
+    anna_matrix_wr  => anna_matrix_wr
     );
 
-    end rtl;
+end rtl;
