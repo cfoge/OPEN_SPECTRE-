@@ -87,13 +87,12 @@ entity cpu_reg_wrapper is
     y_level        : out std_logic_vector(11 downto 0);
     cr_level       : out std_logic_vector(11 downto 0);
     cb_level       : out std_logic_vector(11 downto 0);
-    video_active_o : out std_logic;
+    video_active_o : out std_logic
 
-  )
+  );
 end cpu_reg_wrapper;
 
 architecture rtl of cpu_reg_wrapper is
-begin
 
   --   signal regs_en        : std_logic;
   --   signal regs_wen       : std_logic_vector(3 downto 0);
@@ -101,7 +100,7 @@ begin
   --   signal regs_wr_data   : std_logic_vector(31 downto 0);
   --   signal regs_rd_data   : std_logic_vector(31 downto 0);
   signal read_sniiffer  : std_logic;
-  signal sniff_rom_addr : std_logic_vector(7 downto 0) := others => 0;
+  signal sniff_rom_addr : std_logic_vector(7 downto 0) := (others => '0');
   signal sniff_rom_data : std_logic_vector(63 downto 0);
   -- signal rotery_addr_mux : std_logic_vector(3 downto 0);
   -- signal rotery_enc_0 : std_logic_vector(31 downto 0);
@@ -161,8 +160,8 @@ begin
   --   signal video_active_o   : std_logic;
   signal debug            : std_logic_vector(127 downto 0);
   signal exception_addr_o : std_logic;
-  signal read_ram         : std_logic                    := 0;
-  signal read_address     : std_logic_vector(7 downto 0) := others => 0;
+  signal read_ram         : std_logic                    := '0';
+  signal read_address     : std_logic_vector(7 downto 0) := (others => '0');
   signal ram_data_out     : std_logic_vector(63 downto 0);
 ---------------------------   signal matrix_out_addr  : std_logic_vector(5 downto 0)  := others => 0;
 ---------------------------   signal matrix_mask_out  : std_logic_vector(63 downto 0) := others => 0;
@@ -172,6 +171,7 @@ begin
 ---------------------------   signal gain_in          : std_logic_vector(4 downto 0)  := others => 0;
 ---------------------------   signal anna_matrix_wr   : std_logic                     := 0;
 
+begin
 
   digital_reg_file_i : entity work.digital_reg_file
     generic

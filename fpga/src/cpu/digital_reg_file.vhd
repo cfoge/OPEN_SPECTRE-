@@ -294,7 +294,7 @@ begin
   regs(ra(x"A4")) <= led_global_pwm_i;
   regs(ra(x"A8")) <= 0x"0000000" & "000" & lcd_backligh_i;
   regs(ra(x"AC")) <= fan_pwm_i;
-  regs(ra(x"B0")) <= fan_rpm_; -- read only
+  regs(ra(x"B0")) <= fan_rpm; -- read only
   regs(ra(x"B4")) <= button_matrix; -- read only
 
   -- other
@@ -400,7 +400,7 @@ begin
           when x"A8" =>
             lcd_backligh_i <= write_reg(0);
           when x"AC" =>
-            fan_pwm_i <= <= write_reg;
+            fan_pwm_i <= write_reg;
 
           when others =>
             exception_addr <= not exception_addr;
