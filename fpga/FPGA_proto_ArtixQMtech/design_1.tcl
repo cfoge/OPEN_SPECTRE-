@@ -309,6 +309,8 @@ proc create_root_design { parentCell } {
   set mb_int0 [ create_bd_port -dir I -from 0 -to 0 mb_int0 ]
   set mb_int1 [ create_bd_port -dir I -from 0 -to 0 mb_int1 ]
   set mb_int3 [ create_bd_port -dir I -from 0 -to 0 mb_int3 ]
+  set clk_40_0 [ create_bd_port -dir O -type clk clk_40_0 ]
+  set clk_100_o [ create_bd_port -dir O -type clk clk_100_o ]
 
   # Create instance: microblaze_0, and set properties
   set microblaze_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:microblaze:11.0 microblaze_0 ]
@@ -351,7 +353,17 @@ proc create_root_design { parentCell } {
 
   # Create instance: clk_wiz_1, and set properties
   set clk_wiz_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_1 ]
-  set_property CONFIG.PRIM_SOURCE {Single_ended_clock_capable_pin} $clk_wiz_1
+  set_property -dict [list \
+    CONFIG.CLKOUT2_JITTER {204.383} \
+    CONFIG.CLKOUT2_PHASE_ERROR {164.985} \
+    CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {40.000} \
+    CONFIG.CLKOUT2_USED {true} \
+    CONFIG.CLK_OUT1_PORT {clk_100} \
+    CONFIG.CLK_OUT2_PORT {clk_40} \
+    CONFIG.MMCM_CLKOUT1_DIVIDE {25} \
+    CONFIG.NUM_OUT_CLKS {2} \
+    CONFIG.PRIM_SOURCE {Single_ended_clock_capable_pin} \
+  ] $clk_wiz_1
 
 
   # Create instance: rst_clk_wiz_1_100M, and set properties
@@ -378,9 +390,10 @@ proc create_root_design { parentCell } {
   connect_bd_net -net In2_0_1 [get_bd_ports mb_int1] [get_bd_pins microblaze_0_xlconcat/In2]
   connect_bd_net -net In3_0_1 [get_bd_ports mb_int3] [get_bd_pins microblaze_0_xlconcat/In3]
   connect_bd_net -net clk_100MHz_1 [get_bd_ports sys_clk] [get_bd_pins clk_wiz_1/clk_in1]
+  connect_bd_net -net clk_wiz_1_clk_40 [get_bd_pins clk_wiz_1/clk_40] [get_bd_ports clk_40_0]
   connect_bd_net -net clk_wiz_1_locked [get_bd_pins clk_wiz_1/locked] [get_bd_pins rst_clk_wiz_1_100M/dcm_locked]
   connect_bd_net -net mdm_1_debug_sys_rst [get_bd_pins mdm_1/Debug_SYS_Rst] [get_bd_pins rst_clk_wiz_1_100M/mb_debug_sys_rst] [get_bd_pins clk_wiz_1/reset]
-  connect_bd_net -net microblaze_0_Clk [get_bd_pins clk_wiz_1/clk_out1] [get_bd_pins microblaze_0/Clk] [get_bd_pins microblaze_0_axi_periph/ACLK] [get_bd_pins microblaze_0_axi_periph/S00_ACLK] [get_bd_pins microblaze_0_axi_periph/M00_ACLK] [get_bd_pins microblaze_0_axi_periph/M01_ACLK] [get_bd_pins microblaze_0_axi_intc/s_axi_aclk] [get_bd_pins microblaze_0_axi_intc/processor_clk] [get_bd_pins microblaze_0_local_memory/LMB_Clk] [get_bd_pins mdm_1/S_AXI_ACLK] [get_bd_pins rst_clk_wiz_1_100M/slowest_sync_clk] [get_bd_pins microblaze_0_axi_periph/M02_ACLK] [get_bd_pins axi_bram_ctrl_0/s_axi_aclk]
+  connect_bd_net -net microblaze_0_Clk [get_bd_pins clk_wiz_1/clk_100] [get_bd_pins microblaze_0/Clk] [get_bd_pins microblaze_0_axi_periph/ACLK] [get_bd_pins microblaze_0_axi_periph/S00_ACLK] [get_bd_pins microblaze_0_axi_periph/M00_ACLK] [get_bd_pins microblaze_0_axi_periph/M01_ACLK] [get_bd_pins microblaze_0_axi_intc/s_axi_aclk] [get_bd_pins microblaze_0_axi_intc/processor_clk] [get_bd_pins microblaze_0_local_memory/LMB_Clk] [get_bd_pins mdm_1/S_AXI_ACLK] [get_bd_pins rst_clk_wiz_1_100M/slowest_sync_clk] [get_bd_pins microblaze_0_axi_periph/M02_ACLK] [get_bd_pins axi_bram_ctrl_0/s_axi_aclk] [get_bd_ports clk_100_o]
   connect_bd_net -net microblaze_0_intr [get_bd_pins microblaze_0_xlconcat/dout] [get_bd_pins microblaze_0_axi_intc/intr]
   connect_bd_net -net reset_rtl_0_1 [get_bd_ports sys_rst_n] [get_bd_pins rst_clk_wiz_1_100M/ext_reset_in]
   connect_bd_net -net rst_clk_wiz_1_100M_bus_struct_reset [get_bd_pins rst_clk_wiz_1_100M/bus_struct_reset] [get_bd_pins microblaze_0_local_memory/SYS_Rst]
