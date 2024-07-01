@@ -9,6 +9,8 @@ entity cpu_wrapper is
   (
     clk : in std_logic;
     rst : in std_logic;
+    clk_100_o : out std_logic;
+    clk_40_out : out std_logic;
     --------------------------------------------
     -- MICROBLAZE INTERFACE
     --------------------------------------------
@@ -100,11 +102,16 @@ entity cpu_wrapper is
 
   architecture rtl of cpu_wrapper is
 
-    signal regs_en : std_logic;
-    signal regs_wen : std_logic_vector(3 downto 0);
-    signal regs_addr : std_logic_vector(12 downto 0);
-    signal regs_wr_data : std_logic_vector(31 downto 0);
-    signal regs_rd_data : std_logic_vector(31 downto 0);
+    signal sys_reg_clk : std_logic;
+    signal sys_reg_rst : std_logic;
+    signal sys_reg_en : std_logic;
+    signal sys_reg_we : std_logic_vector(3 downto 0);
+    signal sys_reg_addr : std_logic_vector(12 downto 0);
+    signal sys_reg_dout : std_logic_vector(31 downto 0);
+    signal sys_reg_din : std_logic_vector(31 downto 0);
+    
+    signal clk_100 : std_logic;
+    signal clk_40 : std_logic;
   
   begin
 
@@ -116,12 +123,14 @@ entity cpu_wrapper is
       mb_int1         => mb_int1,
       mb_int3         => mb_int3,
       sys_clk         => clk,
+      clk_100_o        => clk_100,
+      clk_40_0          => clk_40,
       sys_reg_addr    => sys_reg_addr,
       sys_reg_clk     => sys_reg_clk,
       sys_reg_din     => sys_reg_din,
       sys_reg_dout    => sys_reg_dout,
       sys_reg_en      => sys_reg_en,
-      sys_reg_rst     => open, --sys_reg_rst, -- what is this for??
+      sys_reg_rst     => sys_reg_rst, -- what is this for??
       sys_reg_we      => sys_reg_we,
       sys_rst_n       => not rst, -- check that is correct
       vert_int        => vert_int,
@@ -202,5 +211,7 @@ entity cpu_wrapper is
     cb_level            => cb_level,
     video_active_o      => video_active_o
     );
+    
+    clk_40_out <= clk_40;
 
     end rtl;
