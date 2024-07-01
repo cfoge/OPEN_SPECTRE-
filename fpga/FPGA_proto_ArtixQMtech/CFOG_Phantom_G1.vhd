@@ -1,9 +1,28 @@
 -- ARTIX DESIGN FOR EMS SPECTRE -- Working tile Phantom
 
--- System level IO
-signal clk : std_logic;
-signal rst : std_logic;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+library unisim;
+use unisim.vcomponents.all;
 
+
+entity CFOG_Phantom_G1 is
+  port
+  (
+    sys_clk : in std_logic;
+    sys_rst : in std_logic
+);
+    
+    end CFOG_Phantom_G1;
+
+architecture rtl of CFOG_Phantom_G1 is
+
+-- System level IO
+signal clk_100 : std_logic;
+signal clk_40 : std_logic;
+
+--signal rst : std_logic;
 
 
 
@@ -12,6 +31,14 @@ signal mb_int0 : std_logic;
 signal mb_int1 : std_logic;
 signal mb_int3 : std_logic;
 signal vert_int : std_logic;
+
+-- Framer Signals
+signal h_sync : std_logic;
+signal v_sync : std_logic;
+signal video_on : std_logic;
+signal sof : std_logic; -- curently unused
+
+
 
 -- Sys Reg interface
 signal matrix_out_addr : std_logic_vector(5 downto 0);
@@ -71,6 +98,32 @@ signal cr_level : std_logic_vector(11 downto 0);
 signal cb_level : std_logic_vector(11 downto 0);
 signal video_active_o : std_logic;
 
+-- Digital Side
+-- output video
+ signal   YCRCB   : std_logic_vector (23 downto 0);
+    -- inputs form analoge side
+  signal  osc1_sqr :  std_logic;
+  signal  osc2_sqr :  std_logic;
+signal    random1  :  std_logic;
+ signal   random2  :  std_logic;
+ signal   audio_T  :  std_logic;
+signal    audio_B  :  std_logic;
+ signal   extinput :  std_logic;
+   -- outputs to analoge side
+signal    shape_a_analog :  std_logic_vector(7 downto 0);
+ signal   shape_b_analog :  std_logic_vector(7 downto 0);
+signal    acm_out1_o :  std_logic;
+ signal   acm_out2_o :  std_logic;
+ 
+ -- Video out
+ 
+ signal        y  :  std_logic_vector(7 downto 0);
+  signal      cb :  std_logic_vector(7 downto 0);
+  signal      cr :  std_logic_vector(7 downto 0);
+ signal       r  :  std_logic_vector(7 downto 0);
+   signal     g  :  std_logic_vector(7 downto 0);
+   signal     b  :  std_logic_vector(7 downto 0);
+
 --DEBUG
 signal clk_25mhz       : std_logic;
 signal clk_input_0     : std_logic;
@@ -84,6 +137,8 @@ signal clk_input_7     : std_logic;
 signal clk_selected    : std_logic_vector(3 downto 0);
 signal new_sample_flag : std_logic;
 signal frequency       : std_logic_vector(23 downto 0);
+
+
 begin
 -- MICRO BLAZE 
 
@@ -99,8 +154,10 @@ begin
 cpu_wrapper : entity work.cpu_wrapper
   port map
   (
-    clk                 => clk,
-    rst                 => rst,
+    clk                 => sys_clk,
+    rst                 => sys_rst,
+    clk_100_o => clk_100,
+    clk_40_out => clk_40,
     mb_int0             => mb_int0,
     mb_int1             => mb_int1,
     mb_int3             => mb_int3,
@@ -177,7 +234,8 @@ cpu_wrapper : entity work.cpu_wrapper
 vga_trimming_signals_inst : entity work.vga_trimming_signals -- need to make switchible??
   port
   map (
-  clk_25mhz => clk_25mhz, -- better name
+  clk_25mhz => clk_40, -- better name, curently this si the pixel clk
+  -- add reset
   h_sync    => h_sync,
   v_sync    => v_sync,
   -- add SOF
@@ -207,20 +265,20 @@ vga_trimming_signals_inst : entity work.vga_trimming_signals -- need to make swi
 digital_wrapper : entity work.test_digital_side
   port
   map (
-  sys_clk        => sys_clk,
-  clk_x          => clk_x,
-  clk_y          => clk_y,
-  clk_25_in      => clk_25_in,
-  rst            => rst,
+  sys_clk        => clk_100,
+  clk_x          => '1',-- needs to be the programible devided pixel clk,
+  clk_y          => h_sync,-- needs to be the programible devided Hsync,
+  clk_25_in      => clk_40,
+  rst            => sys_rst,-- need to make syncro to 40clk
   YCRCB          => YCRCB,
-  matrix_in_addr => matrix_in_addr,
+  matrix_in_addr => matrix_out_addr,
   matrix_load    => matrix_load,
-  matrix_mask_in => matrix_mask_in,
+  matrix_mask_in => matrix_mask_out,
   invert_matrix  => invert_matrix,
   vid_span       => vid_span,
-  clk_x_out      => clk_x_out,
-  clk_y_out      => clk_y_out,
-  video_on       => video_on,
+  clk_x_out      => open,--clk_x_out,
+  clk_y_out      => open,--clk_y_out,
+  video_on       => open,
   osc1_sqr       => osc1_sqr,
   osc2_sqr       => osc2_sqr,
   random1        => random1,
@@ -239,11 +297,11 @@ digital_wrapper : entity work.test_digital_side
 analog_side_wrapper : entity work.analog_side
   port
   map (
-  clk            => clk,
-  rst            => rst,
-  wr             => wr,
-  vsync          => vsync,
-  hsync          => hsync,
+  clk            => clk_100,
+  rst            => sys_rst, -- make syncro with clk 100
+  wr             => anna_matrix_wr,
+  vsync          => v_sync,
+  hsync          => h_sync,
   out_addr       => out_addr,
   ch_addr        => ch_addr,
   gain_in        => gain_in,
@@ -266,22 +324,22 @@ analog_side_wrapper : entity work.analog_side
   noise_freq     => noise_freq,
   slew_in        => slew_in,
   cycle_recycle  => cycle_recycle,
-  YUV_in         => YUV_in,
-  y_alpha        => y_alpha,
-  u_alpha        => u_alpha,
-  v_alpha        => v_alpha,
-  audio_in_t     => audio_in_t,
-  audio_in_b     => audio_in_b,
-  audio_in_sig   => audio_in_sig,
+  YUV_in         => open,--YUV_in,
+  y_alpha        => open,--y_alpha,
+  u_alpha        => open,--u_alpha,
+  v_alpha        => open,--v_alpha,
+  audio_in_t     => open,--audio_in_t,
+  audio_in_b     => open,--audio_in_b,
+  audio_in_sig   => open,--audio_in_sig,
   sync_sel_osc1  => sync_sel_osc1,
   osc_1_freq     => osc_1_freq,
   osc_1_derv     => osc_1_derv,
   sync_sel_osc2  => sync_sel_osc2,
   osc_2_freq     => osc_2_freq,
   osc_2_derv     => osc_2_derv,
-  audio_in_sig_i => audio_in_sig_i,
-  dsm_hi_i       => dsm_hi_i,
-  dsm_lo_i       => dsm_lo_i,
+  audio_in_sig_i => open,--audio_in_sig_i,
+  dsm_hi_i       => acm_out1_o,
+  dsm_lo_i       => acm_out2_o,
   vid_span       => vid_span,
   y_out          => y_out,
   u_out          => u_out,
@@ -290,6 +348,15 @@ analog_side_wrapper : entity work.analog_side
 ------------------------------------------------
 -- VIDEO OUT WRAPPER
 ------------------------------------------------
+--ycbcr2rgb_inst : entity ycbcr2rgb_simple 
+--  Port map( 
+--        y  => ,
+--        cb => ,
+--        cr => ,
+--        r  => ,
+--        g  => ,
+--        b  => 
+--        );
 -- DVI generator (CLK MUX x10)
 
 ------------------------------------------------
@@ -298,7 +365,7 @@ analog_side_wrapper : entity work.analog_side
 freq_cnt_inst : entity work.freq_cnt
   port
   map (
-  clk_25mhz       => clk_25mhz,
+  clk_25mhz       => clk_25mhz,-- need 25mhz clk form cpu wrapper also
   clk_input_0     => clk_input_0,
   clk_input_1     => clk_input_1,
   clk_input_2     => clk_input_2,
