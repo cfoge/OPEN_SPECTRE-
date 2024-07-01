@@ -88,22 +88,23 @@ entity cpu_reg_wrapper is
     cb_level       : out std_logic_vector(11 downto 0);
     video_active_o : out std_logic
 
-  )
+  );
 end cpu_reg_wrapper;
 
 architecture rtl of cpu_reg_wrapper is
-begin
+
 
   signal read_sniiffer  : std_logic;
-  signal sniff_rom_addr : std_logic_vector(7 downto 0) := others => 0;
+  signal sniff_rom_addr : std_logic_vector(7 downto 0) := (others => '0');
   signal sniff_rom_data : std_logic_vector(63 downto 0);
  
   signal debug            : std_logic_vector(127 downto 0);
   signal exception_addr_o : std_logic;
-  signal read_ram         : std_logic                    := 0;
-  signal read_address     : std_logic_vector(7 downto 0) := others => 0;
+  signal read_ram         : std_logic                    := '0';
+  signal read_address     : std_logic_vector(7 downto 0) := (others => '0');
   signal ram_data_out     : std_logic_vector(63 downto 0);
 
+begin
 
   digital_reg_file_i : entity work.digital_reg_file
     generic
